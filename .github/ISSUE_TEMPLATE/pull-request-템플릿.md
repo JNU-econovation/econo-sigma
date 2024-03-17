@@ -3,7 +3,7 @@ name: Pull Request 템플릿
 about: Pull Request 템플릿입니다.
 title: "[BEorFE/type] 내용"
 labels: ''
-assignees: ps9319
+assignees: ''
 
 ---
 
