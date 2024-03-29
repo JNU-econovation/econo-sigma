@@ -1,5 +1,5 @@
 # Git branch 전략
-![브랜치 전략]("https://github.com/JNU-econovation/econo-sigma/assets/73173356/3b6e0bbe-8c41-486b-9fc9-320838b3df0e")
+![브랜치 전략](https://github.com/JNU-econovation/econo-sigma/assets/73173356/3b6e0bbe-8c41-486b-9fc9-320838b3df0e)
 > main - develop - FE/BE - feature(origin:main)
 
 ## Pull Request 예시
