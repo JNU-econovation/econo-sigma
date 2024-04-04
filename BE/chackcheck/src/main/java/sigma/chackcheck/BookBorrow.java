@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class BookRent {
+public class BookBorrow {
     @Id
     private Long id;
     // 대출 일자
