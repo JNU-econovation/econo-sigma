@@ -10,12 +10,12 @@ import java.util.List;
 @UtilityClass
 public class ApiResponseGenerator {
 
-    public static ApiResponse<ApiResponseBody.SuccessBody<Void>> success(final HttpStatus status, MessageCode code) {
-        return new ApiResponse<>(new ApiResponseBody.SuccessBody<>(null, code.getMessage(), code.getCode()), status);
+    public static ApiResponse<ApiResponseBody.SuccessBody<Void>> success(final HttpStatus status, SuccessMessage successMessage) {
+        return new ApiResponse<>(new ApiResponseBody.SuccessBody<>(String.valueOf(status.value()), successMessage.getMessage(), null), status);
     }
 
-    public static <D> ApiResponse<ApiResponseBody.SuccessBody<D>> success(final D data, final HttpStatus status, MessageCode code) {
-        return new ApiResponse<>(new ApiResponseBody.SuccessBody<>(data, code.getMessage(), code.getCode()), status);
+    public static <D> ApiResponse<ApiResponseBody.SuccessBody<D>> success(final D data, final HttpStatus status, SuccessMessage successMessage) {
+        return new ApiResponse<>(new ApiResponseBody.SuccessBody<>(String.valueOf(status.value()), successMessage.getMessage(), data), status);
     }
 
     public static ApiResponse<ApiResponseBody.FailureBody> fail(final HttpStatus status, final String code, final String message) {

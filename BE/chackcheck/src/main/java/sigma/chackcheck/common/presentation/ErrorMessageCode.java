@@ -1,15 +1,12 @@
 package sigma.chackcheck.common.presentation;
 
-public enum MessageCode {
-    CREATE("201", "생성 성공"),
-    GET_BOOK("200", "도서 조회 성공"),
-    GET_BOOK_DETAIL("200","도서 상세 조회 성공"),
-    UPDATE("200", "수정 성공"),
-    DELETE("200", "삭제 성공");
+// Error code
+public enum ErrorMessageCode {
+    RENTED_BOOK("1001", "이미 대출중인 도서 입니다.");
     private final String code;
     private final String message;
 
-    MessageCode(String code, String message) {
+    ErrorMessageCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

@@ -17,8 +17,8 @@ public class ApiResponseBody {
     @Getter
     @AllArgsConstructor
     public static class SuccessBody<D> implements Serializable {
-        private D data;
+        private String status;
         private String message;
-        private String code;
+        private D data;
     }
 }
