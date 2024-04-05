@@ -1,10 +1,14 @@
 package sigma.chackcheck;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import sigma.chackcheck.BookDetail;
+import sigma.chackcheck.BookReserve;
+import sigma.chackcheck.User;
 
 import java.time.LocalDate;
+
+import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -20,4 +24,16 @@ public class BookBorrow {
     private LocalDate returnDate;
     // 대출 연장 횟수
     private Integer extendCount;
+
+    // 유저 다대일 ***
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+    // 도서 예약 일대일
+    @OneToOne(mappedBy = "bookBorrow")
+    private BookReserve bookReserve;
+    // 도서 정보 다대일 ***
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "bookDetail_id")
+    private BookDetail bookDetail;
 }
