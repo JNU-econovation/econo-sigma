@@ -13,4 +13,13 @@ import static jakarta.persistence.FetchType.*;
 public class BookCategory {
     @Id
     private Long id;
+
+    // 도서 다대일 ***
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
+    // 카테고리 다대일 ***
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
