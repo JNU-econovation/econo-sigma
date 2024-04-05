@@ -1,8 +1,9 @@
 package sigma.chackcheck;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -12,5 +13,4 @@ import lombok.*;
 public class BookCategory {
     @Id
     private Long id;
-    private String category;
 }
