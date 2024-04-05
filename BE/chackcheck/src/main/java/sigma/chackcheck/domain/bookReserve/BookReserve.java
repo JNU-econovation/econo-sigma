@@ -1,7 +1,9 @@
-package sigma.chackcheck;
+package sigma.chackcheck.domain.bookReserve;
 
 import jakarta.persistence.*;
 import lombok.*;
+import sigma.chackcheck.domain.user.User;
+import sigma.chackcheck.domain.bookBorrow.BookBorrow;
 
 import static jakarta.persistence.FetchType.*;
 

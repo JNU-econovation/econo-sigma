@@ -1,10 +1,10 @@
-package sigma.chackcheck;
+package sigma.chackcheck.domain.bookBorrow;
 
 import jakarta.persistence.*;
 import lombok.*;
-import sigma.chackcheck.BookDetail;
-import sigma.chackcheck.BookReserve;
-import sigma.chackcheck.User;
+import sigma.chackcheck.domain.bookReserve.BookReserve;
+import sigma.chackcheck.domain.user.User;
+import sigma.chackcheck.domain.bookDetail.BookDetail;
 
 import java.time.LocalDate;
 

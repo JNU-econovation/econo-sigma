@@ -1,10 +1,11 @@
-package sigma.chackcheck;
+package sigma.chackcheck.domain.penalty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.*;
+import sigma.chackcheck.domain.user.User;
 
 import java.time.LocalDate;
 
