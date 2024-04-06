@@ -1,4 +1,4 @@
-package sigma.chackcheck.domain.penalty;
+package sigma.chackcheck.domain.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

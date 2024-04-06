@@ -1,4 +1,4 @@
-package sigma.chackcheck.domain.bookDetail;
+package sigma.chackcheck.domain.book;
 
 import jakarta.persistence.*;
 import lombok.*;
