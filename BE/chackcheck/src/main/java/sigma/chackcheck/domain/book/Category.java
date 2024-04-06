@@ -1,10 +1,10 @@
-package sigma.chackcheck.domain.category;
+package sigma.chackcheck.domain.book;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
-import sigma.chackcheck.domain.bookCategory.BookCategory;
+import sigma.chackcheck.domain.book.BookCategory;
 
 import java.util.List;
 

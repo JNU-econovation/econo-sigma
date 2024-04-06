@@ -1,9 +1,7 @@
-package sigma.chackcheck.domain.bookCategory;
+package sigma.chackcheck.domain.book;
 
 import jakarta.persistence.*;
 import lombok.*;
-import sigma.chackcheck.domain.category.Category;
-import sigma.chackcheck.domain.book.Book;
 
 import static jakarta.persistence.FetchType.*;
 

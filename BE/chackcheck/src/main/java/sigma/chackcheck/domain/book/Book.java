@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.*;
-import sigma.chackcheck.domain.bookCategory.BookCategory;
-import sigma.chackcheck.domain.bookDetail.BookDetail;
 
 import java.util.List;
 
