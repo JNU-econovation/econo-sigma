@@ -16,6 +16,7 @@ import java.util.List;
 public class Category {
     @Id
     private Long id;
+    private String categoryName;
 
     // 도서_카테고리 다대일
     @OneToMany(mappedBy = "category")
