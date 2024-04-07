@@ -23,4 +23,7 @@ public class User {
     private Integer borrowCount;
     // 예약 도서 개수
     private Integer reserveCount;
+    // 권한
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
