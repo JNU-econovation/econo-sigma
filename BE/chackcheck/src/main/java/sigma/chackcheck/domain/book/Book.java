@@ -2,10 +2,7 @@ package sigma.chackcheck.domain.book;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -26,11 +23,4 @@ public class Book {
     private String imageURL;
     // 도서 관련 정보
     private String information;
-
-    // 도서 정보 다대일
-    @OneToMany(mappedBy = "book")
-    private List<BookDetail> bookDetail;
-    // 도서_카테고리 일대다
-    @OneToMany(mappedBy = "book")
-    private List<BookCategory> bookCategory;
 }

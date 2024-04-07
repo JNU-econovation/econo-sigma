@@ -5,11 +5,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.*;
-import sigma.chackcheck.domain.user.User;
 
 import java.time.LocalDate;
 
-import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -22,8 +20,8 @@ public class Penalty {
     // 대출/반납 제한 만료일자
     private LocalDate expiryDate;
 
-    // 유저 일대일 ***
-    @OneToOne(fetch = LAZY)
+    // 유저 일대일
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 }

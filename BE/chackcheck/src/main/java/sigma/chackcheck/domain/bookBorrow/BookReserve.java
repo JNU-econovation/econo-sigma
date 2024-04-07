@@ -3,9 +3,7 @@ package sigma.chackcheck.domain.bookBorrow;
 import jakarta.persistence.*;
 import lombok.*;
 import sigma.chackcheck.domain.user.User;
-import sigma.chackcheck.domain.bookBorrow.BookBorrow;
 
-import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -16,11 +14,11 @@ public class BookReserve {
     @Id
     private Long id;
 
-    // 유저 다대일 ***
-    @ManyToOne(fetch = LAZY)
+    // 유저 다대일
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    // 도서 대출/반납 일대일 ***
+    // 도서 대출/반납 일대일
     @OneToOne
     @JoinColumn(name = "bookBorrow_id")
     private BookBorrow bookBorrow;

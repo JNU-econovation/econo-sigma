@@ -7,7 +7,6 @@ import sigma.chackcheck.domain.book.BookDetail;
 
 import java.time.LocalDate;
 
-import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -24,15 +23,12 @@ public class BookBorrow {
     // 대출 연장 횟수
     private Integer extendCount;
 
-    // 유저 다대일 ***
-    @ManyToOne(fetch = LAZY)
+    // 유저 다대일
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    // 도서 예약 일대일
-    @OneToOne(mappedBy = "bookBorrow")
-    private BookReserve bookReserve;
-    // 도서 정보 다대일 ***
-    @ManyToOne(fetch = LAZY)
+    // 도서 정보 다대일
+    @ManyToOne
     @JoinColumn(name = "bookDetail_id")
     private BookDetail bookDetail;
 }
