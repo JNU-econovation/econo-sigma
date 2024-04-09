@@ -1,9 +1,6 @@
 package sigma.chackcheck.domain.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @Builder
 public class Penalty {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // 대출/반납 제한 만료일자
     private LocalDate expiryDate;

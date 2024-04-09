@@ -11,6 +11,7 @@ import lombok.*;
 @Builder
 public class BookDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 도서 대다일

@@ -12,6 +12,7 @@ import sigma.chackcheck.domain.user.User;
 @Builder
 public class BookReserve {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 유저 다대일

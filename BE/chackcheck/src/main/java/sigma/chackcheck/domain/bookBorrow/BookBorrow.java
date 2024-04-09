@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Builder
 public class BookBorrow {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // 대출 일자
     private LocalDate borrowDate;
