@@ -16,6 +16,6 @@ public class BookDetail {
 
     // 도서 대다일
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "book_id")
     private Book book;
 }
