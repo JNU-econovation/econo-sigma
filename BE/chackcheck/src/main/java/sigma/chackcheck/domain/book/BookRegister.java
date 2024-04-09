@@ -1,10 +1,8 @@
 package sigma.chackcheck.domain.book;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import sigma.chackcheck.domain.user.User;
 
 @Entity
 @Getter
@@ -24,4 +22,9 @@ public class BookRegister {
     private String imageURL;
     // 도서 관련 정보
     private String information;
+
+    // 유저 다대일
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
