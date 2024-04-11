@@ -20,6 +20,8 @@ public class User {
     private Integer grade;
     // 대출 유무
     private Boolean isBorrow;
+    // 예약 유무
+    private Boolean isReserve;
     // 대출 도서 개수
     private Integer borrowCount;
     // 예약 도서 개수
