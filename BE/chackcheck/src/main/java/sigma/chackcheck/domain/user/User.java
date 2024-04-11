@@ -18,8 +18,8 @@ public class User {
     private String password;
     // 기수
     private Integer grade;
-    // 대출/예약 유무
-    private Boolean isRentReserve;
+    // 대출 유무
+    private Boolean isBorrow;
     // 대출 도서 개수
     private Integer borrowCount;
     // 예약 도서 개수
