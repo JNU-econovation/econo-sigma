@@ -25,11 +25,15 @@ public class BookBorrow {
     private Integer extendCount;
 
     // 유저 다대일
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+    @Column(name = "user_id")
+    private Long userId;
     // 도서 정보 다대일
-    @ManyToOne
-    @JoinColumn(name = "bookDetail_id")
-    private BookDetail bookDetail;
+//    @ManyToOne
+//    @JoinColumn(name = "bookDetail_id")
+//    private BookDetail bookDetail;
+    @Column(name = "bookDetail_id")
+    private Long bookDetailId;
 }

@@ -24,7 +24,9 @@ public class BookRegister {
     private String information;
 
     // 유저 다대일
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+    @Column(name = "user_id")
+    private Long userId;
 }
