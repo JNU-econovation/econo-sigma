@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import { IoMdSearch } from "react-icons/io";
 import styled from "styled-components"
 import BookList from "./BookList";
-import { ReactComponent as SearchButton} from "../assets/searchButton.svg";
+import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
 
 const Books = styled.div`
     display: grid;
