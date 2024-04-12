@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Category from "../src/components/Category";
+import SearchBar from "../src/components/SearchBar";
+import Detail from "../src/components/Detail";
+import BookList from "./components/BookList";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Category/>
+      <SearchBar/>
+      <Detail/>
+      
+      {/*<SearchBar />*/}
+      {/*<BookList img="" title="book" writer="작가" publisher="출판사"/>*/}
+  
+
     </div>
   );
 }
