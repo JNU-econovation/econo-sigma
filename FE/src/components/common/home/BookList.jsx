@@ -30,13 +30,13 @@ const Publisher = styled.span`
     font-size: 0.938;
     font-weight: 300;
 `;
-const BookList = ({key, img, title, writer, publisher}) => {
+const BookList = ({key, img, title, author, publisher}) => {
     return(
         <Book key={key}>
             <Img src={img}></Img>
             <Title>{title}</Title>
             <div>
-                <Writer>{writer}</Writer>
+                <Writer>{author}</Writer>
                 <span style={{fontFamily: 'NanumSquareOTF, sans-serif', fontWeight: '300',fontSize: '0.938em', 
                         marginLeft: '0.5em', marginRight:'0.5em'}}>/</span>
                 <Publisher>{publisher}</Publisher>
