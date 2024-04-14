@@ -65,10 +65,10 @@ const infoHeaders = [
   ];
 
 
-const InfoTable = ({Response}) => {
+const InfoTable = ({response}) => {
 	
 
-	const borrowInfos = Response.data.borrowInfos
+	const borrowInfos = response.data.borrowInfos
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
 	const borrowInfo = borrowInfos.map((info) => info.borrowInfo)
