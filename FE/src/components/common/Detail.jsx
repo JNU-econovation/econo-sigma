@@ -84,11 +84,11 @@ const Content = ({img,title, writer,publisher,date,script}) => {
 
 function Detail (){
     /*
-    const {id} = useParams();
+    const {book_id} = useParams();
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState([]);
     const getBook = async () => {
-        const json = await (await fetch(`url?book_id=${id}`)).json();
+        const json = await (await fetch(`url?book_id=${book_id}`)).json();
         setBook(json.data.book);
         setLoading(false);
     };
@@ -103,13 +103,12 @@ function Detail (){
             {loading ?
                 <Loading/> :
                 <Content
-                //key??
-                img={book.img}
+                img={book.img} //추후 백엔드 변수명으로 바꾸기
                 title={book.title}
-                writer={book.writer}
+                writer={book.author}
                 publisher={book.publisher}
-                date={book.date}
-                script={book.script}
+                date={book.publishYear}
+                script={book.script} //추후 백엔드 변수명으로 바꾸기
                 />}
         </Container>
     )*/
