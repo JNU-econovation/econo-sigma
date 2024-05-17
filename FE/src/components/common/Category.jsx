@@ -1,14 +1,14 @@
-import react from "react"
+import React from "react"
 import styled from "styled-components"
 
 const Nav = styled.div`
   display : inline-flex;
   flex-direction: column;
-  justify-content: center;
   width: 9em;
-  position: absolute;
-  top: 12em;
-  left: 3em;
+  height: 100%;
+  //position: absolute;
+  //top: 12em;
+  //left: 3em;
   //background-color: aliceblue;
 `
 const Title = styled.div`
@@ -49,6 +49,7 @@ function Category() {
     return (
       <Nav>
         <Title>Category</Title>
+        <Item><Index/>전공서적</Item>
         <Item><Index/>FE</Item>
         <Item><Index/>BE</Item>
         <Item><Index/>AI</Item>

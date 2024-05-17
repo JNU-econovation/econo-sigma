@@ -17,8 +17,8 @@ const SearchBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70vw;
-    height: 4em;
+    width: 67vw;
+    height: 3.3em;
     border-radius: 3em;
     background-color: #fff;
     border: 0.15em solid transparent;
@@ -50,38 +50,6 @@ const SearchBtn = styled(SearchButton)`
 
 `;
 
-/* 예시 데이터 (데이터 베이스 이용전 사용할)
-const data = [
-    {
-        index: 1,
-        img: 'book1.jpg',
-        title: 'The Great Gatsby',
-        writer: 'F. Scott Fitzgerald',
-        publisher: 'Scribner'
-      },
-      { 
-        index: 2,
-        img: 'book2.jpg',
-        title: 'To Kill a Mockingbird',
-        writer: 'Harper Lee',
-        publisher: 'J.B. Lippincott & Co.'
-      },
-      {
-        index: 3,
-        img: 'book3.jpg',
-        title: '1984',
-        writer: 'George Orwell',
-        publisher: 'Secker & Warburg'
-      },
-      {
-        index: 4,
-        img: 'book4.jpg',
-        title: '1984',
-        writer: 'George Orwell',
-        publisher: 'Secker & Warburg'
-      },
-    
-  ];*/
 
 function SearchBar() {
     const {category_id} =useParams();
@@ -91,8 +59,8 @@ function SearchBar() {
     const [book, setBook] = useState([]);
     const getBook = async () => {
         try {
-            //const response = await fetch('http://192.168.113.188:8080/books'); 
-            const response = await fetch(`http://경로/백엔드에서 지정한 카테고리명?=${category_id}`)// 각 카테고리마다의 데이터를 가져옴
+            const response = await fetch('http://localhost:3001/db'); 
+            //const response = await fetch(`http://경로/백엔드에서 지정한 카테고리명?=${category_id}`)// 각 카테고리마다의 데이터를 가져옴
             const json = await response.json(); // 응답을 JSON으로 변환
             setBook(json); // 상태를 업데이트
         } catch (error) {
@@ -129,7 +97,7 @@ function SearchBar() {
                 <Books>
                     {filteredData.map((item) => (<BookList
                         key={item.id}
-                        img={item.img}// 변수명 바꿔야할 수도..
+                        img={item.img} // 변수명 바꿔야할 수도..
                         title={item.title}
                         writer={item.author}
                         publisher={item.publisher}/>

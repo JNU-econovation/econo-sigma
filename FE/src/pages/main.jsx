@@ -1,8 +1,12 @@
 import SearchBar from "../components/common/home/SearchBar";
-
+import Category from "../components/common/Category";
+import Paging from "../components/common/paginations/pagination";
 const Main = () => {
     return (
-        <SearchBar/>
+        <div>
+            <SearchBar/>
+            <Paging/>
+        </div>
     );
 }
 
