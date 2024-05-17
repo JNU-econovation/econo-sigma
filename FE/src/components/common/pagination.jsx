@@ -3,17 +3,28 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import axios, { AxiosResponse } from 'axios';
-import BookList from '../home/BookList';
 
-const Books = styled.div`
-    display: grid;
-    place-items: center;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: reapeat(2, 1fr);
-    row-gap: 5em;
-    margin: auto;
-`;
+const StyledPagination = styled.div`
+    button {
+        border: none;
+        background-color: white;
+        font-size: 0.9em;
+        font-weight: 600;
+        color : #4D4ABF;
+        
+    }
+    
+    ul {
+        list-style : none;
+    }
 
+    li{
+        width : 2em;
+    }
+
+
+
+`
 
 const Paging = ({response}) => {
     const books = response.data.books ; 
@@ -65,22 +76,15 @@ const Paging = ({response}) => {
     
       return (
         <div>
-                <Books>
-                    {currentBooks.map((item) => (<BookList
-                        key={item.index}
-                        img={item.img}
-                        title={item.title}
-                        writer={item.author}
-                        publisher={item.publisher}/>
-                    ))}
-                </Books>
-            <div>
+           {/* 이 부분에 map을 통해서 각 페이지의 book 을 리턴해주어야함
+           현재는 book 컴포넌트 수정에 대한 논의가 이루어지고 있어서 비워두었습니다! */}
+            <StyledPagination>
                 <button onClick={goToFirstPage}>&lt;&lt;</button>
                 <button onClick={handlePrevList}>&lt;</button>
                 {renderPageNumbers()}
                 <button onClick={handleNextList}>&gt;</button>
                 <button onClick={goToLastPage}>&gt;&gt;</button>
-            </div>
+            </StyledPagination>
         </div>
       );
     };

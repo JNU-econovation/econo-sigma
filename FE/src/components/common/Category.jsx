@@ -4,8 +4,8 @@ import styled from "styled-components"
 const Nav = styled.div`
   display : flex;
   flex-direction: column;
-  justify-content: center;
   width: 9em;
+  height: 100%;
   //background-color: aliceblue;
 `
 const Title = styled.div`

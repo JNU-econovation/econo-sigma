@@ -1,8 +1,10 @@
 // import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import React from 'react';
-import {Link} from 'react-router-dom' ;
+import { Link } from 'react-router-dom';
 import styledButton from './headerButtons';
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 
 
 const StyledButton = styled.button`    
@@ -12,14 +14,22 @@ const StyledButton = styled.button`
     background: white;
     `;
 
-const Logo = () => {
+const Logo = ({ children }) => {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/`);
+    }
+
+
+
     return (
-        <div>
-            <StyledButton>
-                <img src = "/chackcheck.png" width="150px" height = "60px"/>
-            </StyledButton>
-        </div>
+        <StyledButton onClick={handleClick}>
+            <img src="/chackcheck.png" width="150px" height="60px" />
+        </StyledButton>
     )
+
 }
 
-export default Logo ;
+export default Logo;
