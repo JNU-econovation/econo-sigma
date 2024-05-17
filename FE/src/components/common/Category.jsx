@@ -1,4 +1,4 @@
-import react from "react"
+import React from "react"
 import styled from "styled-components"
 
 const Nav = styled.div`
@@ -52,6 +52,7 @@ function Category() {
     return (
       <Nav>
         <Title>Category</Title>
+        <Item><Index/>전공서적</Item>
         <Item><Index/>FE</Item>
         <Item><Index/>BE</Item>
         <Item><Index/>AI</Item>

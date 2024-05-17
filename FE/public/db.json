@@ -1,0 +1,104 @@
+{ "db" : {
+    
+    "status": "200",
+    "message": "생성 성공",
+    "data": {
+        "pageInfo": {
+            "currentPage": 0,
+            "totalBooks": 20,
+            "totalPages": 3
+        },
+        "books": [
+            {
+                "id": 1,
+                "title": "자바",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 2,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 3,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 4,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 5,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 6,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 7,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            },
+            {
+                "id": 8,
+                "title": "파이썬",
+                "author": "저자",
+                "publisher": "출판사"
+            }
+        ]
+    }
+},
+   
+   "info" : {
+       
+       "status": 200,
+       "message": "도서 정보 조회 성공",
+       "data": {
+         "book": {
+           "bookId": 1,
+           "title": "자바의 정석",
+           "author": "남궁성",
+           "publisher": "도우출판",
+           "publishYear": "2016.01.27"
+         },
+         "borrowInfos": [
+           {
+             "isAvailable": false,
+             "bookDetailId": 1,
+             "borrowInfo": {
+               "bookBorrowId": 1,
+               "member": "26기 오*헌",
+               "dueDate": "2024-03-25"
+             }
+           },
+           {
+             "isAvailable": true,
+             "bookDetailId": 2,
+             "borrowInfo": null
+           },
+           {
+             "isAvailable": false,
+             "bookDetailId": 3,
+             "borrowInfo": {
+               "bookBorrowId": 21,
+               "member": "노*",
+               "dueDate": "2024-03-31"
+             }
+           }
+         ]
+       }
+   }
+   
+}
