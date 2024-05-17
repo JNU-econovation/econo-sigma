@@ -2,17 +2,23 @@ import react from "react"
 import styled from "styled-components"
 
 const Nav = styled.div`
-  display : flex;
+  display : inline-flex;
   flex-direction: column;
   width: 9em;
+
   height: 100%;
+
+  //position: absolute;
+  //top: 12em;
+  //left: 3em;
+
   //background-color: aliceblue;
 `
 const Title = styled.div`
   color:#4D4ABF;
   font-family: 'NanumSquareOTF', sans-serif;
   font-weight: 800;
-  font-size: 1.7em;
+  font-size: 1.5em;
   //background-color: beige;
   text-align: center;
   margin: 0em 0.2em 0.3em 0.2em;
@@ -23,10 +29,10 @@ const Item = styled.div`
   color: ${ props => props.click ? '#FB8500' : '#4D4ABF'};
   font-family: 'NanumSquareOTF', sans-serif;
   font-weight: ${ props => props.click ? 800 : 700};
-  font-size: 1.2em; 
+  font-size: 1.1em; 
   text-decoration: ${ props => props.click ? 'underline' : 'none'};
   //background-color: lemonchiffon;
-  display: flex;
+  display: inline-flex;
   margin: 0.15em auto 0.15em 0.7em;
   text-align: center;
   
