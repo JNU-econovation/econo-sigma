@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import Button from './button.jsx'
 
 const Styledtable = styled.div`
+	min-width: 40em;
 	table {
 		font-family: 'NanumSquareOTF', sans-serif;
 		padding: 0.6em 1.5em;
 		/* border: none; */
-		width: 60%;
+		width: 90%;
 		border-spacing: 0;
 		
 	}
@@ -27,14 +28,20 @@ const Styledtable = styled.div`
 		color: red; 
 	}
 
-	tbody {
+	tbody td{
+		height: 3em;
 	}
 
 	thead tr {
-		/* background-color: gray; */
-		height: 4em;
+		background-color: #F1F1F1;
+		height: 3em;
 		font-size : 0.8em;
 	}
+	
+	thead th:nth-child(1) {
+		width: 20%;
+	}
+
 
 	thead th:nth-child(5) {
 		width: 20%;
@@ -65,10 +72,10 @@ const infoHeaders = [
   ];
 
 
-const InfoTable = ({Response}) => {
+const InfoTable = ({response}) => {
 	
 
-	const borrowInfos = Response.data.borrowInfos
+	const borrowInfos = response.data.borrowInfos
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
 	const borrowInfo = borrowInfos.map((info) => info.borrowInfo)

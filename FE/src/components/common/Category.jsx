@@ -5,10 +5,13 @@ const Nav = styled.div`
   display : inline-flex;
   flex-direction: column;
   width: 9em;
+
   height: 100%;
+
   //position: absolute;
   //top: 12em;
   //left: 3em;
+
   //background-color: aliceblue;
 `
 const Title = styled.div`
