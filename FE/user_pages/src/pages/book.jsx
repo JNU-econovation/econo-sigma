@@ -6,24 +6,14 @@ import InfoTable from '../components/common/infoList/infoTable.jsx'
 
 import Category from "../components/common/Category.jsx"
 import Loading from '../components/common/Loading.jsx';
-import Paging from '../components/common/pagination.jsx';
+// import Paging from '../components/common/pagination.jsx';
 import Detail from '../components/common/Detail.jsx'
 
 
 const StyledPage = styled.div`
-    
-
-    .category {
-      position: fixed;
-      /* background-color: aqua; */
-      height:100%;
-      float: left;
-      width: 12em;
-      margin-left: 2em;
-    }
 
     .contents {
-      margin-top: 3em;
+      margin-top: 9em;
       margin-left: 15em;
     }
     .infotable {
@@ -58,7 +48,7 @@ function Book() {
   return (
     <StyledPage className="book">
       <div className='category'>
-        <Category />
+        {/* <Category /> */}
       </div>
       <div className='contents'>
         <div className='detail'>
