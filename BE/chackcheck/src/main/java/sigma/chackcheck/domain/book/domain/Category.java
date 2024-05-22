@@ -1,4 +1,4 @@
-package sigma.chackcheck.domain.book;
+package sigma.chackcheck.domain.book.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

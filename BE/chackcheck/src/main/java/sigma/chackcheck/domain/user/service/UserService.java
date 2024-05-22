@@ -1,4 +1,4 @@
-package sigma.chackcheck.service.user;
+package sigma.chackcheck.domain.user.service;
 
 import org.springframework.stereotype.Service;
 

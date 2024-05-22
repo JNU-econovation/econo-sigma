@@ -1,9 +1,7 @@
-package sigma.chackcheck.domain.bookBorrow;
+package sigma.chackcheck.domain.bookBorrow.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import sigma.chackcheck.domain.user.User;
-import sigma.chackcheck.domain.book.BookDetail;
 
 import java.time.LocalDate;
 

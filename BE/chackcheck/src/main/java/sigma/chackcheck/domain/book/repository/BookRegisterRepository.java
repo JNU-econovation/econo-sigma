@@ -1,4 +1,4 @@
-package sigma.chackcheck.domain.book;
+package sigma.chackcheck.domain.book.repository;
 
 import org.springframework.stereotype.Repository;
 
