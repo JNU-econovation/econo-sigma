@@ -1,4 +1,4 @@
-package sigma.chackcheck.domain.book;
+package sigma.chackcheck.domain.book.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,17 +9,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class BookCategory {
+public class BookDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 도서 다대일
+    // 도서 대다일
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
-    // 카테고리 다대일
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
 }
