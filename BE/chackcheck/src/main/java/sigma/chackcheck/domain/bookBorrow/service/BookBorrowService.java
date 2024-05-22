@@ -1,4 +1,4 @@
-package sigma.chackcheck.service.bookBorrow;
+package sigma.chackcheck.domain.bookBorrow.service;
 
 import org.springframework.stereotype.Service;
 

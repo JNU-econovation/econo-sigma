@@ -1,4 +1,4 @@
-package sigma.chackcheck.controller;
+package sigma.chackcheck.domain.book.controller;
 
 import org.springframework.stereotype.Controller;
 
