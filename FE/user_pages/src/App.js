@@ -1,9 +1,9 @@
 import { Routes, Route, Router, useLocation} from 'react-router-dom';
+import styled from "styled-components"
 
 import './App.css';
 
 import {React, useState , useEffect} from 'react';
-import { Routes, Route} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import Header from './components/common/header/header.jsx';
@@ -14,6 +14,10 @@ import Loading from './components/common/Loading.jsx';
 import Paging from './components/common/pagination.jsx';
 
 import Book from './pages/book.jsx'
+
+
+
+
 function App() {
   const currentLocation = useLocation();
 
@@ -44,9 +48,9 @@ function App() {
     <div className="App">
       {currentLocation.pathname !== '/users/login' && <Header />}
       {currentLocation.pathname.startsWith('/books') && <Category/>}
-      {/* {loading ?
+      {loading ?
                 <Loading/> :
-      <Paging response = {book}/> } */}
+      <Paging response = {book}/> }
 
       <Routes>
         <Route path="/books" element={<Main/>}/>
@@ -56,6 +60,8 @@ function App() {
 
       
     </div>
+
+
   );
 }
 

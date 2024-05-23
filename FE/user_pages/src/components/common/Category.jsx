@@ -2,17 +2,17 @@ import React from "react"
 import styled from "styled-components"
 
 const Nav = styled.div`
-  display : inline-flex;
   flex-direction: column;
   width: 9em;
+  height: 80%;
 
-  height: 100%;
+  position: fixed;
+  float: left;
 
-  //position: absolute;
-  //top: 12em;
-  //left: 3em;
+  margin-top: 10em;
+  margin-left: 2em;
 
-  //background-color: aliceblue;
+  /* position: absolute; */
 `
 const Title = styled.div`
   color:#4D4ABF;
