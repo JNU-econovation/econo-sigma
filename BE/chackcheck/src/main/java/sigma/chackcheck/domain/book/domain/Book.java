@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.*;
 
 @Entity
@@ -26,4 +29,8 @@ public class Book {
     private String imageURL;
     // 도서 관련 정보
     private String information;
+
+    @OneToMany
+    @JoinColumn(name = "book_categories")
+    private List<BookCategory> bookCategories;
 }
