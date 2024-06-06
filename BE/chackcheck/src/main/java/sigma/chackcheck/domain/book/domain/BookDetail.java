@@ -13,6 +13,9 @@ public class BookDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
+    private boolean borrowStatus;
+    private boolean reserveStatus;
 
     // 도서 대다일
     @ManyToOne
