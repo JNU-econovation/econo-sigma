@@ -19,9 +19,9 @@ public class BookPageResponse {
     @JsonProperty("bookInfos")
     private List<BookDTO> bookDtoList;
 
-    public static BookPageResponse of(PageInfo pageinfo, List<BookDTO> bookDtoList){
+    public static BookPageResponse of(PageInfo pageInfo, List<BookDTO> bookDtoList){
         return BookPageResponse.builder()
-            .pageInfo(pageinfo)
+            .pageInfo(pageInfo)
             .bookDtoList(bookDtoList)
             .build();
     }
