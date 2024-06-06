@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PageInfo {
     private int currentPage;
-    private int totalBooks;
+    private long totalData;
     private int totalPages;
 
-    public static PageInfo of(int currentPage, int totalBooks, int totalPages){
+    public static PageInfo of(int currentPage, long totalData, int totalPages){
         return PageInfo.builder()
             .currentPage(currentPage)
-            .totalBooks(totalBooks)
+            .totalData(totalData)
             .totalPages(totalPages)
             .build();
     }
