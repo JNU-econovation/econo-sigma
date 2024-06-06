@@ -16,7 +16,7 @@ import sigma.chackcheck.common.dto.PageInfo;
 @AllArgsConstructor
 public class BookPageDTO {
     private PageInfo pageInfo;
-    @JsonProperty("books")
+    @JsonProperty("bookInfos")
     private List<BookDTO> bookDtoList;
 
     public static BookPageDTO of(PageInfo pageinfo, List<BookDTO> bookDtoList){
