@@ -16,6 +16,7 @@ public class User {
     private Long id;
     private String loginId;
     private String password;
+    private String name;
     // 기수
     private Integer grade;
     // 대출 유무
