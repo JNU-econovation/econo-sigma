@@ -3,6 +3,7 @@ import styled from "styled-components"
 import BookList from "./BookList";
 import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
 import { useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Books = styled.div`
     display: grid;
@@ -53,30 +54,16 @@ function SearchBar() {
     const [book, setBook] = useState([]);
     
     const getFilteredBook = async () => {
-        /*
-        try {
-            const response = await fetch(`https://www.chackcheck.com/books?category=${category}&keyword=${keyword}`)
-            const json = await response.json(); // 응답을 JSON으로 변환
-            setBook(json); // 상태를 업데이트
-        } catch (error) {
-            console.error('Fetching fitered books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
-        } 
-        */
+        <Link to={`http://localhost:3000/books?keyword=${keyword}&page=1`}></Link>
     };
 
     
     const onKeyUp = (e) => {
-        /*
         if (e.key === 'Enter') {
           getFilteredBook();
-        }*/
+        }
       };
 
-    /*  
-      useEffect(() => {
-        getBook()
-    },[]);
-    */
     return (
         <div style={{display:"flex", justifyContent: "center", marginTop:"3em", marginLeft:"5em"}}>
             <div>
@@ -84,7 +71,7 @@ function SearchBar() {
                     <SearchBtn type="button" onClick={getFilteredBook}/>
                     <SearchInput type="text" value={keyword} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
                 </SearchBox>
-                <Books>
+                {/* <Books>
                     {book.data.books.map((item) => (<BookList
                         key={item.id}
                         img={item.img} // 변수명 바꿔야할 수도..
@@ -92,7 +79,7 @@ function SearchBar() {
                         author={item.author}
                         publisher={item.publisher}/>
                     ))}
-                </Books>
+                </Books> */}
             </div>
         </div>
     );

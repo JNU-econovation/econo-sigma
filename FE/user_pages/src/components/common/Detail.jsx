@@ -112,20 +112,5 @@ function Detail (){
                 />}
         </Container>
     )
-    /*
-    return(
-        <Container>
-                <Content
-                //key??
-                img=""
-                title="book"
-                writer="writer"
-                publisher="publisher"
-                date="date"
-                script="script"
-                />
-        </Container>
-    );
-    */
 }
 export default Detail;

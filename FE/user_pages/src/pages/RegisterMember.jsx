@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { IoIosTrash } from "react-icons/io";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -65,7 +66,7 @@ const Td = styled.td`
 `;
 const Button = styled.button`
   position: relative;
-  bottom: 1em;
+  top: 20em;
   padding: 10px 20px;
   margin: 5px;
   background-color: #6a5acd;
@@ -86,15 +87,15 @@ const RegisterMember = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
-  const AddMember = () => {
+  const AddMember = (e) => {
     setMembers([
       ...members,
       { name, group, id, password }
     ]);
-    setName('');
-    setGroup('');
-    setId('');
-    setPassword('');
+    setName(e.target.value);
+    setGroup(e.target.value);
+    setId(e.target.value);
+    setPassword(e.target.value);
   };
 
   const registerMembers = () => {
@@ -115,8 +116,8 @@ const RegisterMember = () => {
                 <Index>기수</Index> <Value></Value>
                 <Index>ID</Index> <Value></Value>
                 <Index>비밀번호</Index> <Value></Value>
-                <AddButton type="submit">+</AddButton>
-                <Line></Line>
+                <AddButton onClick={AddMember}>+</AddButton>
+                <Line/>
             </form>
             <Table>
               <thead>
@@ -139,9 +140,8 @@ const RegisterMember = () => {
                     <Td isOdd={index % 2 !== 0}>{member.password}</Td>
                     <Td isOdd={index % 2 !== 0}>
                       <Button onClick={() => {
-                        setMembers(members.filter((_, i) => i !== index));
-                      }}>
-                        🗑️
+                        setMembers(members.filter((_, i) => i !== index));}}>
+                        <IoIosTrash/>
                       </Button>
                     </Td>
                   </tr>
