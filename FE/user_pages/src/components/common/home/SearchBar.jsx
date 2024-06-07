@@ -26,7 +26,7 @@ const SearchBox = styled.div`
     border-image-slice: 1;
     background-origin: border-box;
     background-clip: content-box, border-box;
-    margin-bottom: 5em;
+    /* margin-bottom: 5em; */
 
 `;
 

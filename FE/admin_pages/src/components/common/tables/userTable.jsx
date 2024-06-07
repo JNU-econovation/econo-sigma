@@ -7,7 +7,6 @@ const Styledtable = styled.div`
 	table {
 		font-family: 'NanumSquareOTF', sans-serif;
 		padding: 0.6em 1.5em;
-		/* border: none; */
 		width: 90%;
 		border-spacing: 0;
 		
@@ -15,7 +14,7 @@ const Styledtable = styled.div`
 	
 	td {
 		height: 2.5em;
-		font-size: 0.95em;
+		font-size: 0.9em;
 
 	}
 
@@ -28,61 +27,68 @@ const Styledtable = styled.div`
 	}
 
 	tbody td{
-		height: 3em;
+		height: 2.7em;
+		font-size : 0.8em;
+
 	}
 
 	thead tr {
-		background-color: #F1F1F1;
+		background-color: #E7E6FF;
 		height: 3em;
 		font-size : 0.8em;
 	}
 	
 	thead th:nth-child(1) {
-		width: 20%;
+		width: 2em;
+	}
+	tbody tr:nth-child(even) {
+		background-color: #F9F9FF;
 	}
 
 
-	thead th:nth-child(5) {
-		width: 20%;
-	}
 
 `;
 const infoHeaders = [
+	{
+		text: '' ,
+		value: 'bookIndex'
+	  },
+	{
+		text: '도서 이름' ,
+		value: 'bookName'
+	},
 	{
 	  text: '도서ID' ,
 	  value: 'bookDetailId'
 	},
 	{
-	  text: '대출자 정보' ,
-	  value: 'member'
-	},
-	{
-	  text: '반납 예정일' ,
-	  value: 'dueDate'
+	  text: '카테고리' ,
+	  value: 'category'
 	},
 	{
 	  text: '대출가능여부' ,
 	  value: 'isAvilable'
 	},
 	{
-	  text: '' ,
-	  value: 'button'
+	  text: '수정' ,
+	  value: 'updateButton'
+	},
+	{
+		text: '삭제' ,
+		value: 'delButton'
 	}
   ];
 
 
 const UserTable = ({response}) => {
 	
+	console.log(response.data)
 
-	const borrowInfos = response.data.borrowInfos
+	const bookInfos = response.data.bookInfo
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
-	const borrowInfo = borrowInfos.map((info) => info.borrowInfo)
 	
-	const member = borrowInfos.map((info) => {
-		return info.borrowInfo !== null ? info.borrowInfo.member : null
-	})
-	console.log(member)
+
 	
 	return (
 	
@@ -100,35 +106,44 @@ const UserTable = ({response}) => {
 			</thead>
 			<tbody>
 				{
-					borrowInfos.map((item, index)=> (
+					bookInfos.map((item, index)=> (
 						<tr key = {index}>
-							{}
 							{
-								<td key = {'bookDetailId' + index}>
-									{item.bookDetailId}
+								<td key = {'bookIndex' + index}>
+									{index+1}
 								</td>
 							}
 							{	
-								<td key = {'member' + index}>
-									{item.borrowInfo !== null ? item.borrowInfo.member : '-'} 
+								<td key = {'bookName' + index}>
+									{item.title} 
 								</td> 
 								
 							}
 							{	
-								<td key = {'dueDate' + index}>
-									{item.borrowInfo !== null ? item.borrowInfo.dueDate : '-'} 
+								<td key = {'bookId' + index}>
+									{item.bookId} 
 								</td> 
 								
 							}
-
+							{	
+								<td key = {'category' + index}>
+									{item.categories}														
+								</td> 
+								
+							}
 							{
 								<td className= {`isAvailable ${item.isAvailable ? 'available' : 'unavailable'}`} key = {'Button' + index}>
-									{item.isAvailable ? '가능' : '불가'}
+									{item.borrowStatus} 
+								</td>
+							}
+														{
+								<td key = {'update' + index}>
+									{/* <Button isAvailable = {item.isAvailable}/> */}
 								</td>
 							}
 
 							{
-								<td key = {'Button' + index}>
+								<td key = {'delButton' + index}>
 									{/* <Button isAvailable = {item.isAvailable}/> */}
 								</td>
 							}
