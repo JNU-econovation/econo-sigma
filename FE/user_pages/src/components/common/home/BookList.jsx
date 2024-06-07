@@ -15,19 +15,19 @@ const Img = styled.img`
 `;
 const Title = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 800;
     margin-top: 0.8em;
     margin-bottom: 0.3em;
 `;
 const Writer = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
-    font-size: 0.938;
+    font-size: 0.938em;
     font-weight: 300;
-`
+`;
 const Publisher = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
-    font-size: 0.938;
+    font-size: 0.938em;
     font-weight: 300;
 `;
 const BookList = ({key, img, title, author, publisher}) => {

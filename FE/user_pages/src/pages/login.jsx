@@ -7,7 +7,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
+    //background-color: antiquewhite;
 `
 const Logo = styled.img`
     width: 12em;
@@ -49,7 +49,7 @@ const LoginBtn = styled(LoginButton)`
 
 const Login = () => {
     return (
-        <div style={{display:"flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor:"aliceblue"}}>
+        <div style={{display:"flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
             <Container>
                 <Logo src="/chackcheck.png"/>
                 <InputBox placeholder="ID"></InputBox>
