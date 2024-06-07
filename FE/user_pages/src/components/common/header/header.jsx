@@ -10,7 +10,7 @@ const HeaderWrapper = styled.header`
     height: 6.5em;
     position: fixed;
     border-bottom : 1px solid #EAEAEA;
-    background-color: white;
+    background-color: tomato;
 `;
 
 const ContentsWrap = styled.div `

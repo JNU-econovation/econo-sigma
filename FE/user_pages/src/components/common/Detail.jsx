@@ -83,7 +83,7 @@ const Content = ({img,title, writer,publisher,date,script}) => {
 }
 
 function Detail (){
-    /*
+    
     const {book_id} = useParams();
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState([]);
@@ -96,8 +96,8 @@ function Detail (){
     useEffect(() => {
         getBook()
     },[]);
-    */
-    /*
+    
+    
     return(
         <Container>
             {loading ?
@@ -111,7 +111,8 @@ function Detail (){
                 script={book.script} //추후 백엔드 변수명으로 바꾸기
                 />}
         </Container>
-    )*/
+    )
+    /*
     return(
         <Container>
                 <Content
@@ -124,7 +125,7 @@ function Detail (){
                 script="script"
                 />
         </Container>
-    )
-
+    );
+    */
 }
 export default Detail;
