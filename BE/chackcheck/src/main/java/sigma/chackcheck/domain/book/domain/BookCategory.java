@@ -18,5 +18,5 @@ public class BookCategory {
     private Long bookId;
 
     @Column(name = "category_id")
-    private Long BookId;
+    private Long categoryId;
 }
