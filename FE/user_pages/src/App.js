@@ -47,16 +47,16 @@ function App() {
   return (
     <div className="App">
       {currentLocation.pathname !== '/users/login' && <Header />}
+
       {currentLocation.pathname.startsWith('/books') && <Category/>}
-      {loading ?
-                <Loading/> :
-      <Paging response = {book}/> }
+
 
       <Routes>
-        <Route path="/books" element={<Main/>}/>
+        <Route path="/books/" element={<Main/>}/>
         <Route path="/users/login" element={<Login/>}/>
         <Route path="/books/:id" element={<Book/>}></Route>
       </Routes>
+
 
       
     </div>

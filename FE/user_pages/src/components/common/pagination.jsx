@@ -38,11 +38,12 @@ const StyledPagination = styled.div`
 `
 
 const Paging = ({ response }) => {
+  console.log(response)
   const pageListSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = response.data.pageInfo.totalPages;
-  const currentListIndex = Math.floor((currentPage - 1) / pageListSize);
+  const currentListIndex = Math.floor((currentPage) / pageListSize);
 
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,57 +52,43 @@ const Paging = ({ response }) => {
     const page = searchParams.get('page');
     if (page) {
       setCurrentPage(Number(page));
-    }
+  }
+
+
   }, [searchParams]);
 
   
   const location = useLocation();
   const fullLocation = `${location.pathname}${location.search}${location.hash}`;
 
-// 데이터 받아오기
-
-//   const [loading, setLoading] = useState(true);
-//   const [book, setBook] = useState([]);
-
-
-//   const getBook = async () => {
-//     try {
-//         const response = await fetch('http://localhost:3001/db'); // 서버에서 데이터를 가져옴
-//         const json = await response.json(); // 응답을 JSON으로 변환
-//         setBook(json); // 상태를 업데이트
-//     } catch (error) {
-//         console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
-//     } finally {
-//         setLoading(false); // 로딩 상태를 false로 설정
-//     }
-// };
-
-
-//   useEffect(() => {
-//     getBook()
-//   }, []);
 
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     setSearchParams({ page: pageNumber });
 
-
   };
 
   const handleNextList = () => {
-    const nextListFirstPage = (currentListIndex + 1) * pageListSize + 1;
+    const nextListFirstPage = currentPage + 1;
     if (nextListFirstPage <= totalPages) {
       setCurrentPage(nextListFirstPage);
+      setSearchParams({ page: nextListFirstPage });
     }
   };
+
   const handlePrevList = () => {
-    const prevListFirstPage = Math.max(1, currentListIndex * pageListSize);
+    const prevListFirstPage = Math.max(1, currentPage- 1);
+    console.log(currentListIndex)
     setCurrentPage(prevListFirstPage);
+    setSearchParams({ page: prevListFirstPage });
+
   };
 
   const goToFirstPage = () => {
     setCurrentPage(1);
+    setSearchParams({ page: 1 });
+
   };
 
   const goToLastPage = () => {
@@ -125,8 +112,6 @@ const Paging = ({ response }) => {
 
   return (
     <div>
-      {/* 이 부분에 map을 통해서 각 페이지의 book 을 리턴해주어야함
-           현재는 book 컴포넌트 수정에 대한 논의가 이루어지고 있어서 비워두었습니다! */}
       <StyledPagination>
         <button onClick={goToFirstPage}>&lt;&lt;</button>
         <button onClick={handlePrevList}>&lt;</button>

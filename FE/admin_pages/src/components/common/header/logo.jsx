@@ -1,7 +1,7 @@
 // import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styledButton from './headerButtons';
+// import styledButton from './header/headerButtons';
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
