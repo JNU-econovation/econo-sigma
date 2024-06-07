@@ -13,9 +13,10 @@ public class BookCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    // 카테고리 다대일
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+
+    @Column(name = "book_id")
+    private Long bookId;
+
+    @Column(name = "category_id")
+    private Long BookId;
 }

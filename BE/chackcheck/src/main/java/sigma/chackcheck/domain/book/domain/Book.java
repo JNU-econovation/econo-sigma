@@ -29,8 +29,4 @@ public class Book {
     private String imageURL;
     // 도서 관련 정보
     private String information;
-
-    @OneToMany
-    @JoinColumn(name = "book_categories")
-    private List<BookCategory> bookCategories;
 }
