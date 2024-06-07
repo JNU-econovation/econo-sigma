@@ -1,8 +1,8 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
-import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
-import { useParams } from "react-router-dom";
+import { ReactComponent as SearchButton } from "../../../assets/searchButton.svg";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Books = styled.div`
     display: grid;
@@ -26,7 +26,7 @@ const SearchBox = styled.div`
     border-image-slice: 1;
     background-origin: border-box;
     background-clip: content-box, border-box;
-    /* margin-bottom: 5em; */
+    margin-bottom: 5em;
 
 `;
 
@@ -52,60 +52,47 @@ const SearchBtn = styled(SearchButton)`
 
 
 function SearchBar() {
-    const {category_id} =useParams();
     const [search, setSearch] = useState("");
-    const [filteredData, setFilteredData] = useState([]);
     const onChange = (e) => setSearch(e.target.value);
-    const [book, setBook] = useState([]);
-    const getBook = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/db'); 
-            //const response = await fetch(`http://경로/백엔드에서 지정한 카테고리명?=${category_id}`)// 각 카테고리마다의 데이터를 가져옴
-            const json = await response.json(); // 응답을 JSON으로 변환
-            setBook(json); // 상태를 업데이트
-        } catch (error) {
-            console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
-        } 
-    };
-   
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const Search = () => {
-        const newFilteredData = book.data.books.filter(item =>
-            item.title.toLowerCase().includes(search.toLowerCase()) ||
-            item.author.toLowerCase().includes(search.toLowerCase()) ||
-            item.publisher.toLowerCase().includes(search.toLowerCase())
-        );
-        setFilteredData(newFilteredData);
-    };
-    const onKeyUp = (e) => {
-        if (e.key === 'Enter') {
-          Search();
-        }
-      };
-      
-      useEffect(() => {
-        getBook()
-    },[]);
+        // 현재 URL의 searchParams 객체를 가져옵니다
+        const currentCategory = searchParams.get('category');
 
-    return (
-        <div style={{display:"flex", justifyContent: "center", marginTop:"3em", marginLeft:"5em"}}>
-            <div>
-                <SearchBox>
-                    <SearchBtn type="button" onClick={Search}/>
-                    <SearchInput type="text" value={search} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
-                </SearchBox>
-                <Books>
-                    {filteredData.map((item) => (<BookList
-                        key={item.id}
-                        img={item.img} // 변수명 바꿔야할 수도..
-                        title={item.title}
-                        writer={item.author}
-                        publisher={item.publisher}/>
-                    ))}
-                </Books>
-            </div>
+        // 새로운 파라미터 객체를 만듭니다
+        const params = {
+            keyword: search,
+            page: 1,
+        };
+
+        // 카테고리가 존재하면 파라미터 객체에 추가합니다
+        if (currentCategory) {
+            params.category = currentCategory;
+        }
+
+        // setSearchParams 함수를 호출하여 URL 파라미터를 설정합니다
+        setSearchParams(params);
+};
+
+const onKeyUp = (e) => {
+    if (e.key === 'Enter') {
+        Search();
+    }
+};
+
+
+return (
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "3em", marginLeft: "5em" }}>
+        <div>
+            <SearchBox>
+                <SearchBtn type="button" onClick={Search} />
+                <SearchInput type="text" value={search} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
+            </SearchBox>
         </div>
-    );
+    </div>
+);
 };
 
 

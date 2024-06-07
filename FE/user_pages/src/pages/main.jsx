@@ -36,6 +36,7 @@ const Main = () => {
     const location = useLocation();
     const fullLocation = `${location.pathname}${location.search}${location.hash}`;
 
+    console.log(`${fullLocation}`)
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState([]);
 
