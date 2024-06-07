@@ -27,14 +27,17 @@ function App() {
   return (
     <div className="App">
       {currentLocation.pathname !== '/users/login' && <Header />}
+
       {currentLocation.pathname.startsWith('/books') && <Category/>}
+
+
       <Routes>
-        <Route path="/books" element={<Main/>}/>
-        <Route path="/books/:category" element={<Main/>}/>
+        <Route path="/books/" element={<Main/>}/>
         <Route path="/users/login" element={<Login/>}/>
         <Route path="/admin/users" element={<RegisterMember/>}/>
         <Route path="/books/:id" element={<Book/>}></Route>
       </Routes>
+
 
       
     </div>

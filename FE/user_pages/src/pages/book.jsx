@@ -1,19 +1,18 @@
 import { React, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import InfoTable from '../components/common/infoList/infoTable.jsx'
 
 import Category from "../components/common/Category.jsx"
 import Loading from '../components/common/Loading.jsx';
-// import Paging from '../components/common/pagination.jsx';
 import Detail from '../components/common/Detail.jsx'
 
 
 const StyledPage = styled.div`
 
     .contents {
-      margin-top: 9em;
+      padding-top: 9em;
       margin-left: 15em;
     }
     .infotable {
@@ -23,13 +22,13 @@ const StyledPage = styled.div`
 
 function Book() {
 
-
+  const bookId = useParams();
   const [tableLoading, setTableLoading] = useState(true);
   const [info, setInfo] = useState([]);
 
   const getInfo = async () => {
     try {
-      const response = await fetch('http://localhost:3001/info'); // 서버에서 데이터를 가져옴
+      const response = await fetch(`/books/${bookId}`); // 서버에서 데이터를 가져옴
       const json = await response.json(); // 응답을 JSON으로 변환
       setInfo(json); // 상태를 업데이트
     } catch (error) {

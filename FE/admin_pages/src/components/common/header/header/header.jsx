@@ -1,17 +1,16 @@
 import React from 'react';
 
-import Logo from './logo' ;
+import Logo from '../logo' ;
 import HeaderBtn from './headerButtons';
 import styled from "styled-components";
 
 const HeaderWrapper = styled.header`
-    z-index : 9999 ;
-    position: fixed;
-
+    // z-index : 9999 ;
     width: 100%;
     height: 6.5em;
+    position: fixed;
     border-bottom : 1px solid #EAEAEA;
-    background-color: tomato;
+    background-color: white;
 `;
 
 const ContentsWrap = styled.div `
