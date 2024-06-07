@@ -11,7 +11,7 @@ const HeaderWrapper = styled.header`
     width: 100%;
     height: 6.5em;
     border-bottom : 1px solid #EAEAEA;
-    background-color: white;
+    background-color: tomato;
 `;
 
 const ContentsWrap = styled.div `

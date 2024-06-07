@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
-import { ReactComponent as SearchButton } from "../../../assets/searchButton.svg";
-import { useParams, useSearchParams } from "react-router-dom";
+
+import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
+import { useParams } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Books = styled.div`
     display: grid;
@@ -12,7 +14,6 @@ const Books = styled.div`
     row-gap: 5em;
     margin: auto;
 `;
-
 const SearchBox = styled.div`
     display: flex;
     justify-content: center;
@@ -29,7 +30,6 @@ const SearchBox = styled.div`
     margin-bottom: 5em;
 
 `;
-
 const SearchInput = styled.input`
     width: 90%;
     font-size: 1.3em;
@@ -40,56 +40,49 @@ const SearchInput = styled.input`
     &:focus {
         outline: none;
         cursor: text;
-    }
-    ;
-`
-
+    };
+`;
 const SearchBtn = styled(SearchButton)`
     width: 2.5em;
     height: 2.5em;
-
 `;
 
 
 function SearchBar() {
-    const [search, setSearch] = useState("");
-    const onChange = (e) => setSearch(e.target.value);
-    const [searchParams, setSearchParams] = useSearchParams();
 
+    const [keyword, setKeyword] = useState("");
+    //const [filteredData, setFilteredData] = useState([]);
+    const onChange = (e) => setKeyword(e.target.value);
+    const [book, setBook] = useState([]);
+    
+    const getFilteredBook = async () => {
+        <Link to={`http://localhost:3000/books?keyword=${keyword}&page=1`}></Link>
+    };
 
-    const Search = () => {
-        // 현재 URL의 searchParams 객체를 가져옵니다
-        const currentCategory = searchParams.get('category');
-
-        // 새로운 파라미터 객체를 만듭니다
-        const params = {
-            keyword: search,
-            page: 1,
-        };
-
-        // 카테고리가 존재하면 파라미터 객체에 추가합니다
-        if (currentCategory) {
-            params.category = currentCategory;
+    
+    const onKeyUp = (e) => {
+        if (e.key === 'Enter') {
+          getFilteredBook();
         }
+      };
 
-        // setSearchParams 함수를 호출하여 URL 파라미터를 설정합니다
-        setSearchParams(params);
-};
-
-const onKeyUp = (e) => {
-    if (e.key === 'Enter') {
-        Search();
-    }
-};
-
-
-return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "3em", marginLeft: "5em" }}>
-        <div>
-            <SearchBox>
-                <SearchBtn type="button" onClick={Search} />
-                <SearchInput type="text" value={search} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
-            </SearchBox>
+    return (
+        <div style={{display:"flex", justifyContent: "center", marginTop:"3em", marginLeft:"5em"}}>
+            <div>
+                <SearchBox>
+                    <SearchBtn type="button" onClick={getFilteredBook}/>
+                    <SearchInput type="text" value={keyword} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
+                </SearchBox>
+                {/* <Books>
+                    {book.data.books.map((item) => (<BookList
+                        key={item.id}
+                        img={item.img} // 변수명 바꿔야할 수도..
+                        title={item.title}
+                        author={item.author}
+                        publisher={item.publisher}/>
+                    ))}
+                </Books> */}
+            </div>
         </div>
     </div>
 );

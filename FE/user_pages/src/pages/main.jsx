@@ -45,7 +45,7 @@ const Main = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(`${fullLocation}`); // 서버에서 데이터를 가져옴
+            const response = await fetch(`http://localhost:3001${fullLocation}`); // 서버에서 데이터를 가져옴
             const json = await response.json(); // 응답을 JSON으로 변환
             setBook(json); // 상태를 업데이트
         } catch (error) {
@@ -64,7 +64,10 @@ const Main = () => {
     return (
         <StyledPage>
             <div className="contents">
-                <SearchBar />
+                {loading ?
+                    <Loading /> :
+                    <SearchBar /> }
+                
                 {loading ?
                     <Loading /> :
                     <Books>
