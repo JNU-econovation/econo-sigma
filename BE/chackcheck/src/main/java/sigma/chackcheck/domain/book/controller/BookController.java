@@ -24,7 +24,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/books")
-    public ApiResponse<SuccessBody<BookPageResponse>> get(
+    public ApiResponse<SuccessBody<BookPageResponse>> getMainPage(
         @RequestParam(value = "page", defaultValue = "0") int page) {
 
         Page<Book> bookList = bookService.getBookPage(page);
