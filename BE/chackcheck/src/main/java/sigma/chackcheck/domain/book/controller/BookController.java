@@ -51,10 +51,7 @@ public class BookController {
             .map(BookDTO::of)
             .toList();
 
-        BookPageResponse bookPageResponse = BookPageResponse.builder()
-            .pageInfo(pageInfo)
-            .bookDtoList(bookDtoList)
-            .build();
+        BookPageResponse bookPageResponse = BookPageResponse.of(pageInfo, bookDtoList);
 
         return ApiResponseGenerator.success(bookPageResponse, HttpStatus.OK, SuccessMessage.CREATE);
     }
