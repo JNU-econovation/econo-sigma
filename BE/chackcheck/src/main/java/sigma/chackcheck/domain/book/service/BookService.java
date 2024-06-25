@@ -24,4 +24,8 @@ public class BookService {
     public Page<Book> getBookPage(int page) {
         return getBook.getBookPage(page);
     }
+
+    public Page<Book> getBookPageByCategoryName(String categoryName, int page){
+        return getBook.getBookPage(categoryName, page);
+    }
 }
