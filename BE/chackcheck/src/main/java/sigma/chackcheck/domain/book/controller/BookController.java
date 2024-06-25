@@ -23,23 +23,38 @@ public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping("/books")
-    public ApiResponse<SuccessBody<BookPageResponse>> get(
+    @GetMapping("/books/all")
+    public ApiResponse<SuccessBody<BookPageResponse>> getMainPage(
         @RequestParam(value = "page", defaultValue = "0") int page) {
 
         Page<Book> bookList = bookService.getBookPage(page);
 
+        return getSuccessBodyApiResponse(page, bookList);
+    }
+
+    @GetMapping("/books/category")
+    public ApiResponse<SuccessBody<BookPageResponse>> getBooksByCategoryName(
+        @RequestParam(value = "categoryName") String categoryName,
+        @RequestParam(value = "page", defaultValue = "0") int page
+    ){
+        Page<Book> bookList = bookService.getBookPageByCategoryName(categoryName, page);
+
+        return getSuccessBodyApiResponse(page, bookList);
+    }
+
+    private ApiResponse<SuccessBody<BookPageResponse>> getSuccessBodyApiResponse(
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        Page<Book> bookList) {
         PageInfo pageInfo =  PageInfo.of(page, bookList.getTotalElements(), bookList.getTotalPages());
 
         List<BookDTO> bookDtoList = bookList.getContent().stream()
             .map(BookDTO::of)
             .toList();
 
-        BookPageResponse bookPageResponse = BookPageResponse.builder()
-            .pageInfo(pageInfo)
-            .bookDtoList(bookDtoList)
-            .build();
+        BookPageResponse bookPageResponse = BookPageResponse.of(pageInfo, bookDtoList);
 
         return ApiResponseGenerator.success(bookPageResponse, HttpStatus.OK, SuccessMessage.CREATE);
     }
+
+
 }
