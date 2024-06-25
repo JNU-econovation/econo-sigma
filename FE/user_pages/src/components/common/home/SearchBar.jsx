@@ -84,7 +84,6 @@ function SearchBar() {
                 </Books> */}
             </div>
         </div>
-    </div>
 );
 };
 
