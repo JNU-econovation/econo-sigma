@@ -1,6 +1,7 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
+
 import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
 import { useParams } from "react-router-dom";
 import {Link} from "react-router-dom";
@@ -26,7 +27,7 @@ const SearchBox = styled.div`
     border-image-slice: 1;
     background-origin: border-box;
     background-clip: content-box, border-box;
-    /* margin-bottom: 5em; */
+    margin-bottom: 5em;
 
 `;
 const SearchInput = styled.input`
@@ -48,6 +49,7 @@ const SearchBtn = styled(SearchButton)`
 
 
 function SearchBar() {
+
     const [keyword, setKeyword] = useState("");
     //const [filteredData, setFilteredData] = useState([]);
     const onChange = (e) => setKeyword(e.target.value);
@@ -82,7 +84,7 @@ function SearchBar() {
                 </Books> */}
             </div>
         </div>
-    );
+);
 };
 
 

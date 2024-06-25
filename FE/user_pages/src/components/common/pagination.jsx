@@ -41,6 +41,8 @@ const Paging = ({ response }) => {
   console.log(response)
   const pageListSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [category, setCategory] = useState('');
+  const [keyword, setKeyword] = useState('');
 
   const totalPages = response.data.pageInfo.totalPages;
   const currentListIndex = Math.floor((currentPage) / pageListSize);
@@ -50,22 +52,33 @@ const Paging = ({ response }) => {
 
   useEffect(() => {
     const page = searchParams.get('page');
+    const categoryParam = searchParams.get('category');
+    const keywordParam = searchParams.get('keyword');
     if (page) {
       setCurrentPage(Number(page));
-  }
-
-
+    }
+    if (categoryParam) {
+      setCategory(categoryParam);
+    }
+    if (keywordParam) {
+      setKeyword(keywordParam);
+    }
   }, [searchParams]);
 
-  
-  const location = useLocation();
-  const fullLocation = `${location.pathname}${location.search}${location.hash}`;
+
+  const updateSearchParams = (pageNumber) => {
+    const params = {};
+    if (category) params.category = category;
+    if (keyword) params.keyword = keyword;
+    params.page = pageNumber;
+    setSearchParams(params);
+  };
 
 
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    setSearchParams({ page: pageNumber });
+    updateSearchParams(pageNumber);
 
   };
 
@@ -73,26 +86,27 @@ const Paging = ({ response }) => {
     const nextListFirstPage = currentPage + 1;
     if (nextListFirstPage <= totalPages) {
       setCurrentPage(nextListFirstPage);
-      setSearchParams({ page: nextListFirstPage });
+      updateSearchParams(nextListFirstPage);
     }
   };
 
   const handlePrevList = () => {
-    const prevListFirstPage = Math.max(1, currentPage- 1);
+    const prevListFirstPage = Math.max(1, currentPage - 1);
     console.log(currentListIndex)
     setCurrentPage(prevListFirstPage);
-    setSearchParams({ page: prevListFirstPage });
+    updateSearchParams(prevListFirstPage);
+
 
   };
 
   const goToFirstPage = () => {
     setCurrentPage(1);
-    setSearchParams({ page: 1 });
-
+    updateSearchParams(1);
   };
 
   const goToLastPage = () => {
     setCurrentPage(totalPages);
+    updateSearchParams(totalPages);
   };
 
   const renderPageNumbers = () => {
