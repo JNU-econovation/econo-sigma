@@ -1,5 +1,7 @@
 package sigma.chackcheck.domain.book.domain;
 
+import static jakarta.persistence.FetchType.*;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +19,7 @@ public class BookDetail {
     private boolean borrowStatus;
     private boolean reserveStatus;
 
-    @Column(name = "book_id")
-    private Long bookId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 }

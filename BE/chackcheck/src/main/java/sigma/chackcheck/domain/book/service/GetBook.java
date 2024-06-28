@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.common.pagination.service.Pagination;
 import sigma.chackcheck.domain.book.domain.Book;
+import sigma.chackcheck.domain.book.domain.BookCategory;
+import sigma.chackcheck.domain.book.dto.response.BookDTO;
+import sigma.chackcheck.domain.book.dto.response.BookPageResponse;
+import sigma.chackcheck.domain.book.repository.BookCategoryRepository;
 import sigma.chackcheck.domain.book.repository.BookRepository;
 
 @Service
@@ -15,6 +19,7 @@ import sigma.chackcheck.domain.book.repository.BookRepository;
 public class GetBook implements GetBookUsecase, Pagination<Book> {
 
     private final BookRepository bookRepository;
+    private final BookCategoryRepository bookCategoryRepository;
 
     @Override
     public Book getOneBook(Long id) {
@@ -33,4 +38,15 @@ public class GetBook implements GetBookUsecase, Pagination<Book> {
         return bookRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Book> getBookPage(String categoryName, int page) {
+        Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
+
+        Page<BookCategory> bookCategoryListByCategoryName =
+            bookCategoryRepository
+                .findAllByCategoryName(categoryName, pageable);
+
+        return bookCategoryListByCategoryName
+            .map(BookCategory::getBook);
+    }
 }

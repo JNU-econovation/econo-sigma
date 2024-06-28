@@ -1,5 +1,7 @@
 package sigma.chackcheck.domain.book.domain;
 
+import static jakarta.persistence.FetchType.*;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,9 +16,11 @@ public class BookCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "book_id")
-    private Long bookId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }
