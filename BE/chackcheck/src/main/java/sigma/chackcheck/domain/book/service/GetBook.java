@@ -39,7 +39,7 @@ public class GetBook implements GetBookUsecase, Pagination<Book> {
     }
 
     @Override
-    public Page<Book> getBookPage(String categoryName, int page) {
+    public Page<Book> getBookPageByCategoryName(String categoryName, int page) {
         Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
 
         Page<BookCategory> bookCategoryListByCategoryName =
@@ -48,5 +48,12 @@ public class GetBook implements GetBookUsecase, Pagination<Book> {
 
         return bookCategoryListByCategoryName
             .map(BookCategory::getBook);
+    }
+
+    @Override
+    public Page<Book> getBookPageBySearch(String keyword, int page) {
+        Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
+
+        return bookRepository.findByKeyword(keyword, pageable);
     }
 }

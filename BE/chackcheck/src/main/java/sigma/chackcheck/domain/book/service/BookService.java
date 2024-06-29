@@ -26,6 +26,10 @@ public class BookService {
     }
 
     public Page<Book> getBookPageByCategoryName(String categoryName, int page){
-        return getBook.getBookPage(categoryName, page);
+        return getBook.getBookPageByCategoryName(categoryName, page);
+    }
+
+    public Page<Book> getBookPageBySearch(String keyword, int page){
+        return getBook.getBookPageBySearch(keyword, page);
     }
 }

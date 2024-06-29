@@ -9,7 +9,8 @@ import sigma.chackcheck.domain.book.domain.Book;
 public interface Pagination<T> {
 
     Page<T> getBookPage(int page);
-    Page<T> getBookPage(String categoryName, int page);
+    Page<T> getBookPageByCategoryName(String categoryName, int page);
+    Page<T> getBookPageBySearch(String keyword, int page);
 
     // 페이지네이션 정책을 정의하는 default 메서드
     default Pageable createDefaultPageRequest(int page, PagePolicy pagePolicy) {
