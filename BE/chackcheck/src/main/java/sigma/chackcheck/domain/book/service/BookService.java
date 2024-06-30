@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.domain.book.domain.Book;
+import sigma.chackcheck.domain.book.domain.BookApprove;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +32,9 @@ public class BookService {
 
     public Page<Book> getBookPageBySearch(String keyword, int page){
         return getBook.getBookPageBySearch(keyword, page);
+    }
+
+    public Page<BookApprove> getBookApprovePage(int page) {
+        return getBook.getBookApprovePage(page);
     }
 }

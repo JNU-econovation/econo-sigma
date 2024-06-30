@@ -13,15 +13,20 @@ import sigma.chackcheck.common.presentation.ApiResponseBody.SuccessBody;
 import sigma.chackcheck.common.presentation.ApiResponseGenerator;
 import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.domain.book.domain.Book;
+import sigma.chackcheck.domain.book.domain.BookApprove;
+import sigma.chackcheck.domain.book.dto.response.BookApproveDTO;
+import sigma.chackcheck.domain.book.dto.response.BookApprovePageResponse;
 import sigma.chackcheck.domain.book.dto.response.BookDTO;
 import sigma.chackcheck.domain.book.dto.response.BookPageResponse;
 import sigma.chackcheck.domain.book.service.BookService;
+import sigma.chackcheck.domain.user.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
 public class BookController {
 
     private final BookService bookService;
+    private final UserService userService;
 
     @GetMapping("/books/all")
     public ApiResponse<SuccessBody<BookPageResponse>> getMainPage(
@@ -29,7 +34,7 @@ public class BookController {
 
         Page<Book> bookList = bookService.getBookPage(page);
 
-        return getSuccessBodyApiResponse(page, bookList);
+        return getBookSuccessBodyApiResponse(page, bookList);
     }
 
     @GetMapping("/books/category")
@@ -39,7 +44,7 @@ public class BookController {
     ){
         Page<Book> bookList = bookService.getBookPageByCategoryName(categoryName, page);
 
-        return getSuccessBodyApiResponse(page, bookList);
+        return getBookSuccessBodyApiResponse(page, bookList);
     }
 
     @GetMapping("/books/all/search")
@@ -49,10 +54,20 @@ public class BookController {
     ){
         Page<Book> bookList = bookService.getBookPageBySearch(keyword, page);
 
-        return getSuccessBodyApiResponse(page, bookList);
+        return getBookSuccessBodyApiResponse(page, bookList);
     }
 
-    private ApiResponse<SuccessBody<BookPageResponse>> getSuccessBodyApiResponse(
+    @GetMapping("/books/approve")
+    public ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApprovePage(
+        @RequestParam(value = "page", defaultValue = "0") int page
+    ){
+        Page<BookApprove> bookApproveList = bookService.getBookApprovePage(page);
+
+        return getBookApproveSuccessBodyApiResponse(page, bookApproveList);
+    }
+
+
+    private ApiResponse<SuccessBody<BookPageResponse>> getBookSuccessBodyApiResponse(
         @RequestParam(value = "page", defaultValue = "0") int page,
         Page<Book> bookList) {
         PageInfo pageInfo =  PageInfo.of(page, bookList.getTotalElements(), bookList.getTotalPages());
@@ -66,5 +81,17 @@ public class BookController {
         return ApiResponseGenerator.success(bookPageResponse, HttpStatus.OK, SuccessMessage.GET);
     }
 
+    private ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApproveSuccessBodyApiResponse(
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        Page<BookApprove> bookList) {
+        PageInfo pageInfo =  PageInfo.of(page, bookList.getTotalElements(), bookList.getTotalPages());
 
+        List<BookApproveDTO> bookApproveDtoList = bookList.getContent().stream()
+            .map(bookApprove -> BookApproveDTO.of(bookApprove, userService.findById(bookApprove.getUserId())))
+            .toList();
+
+        BookApprovePageResponse bookApprovePageResponse = BookApprovePageResponse.of(pageInfo, bookApproveDtoList);
+
+        return ApiResponseGenerator.success(bookApprovePageResponse, HttpStatus.OK, SuccessMessage.GET);
+    }
 }
