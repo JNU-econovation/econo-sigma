@@ -1,4 +1,4 @@
-package sigma.chackcheck.common.pagination.service;
+package sigma.chackcheck.common.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
