@@ -1,4 +1,4 @@
-package sigma.chackcheck.common.pagination.service;
+package sigma.chackcheck.common.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +8,7 @@ import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 
 public interface Pagination<T> {
-
+    // todo: type으로 지정해놓고 이름 저따구로한거 고치기
     Page<T> getBookPage(int page);
     Page<T> getBookPageByCategoryName(String categoryName, int page);
     Page<T> getBookPageBySearch(String keyword, int page);
