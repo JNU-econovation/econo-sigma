@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
+import sigma.chackcheck.domain.book.domain.BookDetail;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +35,10 @@ public class BookService {
 
     public Page<BookApprove> getBookApprovePage(int page) {
         return getBook.getBookApprovePage(page);
+    }
+
+    public List<BookDetail> getAllBookDetailsByBookId(Long id){
+        Book book = getOneBook(id);
+        return getBook.getAllBookDetailsByBookId(book);
     }
 }

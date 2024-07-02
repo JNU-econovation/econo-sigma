@@ -11,8 +11,10 @@ import sigma.chackcheck.common.service.Pagination;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 import sigma.chackcheck.domain.book.domain.BookCategory;
+import sigma.chackcheck.domain.book.domain.BookDetail;
 import sigma.chackcheck.domain.book.repository.BookApproveRepository;
 import sigma.chackcheck.domain.book.repository.BookCategoryRepository;
+import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 import sigma.chackcheck.domain.book.repository.BookRepository;
 
 @Service
@@ -22,6 +24,7 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
     private final BookRepository bookRepository;
     private final BookCategoryRepository bookCategoryRepository;
     private final BookApproveRepository bookApproveRepository;
+    private final BookDetailRepository bookDetailRepository;
 
     @Override
     public Book getOneEntity(Long id) {
@@ -63,5 +66,9 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
     public Page<BookApprove> getBookApprovePage(int page) {
         Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
         return bookApproveRepository.findAll(pageable);
+    }
+
+    public List<BookDetail> getAllBookDetailsByBookId(Book book) {
+        return bookDetailRepository.findBookDetailsByBook(book);
     }
 }
