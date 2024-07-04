@@ -32,8 +32,10 @@ function App() {
 
 
       <Routes>
-        <Route path="/books/" element={<Main/>}/>
-        <Route path="/books?:category&page=1" element={<Main/>}/>
+        <Route path="/books/*" element={<Main/>}/>
+        <Route path="/books/all" element={<Main/>}/>
+        <Route path="/books/category/*" element={<Main/>}/>
+        <Route path="/books/search/*" element={<Main/>}/>
         <Route path="/users/login" element={<Login/>}/>
         <Route path="/admin/users" element={<RegisterMember/>}/>
         <Route path="/books/:id" element={<Book/>}></Route>

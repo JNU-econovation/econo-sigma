@@ -56,7 +56,7 @@ function SearchBar() {
     const [book, setBook] = useState([]);
     
     const getFilteredBook = async () => {
-        <Link to={`http://localhost:3000/books?keyword=${keyword}&page=1`}></Link>
+        <Link to={`http://localhost:3000/books/all/search?keyword=${keyword}&page=1`}></Link>
     };
 
     

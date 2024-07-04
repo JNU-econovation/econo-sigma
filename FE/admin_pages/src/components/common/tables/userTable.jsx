@@ -13,7 +13,8 @@ const Styledtable = styled.div`
 	}
 	
 	td {
-		height: 2.5em;
+		padding-top: 1em ;
+		padding-bottom:1em;
 		font-size: 0.9em;
 
 	}
@@ -27,7 +28,7 @@ const Styledtable = styled.div`
 	}
 
 	tbody td{
-		height: 2.7em;
+		/* height: 2.7em; */
 		font-size : 0.8em;
 
 	}
@@ -48,26 +49,26 @@ const Styledtable = styled.div`
 
 
 `;
-const infoHeaders = [
+const userInfoHeaders = [
 	{
 		text: '' ,
-		value: 'bookIndex'
+		value: 'userIndex'
 	  },
 	{
-		text: '도서 이름' ,
-		value: 'bookName'
+		text: '이름' ,
+		value: 'userName'
 	},
 	{
-	  text: '도서ID' ,
-	  value: 'bookDetailId'
+	  text: 'ID' ,
+	  value: 'userID'
 	},
 	{
-	  text: '카테고리' ,
-	  value: 'category'
+	  text: '현재 대출 중 도서' ,
+	  value: 'currentBorrowedBooks'
 	},
 	{
-	  text: '대출가능여부' ,
-	  value: 'isAvilable'
+	  text: '연체 여부' ,
+	  value: 'penaltyStatus'
 	},
 	{
 	  text: '수정' ,
@@ -82,11 +83,10 @@ const infoHeaders = [
 
 const UserTable = ({response}) => {
 	
-	console.log(response.data)
+	console.log(response.userDatas)
 
-	const bookInfos = response.data.bookInfo
-	const infoTableHeader = infoHeaders
-	const headerKey = infoTableHeader.map((header) => header.value)
+	const userInfos = response.data.userInfos
+	const userInfoTableHeader = userInfoHeaders
 	
 
 	
@@ -98,7 +98,7 @@ const UserTable = ({response}) => {
 				<tr>
 				
 					{
-					infoTableHeader.map((header) => 
+					userInfoTableHeader.map((header) => 
 						<th key = {header.text}> {header.text} </th>
 					)
 					}
@@ -106,34 +106,34 @@ const UserTable = ({response}) => {
 			</thead>
 			<tbody>
 				{
-					bookInfos.map((item, index)=> (
+					userInfos.map((item, index)=> (
 						<tr key = {index}>
 							{
-								<td key = {'bookIndex' + index}>
+								<td key = {'userIndex' + index}>
 									{index+1}
 								</td>
 							}
 							{	
-								<td key = {'bookName' + index}>
-									{item.title} 
+								<td key = {'userName' + index}>
+									{item.userName}
 								</td> 
 								
 							}
 							{	
-								<td key = {'bookId' + index}>
-									{item.bookId} 
+								<td key = {'userID' + index}>
+									{item.userId} 
 								</td> 
 								
 							}
 							{	
-								<td key = {'category' + index}>
-									{item.categories}														
-								</td> 
+								<td key = {'currentBorrowedBooks' + index}>
+									{item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }}> {book.title}</span>) }														
+				  				</td> 
 								
 							}
 							{
-								<td className= {`isAvailable ${item.isAvailable ? 'available' : 'unavailable'}`} key = {'Button' + index}>
-									{item.borrowStatus} 
+								<td key = {'penaltyStatus' + index} className= {`isAvailable ${item.penaltyStatus ? 'available' : 'unavailable'}`} >
+									{item.penaltyStatus? '대출가능':'연체'} 
 								</td>
 							}
 														{

@@ -19,7 +19,7 @@ const Logo = ({ children }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/`);
+        navigate(`/books`);
     }
 
 

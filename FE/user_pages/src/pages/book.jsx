@@ -28,7 +28,7 @@ function Book() {
 
   const getInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/books/${bookId}`); // 서버에서 데이터를 가져옴
+      const response = await fetch(`43.202.196.181:8080/books/${bookId}`); // 서버에서 데이터를 가져옴
       const json = await response.json(); // 응답을 JSON으로 변환
       setInfo(json); // 상태를 업데이트
     } catch (error) {
@@ -46,12 +46,13 @@ function Book() {
 
   return (
     <StyledPage className="book">
-      <div className='category'>
-        {/* <Category /> */}
-      </div>
       <div className='contents'>
         <div className='detail'>
-          <Detail></Detail>
+        
+        {tableLoading ?
+            <Loading /> :
+            <Detail book={info.data} ></Detail>
+          }
         </div>
         <div className="infotable">
           {tableLoading ?
