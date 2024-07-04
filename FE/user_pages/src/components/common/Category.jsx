@@ -90,7 +90,7 @@ function Category() {
           onMouseLeave={onMouseLeave}
         >
           <Index select={selected === index} />
-          <StyledLink to={`http://localhost:3000/books/category=${encodeURIComponent(category)}&page=1` } style={{ textDecoration: "none" }}>{category}</StyledLink>
+          <StyledLink to={`http://localhost:3000/books/category?categoryName=${encodeURIComponent(category)}&page=1` } style={{ textDecoration: "none" }}>{category}</StyledLink>
         </Item>
       ))}
     </Nav>
