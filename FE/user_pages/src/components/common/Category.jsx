@@ -59,7 +59,7 @@ const StyledLink = styled(Link)`
 `;
 
 
-const categories = ["전공서적", "FE", "BE", "AI", "UI/UX", "AOS/IOS", "기타"];
+const categories = ["ALL","전공서적", "FE", "BE", "AI", "UI/UX", "AOS/IOS", "기타"];
 
 function Category() {
   const [selected, setSelected] = useState(null);
@@ -90,7 +90,7 @@ function Category() {
           onMouseLeave={onMouseLeave}
         >
           <Index select={selected === index} />
-          <StyledLink to={`http://localhost:3000/books?category=${encodeURIComponent(category)}&page=1` } style={{ textDecoration: "none" }}>{category}</StyledLink>
+          <StyledLink to={`http://localhost:3000/books/category=${encodeURIComponent(category)}&page=1` } style={{ textDecoration: "none" }}>{category}</StyledLink>
         </Item>
       ))}
     </Nav>

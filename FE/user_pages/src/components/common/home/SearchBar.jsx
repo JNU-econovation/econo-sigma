@@ -1,6 +1,7 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
+
 import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
 import { useParams } from "react-router-dom";
 import {Link} from "react-router-dom";
@@ -49,13 +50,14 @@ const SearchBtn = styled(SearchButton)`
 
 
 function SearchBar() {
+
     const [keyword, setKeyword] = useState("");
     //const [filteredData, setFilteredData] = useState([]);
     const onChange = (e) => setKeyword(e.target.value);
     const [book, setBook] = useState([]);
     
     const getFilteredBook = async () => {
-        <Link to={`http://localhost:3000/books?keyword=${keyword}&page=1`}></Link>
+        <Link to={`http://localhost:3000/books/all/search?keyword=${keyword}&page=1`}></Link>
     };
 
     
@@ -83,7 +85,7 @@ function SearchBar() {
                 </Books> */}
             </div>
         </div>
-    );
+);
 };
 
 

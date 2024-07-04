@@ -13,7 +13,8 @@ const Styledtable = styled.div`
 	}
 	
 	td {
-		height: 2.5em;
+		padding-top: 1em ;
+		padding-bottom:1em;
 		font-size: 0.9em;
 
 	}
@@ -27,7 +28,7 @@ const Styledtable = styled.div`
 	}
 
 	tbody td{
-		height: 2.7em;
+		/* height: 2.7em; */
 		font-size : 0.8em;
 
 	}
@@ -87,6 +88,7 @@ const BookTable = ({response}) => {
 	const bookInfos = response.data.bookInfo
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
+	console.log(bookInfos)
 	
 
 	
@@ -127,13 +129,13 @@ const BookTable = ({response}) => {
 							}
 							{	
 								<td key = {'category' + index}>
-									{item.categories}														
-								</td> 
+									{item.categories.map((category) => <span style={{ display: 'block' }}> {category}</span>) }														
+				  				</td> 
 								
 							}
 							{
-								<td className= {`isAvailable ${item.isAvailable ? 'available' : 'unavailable'}`} key = {'Button' + index}>
-									{item.borrowStatus} 
+								<td className= {`isAvailable ${item.borrowStatus ? 'available' : 'unavailable'}`} key = {'Button' + index}>
+									{item.borrowStatus? '가능':'불가'} 
 								</td>
 							}
 														{

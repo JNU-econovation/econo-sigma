@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import Detail from "../Detail.jsx";
+import ApproveButton from "../buttons/ApproveButton.jsx";
 
 const Styledtable = styled.div`
 	min-width: 40em;
@@ -51,7 +52,7 @@ const Styledtable = styled.div`
 `;
 const bookInfoHeaders = [
     {
-        text: '',
+        text: <input type="checkbox" />,
         value: 'checkBox'
     },
     {
@@ -104,9 +105,8 @@ const BookApproveTable = ({ response }) => {
 
                             <tr key={index}>
                                 {
-                                    <td key={'bookIndex' + index}>
-                                        ㅁ 
-                                        {/* 체크박스 삽입 예정 */}  
+                                    <td key={'checkBox ' + index}>
+                                        <input type="checkbox" />
                                     </td>
                                 }
                                 {
@@ -117,6 +117,7 @@ const BookApproveTable = ({ response }) => {
                                 {
                                     <td key={'bookInfo' + index}>
                                         <Detail />
+                                        {/* props 지정하기 */}
                                     </td>
 
                                 }
@@ -129,7 +130,7 @@ const BookApproveTable = ({ response }) => {
                                 }
                                 {
                                     <td key={'apporoveButton' + index}>
-                                        버튼자리
+                                        <ApproveButton />
                                     </td>
 
                                 }

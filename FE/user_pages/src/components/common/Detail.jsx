@@ -82,20 +82,20 @@ const Content = ({img,title, writer,publisher,date,script}) => {
     );
 }
 
-function Detail (){
+function Detail (book){
+    const detailBook = book.book.book
     
-    const {book_id} = useParams();
-    const [loading, setLoading] = useState(true);
-    const [book, setBook] = useState([]);
-    const getBook = async () => {
-        const json = await (await fetch(`url?book_id=${book_id}`)).json();
-        setBook(json.data.book);
-        setLoading(false);
-    };
+    const [loading, setLoading] = useState(false);
+    // const [book, setBook] = useState([]);
+    // const getBook = async () => {
+    //     const json = await (await fetch(`url/book_id=${book_id}`)).json();
+    //     setBook(json.data.book);
+    //     setLoading(false);
+    // };
 
-    useEffect(() => {
-        getBook()
-    },[]);
+    // useEffect(() => {
+    //     getBook()
+    // },[]);
     
     
     return(
@@ -103,12 +103,12 @@ function Detail (){
             {loading ?
                 <Loading/> :
                 <Content
-                img={book.img} //추후 백엔드 변수명으로 바꾸기
-                title={book.title}
-                writer={book.author}
-                publisher={book.publisher}
-                date={book.publishYear}
-                script={book.script} //추후 백엔드 변수명으로 바꾸기
+                img={detailBook.img} //추후 백엔드 변수명으로 바꾸기
+                title={detailBook.title}
+                writer={detailBook.author}
+                publisher={detailBook.publisher}
+                date={detailBook.publishYear}
+                script={detailBook.script} //추후 백엔드 변수명으로 바꾸기
                 />}
         </Container>
     )
