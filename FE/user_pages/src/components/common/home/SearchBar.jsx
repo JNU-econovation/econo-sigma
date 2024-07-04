@@ -45,6 +45,7 @@ const SearchInput = styled.input`
 const SearchBtn = styled(SearchButton)`
     width: 2.5em;
     height: 2.5em;
+    cursor: pointer;
 `;
 
 
