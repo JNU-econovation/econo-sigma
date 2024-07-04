@@ -27,7 +27,7 @@ const Value = styled.input`
     border-radius: 0.3em;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 `;
-const AddButton = styled.button`
+const AddBtn = styled.button`
     width: 1.2em;
     height: 1.2em;
     color: #4D4ABF;
@@ -50,7 +50,7 @@ const Line = styled.hr`
 const Table = styled.table`
   width: 78%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 1.25em;
   position: relative;
   left: 10em;
   top: 15em;
@@ -64,19 +64,31 @@ const Td = styled.td`
   padding: 0.8em;
   background-color: ${({ isOdd }) => (isOdd ? '#F6F6FC' : '#ffffff')};
 `;
-const Button = styled.button`
+const RegisterBtn = styled.button`
   position: relative;
   top: 20em;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 0.625em 1.25em;
+  margin: 0.313em;
   background-color: #6a5acd;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.313em;
   cursor: pointer;
-
   &:hover {
-    background-color: #483d8b;
+    background-color: #483d8e;
+  }
+`;
+const Button = styled.button`
+  display: inline;
+  padding: 0.625em 1.25em;
+  margin: 0.313em;
+  background-color: #6a5acd;
+  color: white;
+  border: none;
+  border-radius: 0.313em;
+  cursor: pointer;
+  &:hover {
+    background-color: #483d8e;
   }
 `;
 
@@ -88,6 +100,7 @@ const RegisterMember = () => {
   const [password, setPassword] = useState('');
 
   const AddMember = (e) => {
+    e.preventDefault(); 
     setMembers([
       ...members,
       { name, group, id, password }
@@ -99,7 +112,7 @@ const RegisterMember = () => {
   };
 
   const registerMembers = () => {
-    axios.post('https://www.chackcheck.com/admin/users', { members })
+    axios.post('http://43.202.196.181:8080/admin/users', { members })
       .then(response => {
         console.log('성공', response);
       })
@@ -112,11 +125,11 @@ const RegisterMember = () => {
         <div>
             <Title>회원등록</Title>
             <form style={{position:"relative", top:"12em", right:"1em"}}>
-                <Index>이름</Index> <Value></Value>
-                <Index>기수</Index> <Value></Value>
-                <Index>ID</Index> <Value></Value>
-                <Index>비밀번호</Index> <Value></Value>
-                <AddButton onClick={AddMember}>+</AddButton>
+                <Index>이름</Index> <Value type="text" value={name} onChange={(e) => setName(e.target.value)} ></Value>
+                <Index>기수</Index> <Value type="text" value={group} onChange={(e) => setGroup(e.target.value)}></Value>
+                <Index>ID</Index> <Value type="text" value={id} onChange={(e) => setId(e.target.value)}></Value>
+                <Index>비밀번호</Index> <Value type="text" value={password} onChange={(e) => setPassword(e.target.value)}></Value>
+                <AddBtn onClick={AddMember}>+</AddBtn>
                 <Line/>
             </form>
             <Table>
@@ -148,7 +161,7 @@ const RegisterMember = () => {
                 ))}
               </tbody>
             </Table>
-            <Button onClick={registerMembers}>등록</Button>
+            <RegisterBtn onClick={registerMembers}>등록</RegisterBtn>
             
         </div>
         

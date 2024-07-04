@@ -26,7 +26,7 @@ const SearchBox = styled.div`
     border-image-slice: 1;
     background-origin: border-box;
     background-clip: content-box, border-box;
-    /* margin-bottom: 5em; */
+    margin-bottom: 5em;
 
 `;
 const SearchInput = styled.input`
@@ -44,6 +44,7 @@ const SearchInput = styled.input`
 const SearchBtn = styled(SearchButton)`
     width: 2.5em;
     height: 2.5em;
+    cursor: pointer;
 `;
 
 
