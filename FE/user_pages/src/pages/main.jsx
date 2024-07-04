@@ -70,7 +70,7 @@ const Main = () => {
                 {loading ?
                     <Loading /> :
                     <Books>
-                        {book.data.books.map((item) => (<BookList
+                        {book.data.bookInfos.map((item) => (<BookList
                             key={item.id}
                             img={item.img} // 변수명 바꿔야할 수도..
                             title={item.title}
