@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 
 import Header from './components/common/header/header.jsx';
 import Loading from './components/common/Loading.jsx'
-import MyPageCategory from './components/common/myPageCategory.jsx';
 import Title from './components/common/Title.jsx';
 import UserTable from './components/common/tables/userTable.jsx';
 
@@ -80,7 +79,6 @@ function App() {
   return (
 
     <div className="App">
-      <MyPageCategory></MyPageCategory>
       <Title title='타이틀' sub='설명입니다. 설명입니다.'></Title>
 
       {userTableLoading ?
