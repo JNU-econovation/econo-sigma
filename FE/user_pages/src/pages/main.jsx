@@ -17,6 +17,7 @@ const Books = styled.div`
     row-gap: 5em;
     margin: auto;
     margin-bottom: 3em;
+    cursor: pointer;
 `;
 
 const StyledPage = styled.div`
