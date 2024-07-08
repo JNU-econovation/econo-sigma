@@ -10,15 +10,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import sigma.chackcheck.common.dto.PageInfo;
 import sigma.chackcheck.common.presentation.ApiResponse;
+import sigma.chackcheck.common.presentation.ApiResponseBody;
 import sigma.chackcheck.common.presentation.ApiResponseBody.SuccessBody;
 import sigma.chackcheck.common.presentation.ApiResponseGenerator;
 import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 import sigma.chackcheck.domain.book.domain.BookDetail;
+import sigma.chackcheck.domain.book.dto.request.CreateBookApproveRequest;
+import sigma.chackcheck.domain.book.dto.request.CreateBookRequest;
+import sigma.chackcheck.domain.book.dto.request.CreateBookRequestDTO;
 import sigma.chackcheck.domain.book.dto.response.BookApproveDTO;
 import sigma.chackcheck.domain.book.dto.response.BookApprovePageResponse;
 import sigma.chackcheck.domain.book.dto.response.BookDTO;
@@ -109,6 +115,18 @@ public class BookController {
         BookDetailPageResponse bookDetailPageResponse = BookDetailPageResponse.of(fullBookDTO, bookDetailDTOList);
 
         return ApiResponseGenerator.success(bookDetailPageResponse, HttpStatus.OK, SuccessMessage.GET);
+    }
+
+    @PostMapping("/books")
+    public ApiResponse<SuccessBody<Void>> createBookApprove(@RequestBody CreateBookApproveRequest createBookApproveRequest){
+        bookService.createBookApprove(createBookApproveRequest);
+        return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
+    }
+
+    @PostMapping("/books/approve")
+    public ApiResponse<SuccessBody<Void>> approveBookApprove(@RequestBody CreateBookRequest createBookRequest){
+        bookService.createBook(createBookRequest);
+        return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
     }
 
     private ApiResponse<SuccessBody<BookPageResponse>> getBookSuccessBodyApiResponse(
