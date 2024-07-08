@@ -12,10 +12,12 @@ import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 import sigma.chackcheck.domain.book.domain.BookCategory;
 import sigma.chackcheck.domain.book.domain.BookDetail;
+import sigma.chackcheck.domain.book.domain.Category;
 import sigma.chackcheck.domain.book.repository.BookApproveRepository;
 import sigma.chackcheck.domain.book.repository.BookCategoryRepository;
 import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 import sigma.chackcheck.domain.book.repository.BookRepository;
+import sigma.chackcheck.domain.book.repository.CategoryRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
     private final BookCategoryRepository bookCategoryRepository;
     private final BookApproveRepository bookApproveRepository;
     private final BookDetailRepository bookDetailRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Book getOneEntity(Long id) {
@@ -35,6 +38,15 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
     @Override
     public List<Book> getAllEntities() {
         return bookRepository.findAll();
+    }
+
+    public Category getCategoryByCategoryName(String categoryName){
+        return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    public BookApprove getBookApprove(Long id){
+        return bookApproveRepository.findById(id).orElseThrow(
+            () -> new IllegalArgumentException("책이 없어용"));
     }
 
     @Override
