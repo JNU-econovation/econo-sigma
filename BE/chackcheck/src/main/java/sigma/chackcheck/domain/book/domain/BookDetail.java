@@ -4,6 +4,8 @@ import static jakarta.persistence.FetchType.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 @Entity
@@ -20,6 +22,7 @@ public class BookDetail {
     private boolean reserveStatus;
 
     @ManyToOne(fetch = LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "book_id")
     private Book book;
 }
