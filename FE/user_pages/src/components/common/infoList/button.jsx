@@ -21,54 +21,61 @@ const Button = ({ available, bookDetailId }) => {
 
     const postAvailable = () => {
 
-        setAvailable(!isAvailable)
 
         if (isAvailable) {
-            const requestBody = {
-                "status": 200,
-                "message": "도서 대출 성공",
-                "data": {
-                    "borrowInfos": [
-                        {
-                            bookDetailId,
-                            isAvailable
-                        }
-                    ]
-                }
-            };
-            console.log(requestBody)
-    
-            // axios.post('api주소', requestBody)
-            //     .then(response => {
-            //         console.log(response.data);
-            //     })
-            //     .catch(error => {
-            //         console.error(error);
-            //     });
+            if (window.confirm("도서를 대출하시겠습니까?")) {
+                const requestBody = {
+                    "status": 200,
+                    "message": "도서 대출 성공",
+                    "data": {
+                        "borrowInfos": [
+                            {
+                                bookDetailId,
+                                isAvailable
+                            }
+                        ]
+                    }
+                };
+                setAvailable(!isAvailable)
+
+        
+                // axios.post('api주소', requestBody)
+                //     .then(response => {
+                //         console.log(response.data);
+                //     })
+                //     .catch(error => {
+                //         console.error(error);
+                //     });
+            }
+
         }
         else {
-            const requestBody = {
-                "status": 200,
-                "message": "도서 반납 성공",
-                "data": {
-                    "borrowInfos": [
-                        {
-                            bookDetailId,
-                            isAvailable
-                        }
-                    ]
-                }
-            };
-            console.log(requestBody)
-    
-        //     axios.post('api주소', requestBody)
-        //         .then(response => {
-        //             console.log(response.data);
-        //         })
-        //         .catch(error => {
-        //             console.error(error);
-        //         });
-        }
+            if (window.confirm("도서를 반납하시겠습니까?")){
+                const requestBody = {
+                    "status": 200,
+                    "message": "도서 반납 성공",
+                    "data": {
+                        "borrowInfos": [
+                            {
+                                bookDetailId,
+                                isAvailable
+                            }
+                        ]
+                    }
+                };
+                setAvailable(!isAvailable)
+
+        
+            //     axios.post('api주소', requestBody)
+            //         .then(response => {
+            //             console.log(response.data);
+            //         })
+            //         .catch(error => {
+            //             console.error(error);
+            //         });
+            }
+            }
+          
     }
 
     return (

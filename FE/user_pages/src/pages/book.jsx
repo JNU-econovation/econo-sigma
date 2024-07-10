@@ -10,13 +10,24 @@ import Detail from '../components/common/Detail.jsx'
 
 
 const StyledPage = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
 
     .contents {
+      width: 80%;
       padding-top: 9em;
       margin-left: 15em;
     }
+
+    .detail{
+      margin-left: 5%;
+      width: 100%;
+    }
+
     .infotable {
       margin-top: 3em;
+  
     }
     `;
 
@@ -30,7 +41,7 @@ function Book() {
 
   const getInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/info`, {method: 'GET'}); // 서버에서 데이터를 가져옴
+      const response = await fetch(`http://localhost:3001/info`, { method: 'GET' }); // 서버에서 데이터를 가져옴
       const json = await response.json(); // 응답을 JSON으로 변환
       setInfo(json); // 상태를 업데이트
     } catch (error) {
@@ -49,8 +60,8 @@ function Book() {
     <StyledPage className="book">
       <div className='contents'>
         <div className='detail'>
-        
-        {tableLoading ?
+
+          {tableLoading ?
             <Loading /> :
             <Detail book={info.data} ></Detail>
           }

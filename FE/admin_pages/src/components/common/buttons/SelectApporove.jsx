@@ -22,17 +22,24 @@ const StyledButton = styled.button`
 const SelectApporove = ({ selectedBooks }) => {
 
     const selectApprovePost = () => {
-        const requestBody = {
-            bookApproveInfos: selectedBooks.map(id => ({ bookApproveId: id }))
-        };
+        if (selectedBooks.length === 0) {
+            alert("선택된 도서가 존재하지 않습니다.");
+        }
 
-        axios.post('api주소', requestBody)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        else if (window.confirm("승인하시겠습니까?")) {
+            const requestBody = {
+                bookApproveInfos: selectedBooks.map(id => ({ bookApproveId: id }))
+            };
+    
+            axios.post('api주소', requestBody)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        
     };
 
     return (

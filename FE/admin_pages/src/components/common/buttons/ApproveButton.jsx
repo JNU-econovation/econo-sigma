@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {React, useState} from "react";
+import { React, useState } from "react";
 import axios from 'axios';
 
 
@@ -21,18 +21,21 @@ const StyledButton = styled.button`
 const ApproveButton = (bookApporoveId) => {
 
     const approvePost = () => {
-        const requestBody = {
-            "bookApproveInfos" : [bookApporoveId]
-        };
-        console.log(requestBody)
+        if (window.confirm("승인하시겠습니까?")) {
+            const requestBody = {
+                "bookApproveInfos": [bookApporoveId]
+            };
+            console.log(requestBody)
 
-        axios.post('api주소', requestBody)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            axios.post('api주소', requestBody)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
     };
 
 

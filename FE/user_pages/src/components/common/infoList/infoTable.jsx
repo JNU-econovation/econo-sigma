@@ -9,7 +9,7 @@ const Styledtable = styled.div`
 		font-family: 'NanumSquareOTF', sans-serif;
 		padding: 0.6em 1.5em;
 		/* border: none; */
-		width: 90%;
+		width: 100%;
 		border-spacing: 0;
 		
 	}

@@ -30,8 +30,8 @@ const Header = () => {
                 <ContentsWrap>
                     <Logo />
                     <div class=''>
-                        <HeaderBtn children={'도서관리'} direction = {"join"}/>
-                        <HeaderBtn children={'로그인'} direction = {"login"}/>
+                        <HeaderBtn children={'도서등록'} direction = {"admin/books"}/>
+                        <HeaderBtn children={'로그인'} direction = {"users/login"}/>
                         <HeaderBtn children={'마이페이지'} direction = {"users/userid"}/>
                     </div>
                 </ContentsWrap>
