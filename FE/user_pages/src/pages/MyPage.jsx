@@ -6,11 +6,18 @@ import Loading from '../components/common/Loading.jsx';
 import MyPageCategory from '../components/common/MyPage/myPageCategory.jsx';
 import MyPageTitle from '../components/common/MyPage/MyPageTitle.jsx';
 import Title from '../components/common/MyPage/Title.jsx';
+import MyPageTable from '../components/common/MyPage/MyPageTable.jsx';
 
 
 const StyledPage = styled.div`
+    /* background-color: aqua; */
+
     display: flex;
     justify-content: center;
+
+    .mypageTitle{
+      margin-left: 0.2rem;
+    }
 
     .content {
       width: 70%;
@@ -22,7 +29,7 @@ const StyledPage = styled.div`
     }
 
     .myPageCategory {
-      margin-top: 3em;
+      margin-top: 2.5rem;
     }
 
     `;
@@ -62,16 +69,23 @@ function MyPage() {
   return (
     <StyledPage className="myPage">
       <div className='content'>
-        <Title title={'마이페이지'}></Title>
+        <div className='mypageTitle'>
+          <Title title={'마이페이지'}></Title>
 
-        {loading ?
-          <Loading /> :
-          <MyPageTitle userInfo={userInfo} />}
+          {loading ?
+            <Loading /> :
+            <MyPageTitle userInfo={userInfo} />}
+        </div>
+
 
         <div className='myPageCategory' >
           <MyPageCategory />
         </div>
-
+        <div>
+          {loading ?
+            <Loading /> :
+            <MyPageTable response={borrowInfo} />}
+        </div>
       </div>
 
     </StyledPage>

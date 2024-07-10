@@ -31,7 +31,13 @@ const Styledtable = styled.div`
 	tbody td{
 		height: 20em;
 		font-size : 0.8em;
+        
 	}
+
+    tbody td:nth-child(3) {
+        justify-content: flex-start;
+        margin-left: 3rem;
+    }
 
 	thead tr {
 		background-color: #F1F1F1;
@@ -39,8 +45,9 @@ const Styledtable = styled.div`
 		font-size : 0.8em;
 	}
 	
-	thead th:nth-child(1) {
-		width: 2em;
+
+    thead th:nth-child(2) {
+		width: 4%;
 	}
 
 	thead th:nth-child(5) {
@@ -79,7 +86,7 @@ const BookApproveTable = ({ response }) => {
 
     console.log(response)
 
-    const bookApproveInfos = response.data.books
+    const bookApproveInfos = response.data.bookInfos
     const bookInfoTableHeader = bookInfoHeaders
     const headerKey = bookInfoHeaders.map((header) => header.value)
     const bookApproveInfo = bookApproveInfos.map((info) => info.bookApproveInfo)
@@ -123,7 +130,7 @@ const BookApproveTable = ({ response }) => {
                                 }
                                 {
                                     <td key={'applicant' + index}>
-                                        {item.author}
+                                        {item.bookApplicant}
                                         {/* 도서 신청자로 변경 필요 */}
                                     </td>
 

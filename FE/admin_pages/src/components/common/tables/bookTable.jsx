@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components" ;
 import { useParams } from "react-router-dom";
+import DelButton from "../buttons/delbutton";
+import CorrectButton from "../buttons/CorrectButton";
 
 const Styledtable = styled.div`
 	min-width: 40em;
@@ -140,14 +142,14 @@ const BookTable = ({response}) => {
 							}
 														{
 								<td key = {'update' + index}>
-									{/* <Button isAvailable = {item.isAvailable}/> */}
+									<CorrectButton />
 								</td>
 							}
 
 							{
 								<td key = {'delButton' + index}>
-									{/* <Button isAvailable = {item.isAvailable}/> */}
-								</td>
+									<DelButton />
+									</td>
 							}
 						</tr>
 					))

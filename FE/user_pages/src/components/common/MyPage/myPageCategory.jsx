@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledMyPageCategory = styled.div`
+
     display: flex;
     font-size: 1.2em;
-    margin-left: -0.5em;
-    /* background-color: antiquewhite; */
+    margin-left: -0.3rem;
+    margin-bottom: 1rem;
+
     button {
         border: none;
         background-color: white;
@@ -20,6 +22,8 @@ const StyledMyPageCategory = styled.div`
 
     &.active {
       text-decoration: underline;
+      font-weight: 700;
+
     }
 
     &:disabled {

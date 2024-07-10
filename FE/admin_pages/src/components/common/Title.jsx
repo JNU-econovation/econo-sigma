@@ -7,6 +7,7 @@ const StyledTitle = styled.div`
     justify-content: left;
     align-items: flex-end;
     gap: 0.5em;
+    margin-left: 1.6rem;
 
 
     .title {

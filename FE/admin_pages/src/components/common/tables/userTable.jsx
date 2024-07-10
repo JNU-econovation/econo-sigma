@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components" ;
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import UpdateButton from "../buttons/CorrectButton";
+import DelButton from "../buttons/delbutton";
 
 const Styledtable = styled.div`
 	min-width: 40em;
@@ -51,111 +53,111 @@ const Styledtable = styled.div`
 `;
 const userInfoHeaders = [
 	{
-		text: '' ,
+		text: '',
 		value: 'userIndex'
-	  },
+	},
 	{
-		text: '이름' ,
+		text: '이름',
 		value: 'userName'
 	},
 	{
-	  text: 'ID' ,
-	  value: 'userID'
+		text: 'ID',
+		value: 'userID'
 	},
 	{
-	  text: '현재 대출 중 도서' ,
-	  value: 'currentBorrowedBooks'
+		text: '현재 대출 중 도서',
+		value: 'currentBorrowedBooks'
 	},
 	{
-	  text: '연체 여부' ,
-	  value: 'penaltyStatus'
+		text: '연체 여부',
+		value: 'penaltyStatus'
 	},
 	{
-	  text: '수정' ,
-	  value: 'updateButton'
+		text: '수정',
+		value: 'updateButton'
 	},
 	{
-		text: '삭제' ,
+		text: '삭제',
 		value: 'delButton'
 	}
-  ];
+];
 
 
-const UserTable = ({response}) => {
-	
+const UserTable = ({ response }) => {
+
 	console.log(response.userDatas)
 
 	const userInfos = response.data.userInfos
 	const userInfoTableHeader = userInfoHeaders
-	
 
-	
+
+
 	return (
-	
-        <Styledtable>
-			<table>
-			<thead>
-				<tr>
-				
-					{
-					userInfoTableHeader.map((header) => 
-						<th key = {header.text}> {header.text} </th>
-					)
-					}
-				</tr>
-			</thead>
-			<tbody>
-				{
-					userInfos.map((item, index)=> (
-						<tr key = {index}>
-							{
-								<td key = {'userIndex' + index}>
-									{index+1}
-								</td>
-							}
-							{	
-								<td key = {'userName' + index}>
-									{item.userName}
-								</td> 
-								
-							}
-							{	
-								<td key = {'userID' + index}>
-									{item.userId} 
-								</td> 
-								
-							}
-							{	
-								<td key = {'currentBorrowedBooks' + index}>
-									{item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }}> {book.title}</span>) }														
-				  				</td> 
-								
-							}
-							{
-								<td key = {'penaltyStatus' + index} className= {`isAvailable ${item.penaltyStatus ? 'available' : 'unavailable'}`} >
-									{item.penaltyStatus? '대출가능':'연체'} 
-								</td>
-							}
-														{
-								<td key = {'update' + index}>
-									{/* <Button isAvailable = {item.isAvailable}/> */}
-								</td>
-							}
 
-							{
-								<td key = {'delButton' + index}>
-									{/* <Button isAvailable = {item.isAvailable}/> */}
-								</td>
-							}
-						</tr>
-					))
-				}
-			
-			</tbody>
+		<Styledtable>
+			<table>
+				<thead>
+					<tr>
+
+						{
+							userInfoTableHeader.map((header) =>
+								<th key={header.text}> {header.text} </th>
+							)
+						}
+					</tr>
+				</thead>
+				<tbody>
+					{
+						userInfos.map((item, index) => (
+							<tr key={index}>
+								{
+									<td key={'userIndex' + index}>
+										{index + 1}
+									</td>
+								}
+								{
+									<td key={'userName' + index}>
+										{item.userName}
+									</td>
+
+								}
+								{
+									<td key={'userID' + index}>
+										{item.userId}
+									</td>
+
+								}
+								{
+									<td key={'currentBorrowedBooks' + index}>
+										{item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }}> {book.title}</span>)}
+									</td>
+
+								}
+								{
+									<td key={'penaltyStatus' + index} className={`isAvailable ${item.penaltyStatus ? 'available' : 'unavailable'}`} >
+										{item.penaltyStatus ? '대출가능' : '연체'}
+									</td>
+								}
+								{
+									<td key={'update' + index}>
+										<UpdateButton />								
+									</td>
+								}
+
+								{
+									<td key={'delButton' + index}>
+										<DelButton />								
+									</td>
+								}
+							</tr>
+						))
+					}
+
+				</tbody>
 			</table>
 
 		</Styledtable>
-    )
+	)
 }
 
-export default UserTable ;
+export default UserTable;

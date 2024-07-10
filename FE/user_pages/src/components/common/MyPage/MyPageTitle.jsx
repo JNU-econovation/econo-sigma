@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 
 const StyledTitle = styled.div`
-
+    margin-top: 1.5rem;
     .userInfo { 
     display: flex;  
     justify-content: left;
