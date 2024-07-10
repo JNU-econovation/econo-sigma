@@ -6,6 +6,7 @@ import { React, useState, useEffect } from 'react';
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Title from "../components/common/Title";
 import BookApproveTable from "../components/common/tables/bookApproveTable";
+import SelectApporove from "../components/common/buttons/SelectApporove";
 
 const StyledPage = styled.div`
     padding-top: 1.5em;
@@ -53,8 +54,8 @@ const BookApporovePage = () => {
     return (
         <StyledPage>
             <div className="contents">
-
                 <Title title='도서승인' sub='도서의 목록을 확인하고 관리할 수 있습니다.'></Title>
+                
                 <div className="infotable">
 
                     {bookTableLoading ?

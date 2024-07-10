@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
+import axios from 'axios';
+
 
 import InfoTable from '../components/common/infoList/infoTable.jsx'
 import Loading from '../components/common/Loading.jsx';

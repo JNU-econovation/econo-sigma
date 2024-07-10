@@ -75,7 +75,7 @@ const Script = styled.div`
 
 const Content = ({ img, title, writer, publisher, date, script }) => {
 
-
+    
     return (
         <StyledDiv >
             <Img src={img}></Img>
@@ -103,17 +103,17 @@ const Content = ({ img, title, writer, publisher, date, script }) => {
     );
 }
 
-function Detail() {
-
+function Detail( {data} ) {
+    const apporveData = data
     return (
         <Container>
             <Content
                 //key??
                 img=""
-                title="book"
-                writer="writer"
-                publisher="publisher"
-                date="date"
+                title = {apporveData.title}
+                writer = {apporveData.author}
+                publisher= {apporveData.publisher}
+                date = {apporveData.publishYear}
                 script="script"
             />
         </Container>

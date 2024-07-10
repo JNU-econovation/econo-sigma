@@ -83,7 +83,7 @@ const InfoTable = ({response}) => {
 	const member = borrowInfos.map((info) => {
 		return info.borrowInfo !== null ? info.borrowInfo.member : null
 	})
-	console.log(member)
+	console.log(borrowInfos)
 	
 	return (
 	
@@ -130,7 +130,7 @@ const InfoTable = ({response}) => {
 
 							{
 								<td key = {'Button' + index}>
-									<Button isAvailable = {item.isAvailable}/>
+									<Button isAvailable = {item.isAvailable} bookDetailId={item.bookDetailId}/>
 								</td>
 							}
 						</tr>

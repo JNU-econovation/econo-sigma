@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import Detail from "../Detail.jsx";
 import ApproveButton from "../buttons/ApproveButton.jsx";
+import SelectApporove from "../buttons/SelectApporove.jsx";
 
 const Styledtable = styled.div`
 	min-width: 40em;
@@ -34,10 +35,12 @@ const Styledtable = styled.div`
         
 	}
 
+
     tbody td:nth-child(3) {
+        padding-left: 3rem;
         justify-content: flex-start;
-        margin-left: 3rem;
     }
+
 
 	thead tr {
 		background-color: #F1F1F1;
@@ -46,8 +49,8 @@ const Styledtable = styled.div`
 	}
 	
 
-    thead th:nth-child(2) {
-		width: 4%;
+    thead th:nth-child(1), th:nth-child(2) {
+		width: 2rem;
 	}
 
 	thead th:nth-child(5) {
@@ -84,24 +87,43 @@ const bookInfoHeaders = [
 
 const BookApproveTable = ({ response }) => {
 
-    console.log(response)
-
     const bookApproveInfos = response.data.bookInfos
     const bookInfoTableHeader = bookInfoHeaders
-    const headerKey = bookInfoHeaders.map((header) => header.value)
-    const bookApproveInfo = bookApproveInfos.map((info) => info.bookApproveInfo)
-    console.log(bookApproveInfo)
+
+    // 체크 박스를 이용한 선택 구현
+    const [selectedBooks, setSelectedBooks] = useState([]);
+
+    const selectCheckBox = (bookApproveId) => {
+        setSelectedBooks(prevSelected =>
+            prevSelected.includes(bookApproveId) ? prevSelected.filter(id => id !== bookApproveId)
+                : [...prevSelected, bookApproveId]
+        );
+    };
+
+    const selectAllCheckBox = (e) => {
+        if (e.target.checked) {
+            const allBookIds = bookApproveInfos.map(book => book.bookId);
+            setSelectedBooks(allBookIds);
+        } else {
+            setSelectedBooks([]);
+        }
+    }
 
     return (
 
         <Styledtable>
+            <SelectApporove selectedBooks = {selectedBooks}/>
             <table>
                 <thead>
                     <tr>
 
                         {
                             bookInfoTableHeader.map((header) =>
-                                <th key={header.text}> {header.text} </th>
+                                <th key={header.text}>
+                                    {header.value === 'checkBox'
+                                        ? <input type="checkbox" onChange={selectAllCheckBox} />
+                                        : header.text}
+                                </th>
                             )
                         }
                     </tr>
@@ -113,7 +135,10 @@ const BookApproveTable = ({ response }) => {
                             <tr key={index}>
                                 {
                                     <td key={'checkBox ' + index}>
-                                        <input type="checkbox" />
+                                        <input type="checkbox"  
+                                        checked={selectedBooks.includes(item.bookId)} 
+                                        onChange={() => selectCheckBox(item.bookId)} 
+                                    />
                                     </td>
                                 }
                                 {
@@ -123,26 +148,24 @@ const BookApproveTable = ({ response }) => {
                                 }
                                 {
                                     <td key={'bookInfo' + index}>
-                                        <Detail />
-                                        {/* props 지정하기 */}
+                                        <Detail data={item} />
                                     </td>
 
                                 }
                                 {
                                     <td key={'applicant' + index}>
                                         {item.bookApplicant}
-                                        {/* 도서 신청자로 변경 필요 */}
                                     </td>
 
                                 }
                                 {
                                     <td key={'apporoveButton' + index}>
-                                        <ApproveButton />
+                                        <ApproveButton bookApproveId = {item.bookId} />
                                     </td>
 
                                 }
-                                
-  
+
+
                             </tr>
                         ))
                     }

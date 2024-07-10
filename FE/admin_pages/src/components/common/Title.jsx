@@ -8,6 +8,7 @@ const StyledTitle = styled.div`
     align-items: flex-end;
     gap: 0.5em;
     margin-left: 1.6rem;
+    /* margin-bottom: 2rem; */
 
 
     .title {

@@ -71,6 +71,8 @@ const Main = () => {
                     <Loading /> :
                     <Books>
                         {book.data.bookInfos.map((item) => (<BookList
+
+                            data = {item}
                             key={item.id}
                             img={item.img} // 변수명 바꿔야할 수도..
                             title={item.title}

@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import {React, useState} from "react";
+import axios from 'axios';
+
 
 
 const StyledButton = styled.button`
+    cursor: pointer;
     font-family: 'NanumSquareOTF', sans-serif;
     padding: 0.6em 1.5em;
     font-size: 0.9em;
@@ -15,14 +18,26 @@ const StyledButton = styled.button`
     `;
 
 
-const ApproveButton = () => {
-    // const [isAvailable, setAvailable] = useState({Response}.isAvailable)
+const ApproveButton = (bookApporoveId) => {
 
-    const onClick = () => {
-    }
+    const approvePost = () => {
+        const requestBody = {
+            "bookApproveInfos" : [bookApporoveId]
+        };
+        console.log(requestBody)
+
+        axios.post('api주소', requestBody)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
 
     return (
-        <StyledButton onClick={onClick}>
+        <StyledButton onClick={approvePost}>
             승인
         </StyledButton>
     )

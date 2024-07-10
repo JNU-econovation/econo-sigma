@@ -9,8 +9,10 @@ import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 const StyledPagination = styled.div`
 		width: 90%;
     margin-top: 2rem;
+    margin-bottom: 3rem;
 
     button {
+        cursor: pointer;
         border: none;
         background-color: white;
         font-size: 0.9em;
