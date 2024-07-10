@@ -17,7 +17,6 @@ const Books = styled.div`
     row-gap: 5em;
     margin: auto;
     margin-bottom: 3em;
-    cursor: pointer;
 `;
 
 const StyledPage = styled.div`
@@ -45,7 +44,7 @@ const Main = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(`http://43.202.196.181:8080${fullLocation}`, {method: 'GET'}); // 서버에서 데이터를 가져옴
+            const response = await fetch(`http://localhost:3001/books`, {method: 'GET'}); // 서버에서 데이터를 가져옴
             const json = await response.json(); // 응답을 JSON으로 변환
             setBook(json); // 상태를 업데이트
         } catch (error) {
@@ -72,6 +71,8 @@ const Main = () => {
                     <Loading /> :
                     <Books>
                         {book.data.bookInfos.map((item) => (<BookList
+
+                            data = {item}
                             key={item.id}
                             img={item.img} // 변수명 바꿔야할 수도..
                             title={item.title}

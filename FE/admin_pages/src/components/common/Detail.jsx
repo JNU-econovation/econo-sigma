@@ -3,9 +3,12 @@ import styled from "styled-components"
 import { useParams } from "react-router-dom";
 import Loading from "./Loading.jsx";
 
+
 const Container = styled.div`
-    /* display: flex; */
-    /* align-items: center; */
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* background-color: aqua; */
 `;
 
 const Img = styled.img`
@@ -49,80 +52,70 @@ const Date = styled.span`
 const Line = styled.div`
    display: inline-block;
    height: 0.063em;
-   width: 40.5em;
+   width: 100%;
    background: linear-gradient(to right,#FB8500,#4D4ABF);
     
 `;
-const Script = styled.div``;
+const StyledDiv = styled.div`
+    width: 100%;
+    display: flex;
 
-const Content = ({img,title, writer,publisher,date,script}) => {
-    return(
-        <div>
+    .details {
+        display: inline-block;
+        width : 100%
+
+    }
+
+
+
+`;
+const Script = styled.div`
+    float: left;
+`;
+
+const Content = ({ img, title, writer, publisher, date, script }) => {
+
+    
+    return (
+        <StyledDiv >
             <Img src={img}></Img>
-            <div style={{display: "inline-flex", flexDirection: "column"}}>
-                <div style={{ display: "inline-flex", alignItems: "baseline"}}>
+            <div className="details">
+                <div  style={{ display: "inline-flex", alignItems: "baseline", width: '100%'}}>
                     <Title>{title}</Title>
-                    <Writer>{writer}</Writer> 
-                    <span style={{ 
-                        fontFamily: 'NanumSquareOTF, sans-serif', fontWeight: '300',fontSize: '0.938em', 
-                        marginLeft: '0.5em', marginRight:'0.5em'
-                        }}>/</span> 
+                    <Writer>{writer}</Writer>
+                    <span style={{
+                        fontFamily: 'NanumSquareOTF, sans-serif', fontWeight: '300', fontSize: '0.938em',
+                        marginLeft: '0.5em', marginRight: '0.5em'
+                    }}>/</span>
                     <Publisher>{publisher}</Publisher>
-                    <span style={{ 
-                        fontFamily: 'NanumSquareOTF, sans-serif', fontWeight: '300',fontSize: '0.938em', 
-                        marginLeft: '0.5em', marginRight:'0.5em'}}>/</span> 
+                    <span style={{
+                        fontFamily: 'NanumSquareOTF, sans-serif', fontWeight: '300', fontSize: '0.938em',
+                        marginLeft: '0.5em', marginRight: '0.5em'
+                    }}>/</span>
                     <Date>{date}</Date>
                 </div>
-                <div style={{display:"inline-block"}}>
+                <div style={{width: '100%', float: 'left'}}>
                     <Line></Line>
                     <Script>{script}</Script>
                 </div>
             </div>
-        </div>
+        </StyledDiv>
     );
 }
 
-function Detail (){
-    /*
-    const {book_id} = useParams();
-    const [loading, setLoading] = useState(true);
-    const [book, setBook] = useState([]);
-    const getBook = async () => {
-        const json = await (await fetch(`url?book_id=${book_id}`)).json();
-        setBook(json.data.book);
-        setLoading(false);
-    };
-
-    useEffect(() => {
-        getBook()
-    },[]);
-    */
-    /*
-    return(
+function Detail( {data} ) {
+    const apporveData = data
+    return (
         <Container>
-            {loading ?
-                <Loading/> :
-                <Content
-                img={book.img} //추후 백엔드 변수명으로 바꾸기
-                title={book.title}
-                writer={book.author}
-                publisher={book.publisher}
-                date={book.publishYear}
-                script={book.script} //추후 백엔드 변수명으로 바꾸기
-                />}
-        </Container>
-    )*/
-    return(
-        <Container>
-                <Content
+            <Content
                 //key??
                 img=""
-                title="book"
-                writer="writer"
-                publisher="publisher"
-                date="date"
+                title = {apporveData.title}
+                writer = {apporveData.author}
+                publisher= {apporveData.publisher}
+                date = {apporveData.publishYear}
                 script="script"
-                />
+            />
         </Container>
     )
 

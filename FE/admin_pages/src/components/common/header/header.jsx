@@ -29,9 +29,7 @@ const Header = () => {
                 <ContentsWrap>
                     <Logo />
                     <div class=''>
-                        <HeaderBtn children={'도서관리'} direction = {"join"}/>
                         <HeaderBtn children={'로그인'} direction = {"login"}/>
-                        <HeaderBtn children={'마이페이지'} direction = {"mypage"}/>
                     </div>
                 </ContentsWrap>
             </HeaderWrapper>
