@@ -1,4 +1,4 @@
-package sigma.chackcheck.auth.dto;
+package sigma.chackcheck.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
