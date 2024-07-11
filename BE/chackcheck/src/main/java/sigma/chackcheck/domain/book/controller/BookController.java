@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sigma.chackcheck.common.dto.PageInfo;
 import sigma.chackcheck.common.presentation.ApiResponse;
@@ -41,6 +42,7 @@ import sigma.chackcheck.domain.user.service.UserService;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class BookController {
 
     private final BookService bookService;
@@ -76,7 +78,7 @@ public class BookController {
         return getBookSuccessBodyApiResponse(page, bookList);
     }
 
-    @GetMapping("/books/approve")
+    @GetMapping("/admin/books/approve")
     public ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApprovePage(
         @RequestParam(value = "page", defaultValue = "0") int page
     ){
@@ -123,7 +125,7 @@ public class BookController {
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
     }
 
-    @PostMapping("/books/approve")
+    @PostMapping("/admin/books/approve")
     public ApiResponse<SuccessBody<Void>> approveBookApprove(@RequestBody CreateBookRequest createBookRequest){
         bookService.createBook(createBookRequest);
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
