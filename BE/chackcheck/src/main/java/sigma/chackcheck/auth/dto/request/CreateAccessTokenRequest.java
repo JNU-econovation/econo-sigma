@@ -1,4 +1,4 @@
-package sigma.chackcheck.auth.dto;
+package sigma.chackcheck.auth.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

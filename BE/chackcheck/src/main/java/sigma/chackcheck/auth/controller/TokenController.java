@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import sigma.chackcheck.auth.dto.CreateAccessTokenResponse;
-import sigma.chackcheck.auth.dto.CreateAccessTokenRequest;
+import sigma.chackcheck.auth.dto.response.CreateAccessTokenResponse;
+import sigma.chackcheck.auth.dto.request.CreateAccessTokenRequest;
 import sigma.chackcheck.auth.service.TokenService;
 
 @RequiredArgsConstructor

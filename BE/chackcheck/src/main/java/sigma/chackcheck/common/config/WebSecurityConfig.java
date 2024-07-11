@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import sigma.chackcheck.auth.controller.LoginFailureHandler;
 import sigma.chackcheck.auth.controller.LoginSuccessJWTProvideHandler;
+import sigma.chackcheck.auth.repository.RefreshTokenRepository;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
 import sigma.chackcheck.domain.user.domain.Role;
 import sigma.chackcheck.domain.user.service.UserDetailService;
@@ -29,6 +30,7 @@ public class WebSecurityConfig {
     private final UserDetailService userService;
     private final ObjectMapper objectMapper;
     private final TokenProvider tokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     // 스프링 시큐리티 기능 비활성화
     // 추후 설정
@@ -88,7 +90,7 @@ public class WebSecurityConfig {
 
     @Bean
     public LoginSuccessJWTProvideHandler loginSuccessJWTProvideHandler() {
-        return new LoginSuccessJWTProvideHandler(tokenProvider, objectMapper);
+        return new LoginSuccessJWTProvideHandler(tokenProvider, refreshTokenRepository, objectMapper);
     }
 
     @Bean
