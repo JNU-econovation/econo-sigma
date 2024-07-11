@@ -1,25 +1,34 @@
 package sigma.chackcheck.common.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import sigma.chackcheck.auth.controller.LoginFailureHandler;
+import sigma.chackcheck.auth.controller.LoginSuccessJWTProvideHandler;
+import sigma.chackcheck.common.config.jwt.TokenProvider;
 import sigma.chackcheck.domain.user.domain.Role;
 import sigma.chackcheck.domain.user.service.UserDetailService;
 
 @RequiredArgsConstructor
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
 
     private final UserDetailService userService;
+    private final ObjectMapper objectMapper;
+    private final TokenProvider tokenProvider;
 
     // 스프링 시큐리티 기능 비활성화
     // 추후 설정
@@ -32,27 +41,63 @@ public class WebSecurityConfig {
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        JsonUsernamePasswordAuthenticationFilter jsonAuthFilter = jsonUsernamePasswordLoginFilter();
+        jsonAuthFilter.setAuthenticationManager(authenticationManager());
+
         http    .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
+                .addFilterAfter(jsonAuthFilter, LogoutFilter.class)
                 .authorizeHttpRequests((authorize) -> authorize
                         // 추후 다시 설정해야함
-                        .requestMatchers("/login","/","/book/**").permitAll()
+                        .requestMatchers("/login","/","/book/**","/users/**").permitAll()
                         .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                         .anyRequest().authenticated())
-
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true))
-
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
 
+    // 인증 관리자 관련 설정
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userService);
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return new ProviderManager(daoAuthenticationProvider());
+    }
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public LoginSuccessJWTProvideHandler loginSuccessJWTProvideHandler() {
+        return new LoginSuccessJWTProvideHandler(tokenProvider);
+    }
+
+    @Bean
+    public LoginFailureHandler loginFailureHandler() {
+        return new LoginFailureHandler();
+    }
+
+    @Bean
+    public JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordLoginFilter() throws Exception {
+        JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordLoginFilter =
+                new JsonUsernamePasswordAuthenticationFilter(objectMapper);
+        jsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
+        jsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessJWTProvideHandler());
+        jsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+        return jsonUsernamePasswordLoginFilter;
     }
 }
