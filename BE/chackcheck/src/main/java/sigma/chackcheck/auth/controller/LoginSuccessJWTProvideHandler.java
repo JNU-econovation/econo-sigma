@@ -11,8 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import sigma.chackcheck.auth.domain.RefreshToken;
+import sigma.chackcheck.auth.dto.response.CreateAccessTokenResponse;
 import sigma.chackcheck.auth.repository.RefreshTokenRepository;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
+import sigma.chackcheck.common.presentation.ApiResponse;
+import sigma.chackcheck.common.presentation.ApiResponseBody.SuccessBody;
 import sigma.chackcheck.common.presentation.ApiResponseGenerator;
 import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.common.util.CookieUtil;
@@ -48,14 +51,18 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         addRefreshTokenToCookie(request, response, refreshToken);
 
         // JSON 응답 생성
-        String jsonResponse = objectMapper.writeValueAsString(
-                ApiResponseGenerator.success(accessToken, HttpStatus.OK, SuccessMessage.LOGIN).getBody()
-        );
+        ApiResponse<SuccessBody<CreateAccessTokenResponse>> apiResponse = getTokenSuccessResponse(accessToken);
+        String jsonResponse = objectMapper.writeValueAsString(apiResponse.getBody());
 
         // JWT 토큰을 응답으로 반환
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
+    }
+
+    private ApiResponse<SuccessBody<CreateAccessTokenResponse>> getTokenSuccessResponse(String accessToken) {
+        CreateAccessTokenResponse tokenResponse = new CreateAccessTokenResponse(accessToken);
+        return ApiResponseGenerator.success(tokenResponse, HttpStatus.OK, SuccessMessage.LOGIN);
     }
 
     private void saveRefreshToken(Long userId, String newRefreshToken) {
