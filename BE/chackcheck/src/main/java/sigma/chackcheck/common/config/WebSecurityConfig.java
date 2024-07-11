@@ -50,11 +50,16 @@ public class WebSecurityConfig {
                 .addFilterAfter(jsonAuthFilter, LogoutFilter.class)
                 .authorizeHttpRequests((authorize) -> authorize
                         // 추후 다시 설정해야함
-                        .requestMatchers("/login","/","/book/**","/users/**").permitAll()
-                        .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
-                        .anyRequest().authenticated())
+//                        .requestMatchers("/login","/","/book/**","/users/**").permitAll()
+//                        .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
+                        .anyRequest().permitAll())
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/login")
+                        .logoutSuccessHandler(((request, response, authentication) -> {
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("{\"message\": \"로그 아웃 성공\"}");
+                            response.getWriter().flush();
+                        }))
                         .invalidateHttpSession(true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -83,7 +88,7 @@ public class WebSecurityConfig {
 
     @Bean
     public LoginSuccessJWTProvideHandler loginSuccessJWTProvideHandler() {
-        return new LoginSuccessJWTProvideHandler(tokenProvider);
+        return new LoginSuccessJWTProvideHandler(tokenProvider, objectMapper);
     }
 
     @Bean
