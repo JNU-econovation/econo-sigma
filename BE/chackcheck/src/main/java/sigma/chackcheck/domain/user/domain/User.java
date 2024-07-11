@@ -55,6 +55,8 @@ public class User implements UserDetails {
     @Override
     public String getPassword() { return password; }
 
+    public void setPassword(String password) { this.password = password; }
+
     // 계정 만료 여부 반환
     @Override
     public boolean isAccountNonExpired() {
