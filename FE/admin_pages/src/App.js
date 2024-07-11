@@ -14,6 +14,7 @@ import Category from './components/common/Category.jsx';
 import BookList from './pages/BookList.jsx';
 import UserList from './pages/UserList.jsx';
 import BookApporovePage from './pages/BookApporovePage.jsx';
+import RegisterMember from './pages/RegisterMember.jsx';
 
 function App() {
   const currentLocation = useLocation();
@@ -29,7 +30,10 @@ function App() {
       <Routes>
         <Route path="/admin/books" element={<BookList/>}/>
         <Route path="/admin/books/approve" element={<BookApporovePage/>}/>
-        <Route path="/admin/users" element={<UserList/>}/>
+        <Route path="/admin/users" element={<RegisterMember/>}/>
+        <Route path="/admin/users/register" element={<UserList/>}/>
+
+
       </Routes>
 
 

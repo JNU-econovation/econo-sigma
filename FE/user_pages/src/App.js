@@ -14,7 +14,6 @@ import Loading from './components/common/Loading.jsx';
 import Paging from './components/common/pagination.jsx';
 
 import Book from './pages/book.jsx'
-import RegisterMember from './pages/RegisterMember';
 import MyPage from './pages/MyPage.jsx';
 
 
@@ -38,7 +37,6 @@ function App() {
         <Route path="/books/category/*" element={<Main/>}/>
         <Route path="/books/search/*" element={<Main/>}/>
         <Route path="/users/login" element={<Login/>}/>
-        <Route path="/admin/users" element={<RegisterMember/>}/>
         <Route path="/books/:id" element={<Book/>}></Route>
         <Route path="/users/:id" element={<MyPage/>}></Route>
 
