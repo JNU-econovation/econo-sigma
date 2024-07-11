@@ -51,18 +51,15 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         addRefreshTokenToCookie(request, response, refreshToken);
 
         // JSON 응답 생성
-        ApiResponse<SuccessBody<CreateAccessTokenResponse>> apiResponse = getTokenSuccessResponse(accessToken);
-        String jsonResponse = objectMapper.writeValueAsString(apiResponse.getBody());
+        String jsonResponse = objectMapper.writeValueAsString(
+                ApiResponseGenerator.success(HttpStatus.OK, SuccessMessage.LOGIN).getBody()
+        );
 
         // JWT 토큰을 응답으로 반환
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.setHeader("Authorization", accessToken);
         response.getWriter().write(jsonResponse);
-    }
-
-    private ApiResponse<SuccessBody<CreateAccessTokenResponse>> getTokenSuccessResponse(String accessToken) {
-        CreateAccessTokenResponse tokenResponse = new CreateAccessTokenResponse(accessToken);
-        return ApiResponseGenerator.success(tokenResponse, HttpStatus.OK, SuccessMessage.LOGIN);
     }
 
     private void saveRefreshToken(Long userId, String newRefreshToken) {
