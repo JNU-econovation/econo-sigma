@@ -56,6 +56,7 @@ public class WebSecurityConfig {
                 .addFilterAt(jsonAuthFilter, LogoutFilter.class) // JSON 인증 필터를 LogoutFilter 위치에 추가
                 .addFilterBefore(tokenAuthenticationFilter, LogoutFilter.class) // JWT 인증 필터를 LogoutFilter 앞에 추가
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
