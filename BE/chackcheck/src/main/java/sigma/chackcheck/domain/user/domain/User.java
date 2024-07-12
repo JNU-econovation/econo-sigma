@@ -42,9 +42,7 @@ public class User implements UserDetails {
 
     @Override // 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(
-                new SimpleGrantedAuthority("USER"),
-                new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
     }
 
     // 사용자의 id를 반환(고유한 값)
