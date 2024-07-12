@@ -26,19 +26,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        log.info("TokenAuthenticationFilter is executing");
-
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         String token = getAccessToken(authorizationHeader);
-
-        log.info("Authorization Header: {}", authorizationHeader);
-        log.info("Extracted Token: {}", token);
 
         if (token != null && tokenProvider.validToken(token)) {
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            log.info("Authentication set in SecurityContext: {}", SecurityContextHolder.getContext().getAuthentication());
         }
 
         filterChain.doFilter(request, response);
