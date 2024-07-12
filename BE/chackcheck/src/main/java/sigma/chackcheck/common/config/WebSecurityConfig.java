@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import sigma.chackcheck.auth.controller.CustomLogoutHandler;
+import sigma.chackcheck.auth.controller.CustomLogoutSuccessHandler;
 import sigma.chackcheck.auth.controller.LoginFailureHandler;
 import sigma.chackcheck.auth.controller.LoginSuccessJWTProvideHandler;
 import sigma.chackcheck.auth.repository.RefreshTokenRepository;
@@ -32,6 +33,7 @@ public class WebSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final CustomLogoutHandler customLogoutHandler;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     // 스프링 시큐리티 기능 비활성화
     @Bean
@@ -58,11 +60,7 @@ public class WebSecurityConfig {
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .addLogoutHandler(customLogoutHandler)
-                        .logoutSuccessHandler((request, response, authentication) -> {
-                            response.setContentType("application/json;charset=UTF-8");
-                            response.getWriter().write("{\"message\": \"로그 아웃 성공\"}");
-                            response.getWriter().flush();
-                        })
+                        .logoutSuccessHandler(customLogoutSuccessHandler)
                         .invalidateHttpSession(true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

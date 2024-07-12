@@ -50,7 +50,6 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
 
         // SecurityContext에 인증 객체 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        log.info("Authentication set in SecurityContext: {}", SecurityContextHolder.getContext().getAuthentication());
 
         // JSON 응답 생성
         String jsonResponse = objectMapper.writeValueAsString(
