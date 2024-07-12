@@ -8,14 +8,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import sigma.chackcheck.auth.domain.RefreshToken;
-import sigma.chackcheck.auth.dto.response.CreateAccessTokenResponse;
 import sigma.chackcheck.auth.repository.RefreshTokenRepository;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
-import sigma.chackcheck.common.presentation.ApiResponse;
-import sigma.chackcheck.common.presentation.ApiResponseBody.SuccessBody;
 import sigma.chackcheck.common.presentation.ApiResponseGenerator;
 import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.common.util.CookieUtil;
@@ -50,6 +48,10 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         saveRefreshToken(user.getId(), refreshToken);
         addRefreshTokenToCookie(request, response, refreshToken);
 
+        // SecurityContext에 인증 객체 설정
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("Authentication set in SecurityContext: {}", SecurityContextHolder.getContext().getAuthentication());
+
         // JSON 응답 생성
         String jsonResponse = objectMapper.writeValueAsString(
                 ApiResponseGenerator.success(HttpStatus.OK, SuccessMessage.LOGIN).getBody()
@@ -58,7 +60,7 @@ public class LoginSuccessJWTProvideHandler extends SimpleUrlAuthenticationSucces
         // JWT 토큰을 응답으로 반환
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Authorization", accessToken);
+        response.setHeader("Authorization", "Bearer " + accessToken);
         response.getWriter().write(jsonResponse);
     }
 
