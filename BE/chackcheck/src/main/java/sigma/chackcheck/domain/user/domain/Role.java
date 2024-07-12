@@ -1,6 +1,7 @@
 package sigma.chackcheck.domain.user.domain;
 
 public enum Role {
-    USER, ADMIN
+    ROLE_USER,
+    ROLE_ADMIN
 }
 
