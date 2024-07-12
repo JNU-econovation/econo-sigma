@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import sigma.chackcheck.domain.user.domain.User;
+import sigma.chackcheck.domain.user.service.UserDetailService;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import java.util.Set;
 public class TokenProvider {
 
     private final JwtProperties jwtProperties;
+    private final UserDetailService userDetailService;
 
     public String generateToken(User user, Duration expiredAt) {
         Date now = new Date();
@@ -60,9 +62,8 @@ public class TokenProvider {
         Set<SimpleGrantedAuthority> authorities = Collections.singleton(
                 new SimpleGrantedAuthority("USER"));
 
-        return new UsernamePasswordAuthenticationToken(
-                new org.springframework.security.core.userdetails.User(
-                        claims.getSubject(), "", authorities), token, authorities);
+        User user = userDetailService.loadUserByUsername(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(user, token, authorities);
     }
 
     public Long getUserId(String token) {

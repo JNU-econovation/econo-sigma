@@ -15,11 +15,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import sigma.chackcheck.auth.controller.CustomLogoutHandler;
 import sigma.chackcheck.auth.controller.LoginFailureHandler;
 import sigma.chackcheck.auth.controller.LoginSuccessJWTProvideHandler;
 import sigma.chackcheck.auth.repository.RefreshTokenRepository;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
-import sigma.chackcheck.domain.user.domain.Role;
 import sigma.chackcheck.domain.user.service.UserDetailService;
 
 @RequiredArgsConstructor
@@ -31,9 +31,9 @@ public class WebSecurityConfig {
     private final ObjectMapper objectMapper;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final CustomLogoutHandler customLogoutHandler;
 
     // 스프링 시큐리티 기능 비활성화
-    // 추후 설정
     @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
@@ -46,22 +46,23 @@ public class WebSecurityConfig {
         JsonUsernamePasswordAuthenticationFilter jsonAuthFilter = jsonUsernamePasswordLoginFilter();
         jsonAuthFilter.setAuthenticationManager(authenticationManager());
 
+        TokenAuthenticationFilter tokenAuthenticationFilter = tokenAuthenticationFilter();
+
         http    .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .addFilterAfter(jsonAuthFilter, LogoutFilter.class)
+                .addFilterAt(jsonAuthFilter, LogoutFilter.class) // JSON 인증 필터를 LogoutFilter 위치에 추가
+                .addFilterBefore(tokenAuthenticationFilter, LogoutFilter.class) // JWT 인증 필터를 LogoutFilter 앞에 추가
                 .authorizeHttpRequests((authorize) -> authorize
-                        // 추후 다시 설정해야함
-//                        .requestMatchers("/login","/","/book/**","/users/**").permitAll()
-//                        .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                         .anyRequest().permitAll())
                 .logout((logout) -> logout
-                        .logoutSuccessUrl("/login")
-                        .logoutSuccessHandler(((request, response, authentication) -> {
+                        .logoutUrl("/logout")
+                        .addLogoutHandler(customLogoutHandler)
+                        .logoutSuccessHandler((request, response, authentication) -> {
                             response.setContentType("application/json;charset=UTF-8");
                             response.getWriter().write("{\"message\": \"로그 아웃 성공\"}");
                             response.getWriter().flush();
-                        }))
+                        })
                         .invalidateHttpSession(true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -106,5 +107,10 @@ public class WebSecurityConfig {
         jsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessJWTProvideHandler());
         jsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
         return jsonUsernamePasswordLoginFilter;
+    }
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter(tokenProvider);
     }
 }
