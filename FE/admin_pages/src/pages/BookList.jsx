@@ -9,6 +9,7 @@ import BookTable from "../components/common/tables/bookTable";
 
 
 const StyledPage = styled.div`
+/* background-color : aqua; */
     padding-top: 1.5em;
 
     .contents {
@@ -65,6 +66,7 @@ const BookList = () => {
                         <BookTable response={bookInfo} />}
 
                 </div>
+
                 {tableLoading ?
                     <Loading /> :
 
