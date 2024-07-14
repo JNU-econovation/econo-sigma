@@ -7,13 +7,10 @@ const StyledTitle = styled.div`
     justify-content: left;
     align-items: flex-end;
     gap: 0.5em;
-    margin-left: 1.6rem;
-    /* background-color: antiquewhite; */
-    /* margin-bottom: 2rem; */
 
 
     .title {
-        font-size: 1.8em;
+        font-size: 1.7em;
         font-weight: 700;
     }
     .sub {

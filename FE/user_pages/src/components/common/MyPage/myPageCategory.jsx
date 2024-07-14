@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledMyPageCategory = styled.div`
+
+    display: flex;
     font-size: 1.2em;
+    margin-left: -0.3rem;
+    margin-bottom: 1rem;
 
     button {
         border: none;
@@ -15,10 +19,12 @@ const StyledMyPageCategory = styled.div`
     &:hover {
       color:gray;
     }
-/* 
+
     &.active {
       text-decoration: underline;
-    } */
+      font-weight: 700;
+
+    }
 
     &:disabled {
       cursor: default;
@@ -31,7 +37,7 @@ const StyledMyPageCategory = styled.div`
     }
 
     span.active {
-      margin-left: 0.5em;
+      /* margin-left: 1em; */
       visibility: visible;
       color: red;
       font-weight: 600;
@@ -53,21 +59,19 @@ function MyPageCategory() {
   }
 
   const goToBook = () => {
-    navigate(`/books/users`);
+    navigate(`/users/book`);
     setSelected("book")
   }
 
 
   return (
     <StyledMyPageCategory>
-      <span className={selected === "user" ? 'active' : ''}>*</span>
       <button className={selected === "user" ? 'active' : ''}
         onClick = {goToUser}>
           
           현재 대출 중인 도서
       </button>
       ㅣ
-      <span className={selected === "book" ? 'active' : ''}>*</span>
       <button className={selected === "book" ? 'active' : ''}
         onClick = {goToBook}>
           대출 이력

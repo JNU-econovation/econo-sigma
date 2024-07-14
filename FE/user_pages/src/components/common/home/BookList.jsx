@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 
 const Book = styled.div`
@@ -30,9 +32,22 @@ const Publisher = styled.span`
     font-size: 0.938em;
     font-weight: 300;
 `;
-const BookList = ({key, img, title, author, publisher}) => {
+const BookList = ({data}) => {
+    const bookData = data
+    const navigate = useNavigate();
+
+    const key= bookData.id
+    const img= bookData.img // 변수명 바꿔야할 수도..
+    const title=bookData.title
+    const author=bookData.author
+    const publisher=bookData.publisher
+
+    const onClick =() => {
+        navigate(`/books/${bookData.id}`);
+    }
+
     return(
-        <Book key={key}>
+        <Book onClick = {onClick} key={key}>
             <Img src={img}></Img>
             <Title>{title}</Title>
             <div>

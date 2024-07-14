@@ -12,7 +12,7 @@ const StyledButton = styled.button`
     padding: 0;    `;
 
 
-const DelButton = ({ isAvailable }) => {
+const UpdateButton = ({ isAvailable }) => {
     // const [isAvailable, setAvailable] = useState({Response}.isAvailable)
 
     // const onClick = () => {
@@ -21,9 +21,9 @@ const DelButton = ({ isAvailable }) => {
 
     return (
         <StyledButton >
-            <img src="/trash.png" width="14rem" height="14rem" />
+            <img src="/update.png" width="15rem" height="15rem" />
         </StyledButton>
     )
 }
 
-export default DelButton;
+export default UpdateButton;
