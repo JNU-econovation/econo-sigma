@@ -12,6 +12,8 @@ import Main from './pages/main';
 import Login from './pages/login';
 import Loading from './components/common/Loading.jsx';
 import Paging from './components/common/pagination.jsx';
+import { AuthProvider } from './components/login/AuthProvider.jsx';
+import PrivateRoute from './components/login/PrivateRoute.jsx';
 
 import Book from './pages/book.jsx'
 import MyPage from './pages/MyPage.jsx';
