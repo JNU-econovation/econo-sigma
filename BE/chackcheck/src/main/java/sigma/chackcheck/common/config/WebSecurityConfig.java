@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .logout((logout) -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/api/users/logout")
                         .addLogoutHandler(customLogoutHandler)
                         .logoutSuccessHandler(customLogoutSuccessHandler)
                         .invalidateHttpSession(true))
