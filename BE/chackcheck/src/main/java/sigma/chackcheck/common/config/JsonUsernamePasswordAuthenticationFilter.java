@@ -20,7 +20,7 @@ import java.util.Map;
 // REST API 에서는 JSON 형식으로 요청을 처리하기 때문이 JSON 을 처리할 수 있는 필터를 구현해야 한다.
 public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/users/login";
+    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/users/login";
     private static final String HTTP_METHOD = "POST";
     private static final String CONTENT_TYPE = "application/json";
     private final ObjectMapper objectMapper;

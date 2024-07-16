@@ -1,14 +1,12 @@
 package sigma.chackcheck.domain.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import sigma.chackcheck.common.presentation.ApiResponse;
-import sigma.chackcheck.common.presentation.ApiResponseBody;
 import sigma.chackcheck.common.presentation.ApiResponseBody.SuccessBody;
 import sigma.chackcheck.common.presentation.ApiResponseGenerator;
 import sigma.chackcheck.common.presentation.SuccessMessage;
@@ -20,7 +18,7 @@ import sigma.chackcheck.domain.user.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
