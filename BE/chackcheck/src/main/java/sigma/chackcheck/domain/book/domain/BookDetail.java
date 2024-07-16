@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
