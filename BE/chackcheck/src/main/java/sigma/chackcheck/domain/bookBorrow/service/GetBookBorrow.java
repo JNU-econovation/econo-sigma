@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sigma.chackcheck.common.service.GetEntityUsecase;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.repository.BookApproveRepository;
@@ -14,6 +15,7 @@ import sigma.chackcheck.domain.bookBorrow.repository.BookBorrowRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class GetBookBorrow implements GetEntityUsecase<BookBorrow> {
 
     private final BookBorrowRepository bookBorrowRepository;
