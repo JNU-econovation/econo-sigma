@@ -51,6 +51,7 @@ public class WebSecurityConfig {
         TokenAuthenticationFilter tokenAuthenticationFilter = tokenAuthenticationFilter();
 
         http    .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterAt(jsonAuthFilter, LogoutFilter.class) // JSON 인증 필터를 LogoutFilter 위치에 추가
