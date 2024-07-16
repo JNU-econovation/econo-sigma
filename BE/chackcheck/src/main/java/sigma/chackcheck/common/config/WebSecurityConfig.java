@@ -15,6 +15,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import sigma.chackcheck.auth.controller.CustomLogoutHandler;
 import sigma.chackcheck.auth.controller.CustomLogoutSuccessHandler;
 import sigma.chackcheck.auth.controller.LoginFailureHandler;
@@ -22,6 +25,8 @@ import sigma.chackcheck.auth.controller.LoginSuccessJWTProvideHandler;
 import sigma.chackcheck.auth.repository.RefreshTokenRepository;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
 import sigma.chackcheck.domain.user.service.UserDetailService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
@@ -51,6 +56,7 @@ public class WebSecurityConfig {
         TokenAuthenticationFilter tokenAuthenticationFilter = tokenAuthenticationFilter();
 
         http    .csrf(AbstractHttpConfigurer::disable)
+                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterAt(jsonAuthFilter, LogoutFilter.class) // JSON 인증 필터를 LogoutFilter 위치에 추가
@@ -59,7 +65,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .logout((logout) -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/api/users/logout")
                         .addLogoutHandler(customLogoutHandler)
                         .logoutSuccessHandler(customLogoutSuccessHandler)
                         .invalidateHttpSession(true))
@@ -67,6 +73,20 @@ public class WebSecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
+    }
+
+    // CORS 설정
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        configuration.addExposedHeader("Authorization");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     // 인증 관리자 관련 설정

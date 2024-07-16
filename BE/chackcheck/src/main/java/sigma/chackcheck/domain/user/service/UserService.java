@@ -14,9 +14,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public User findById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    public User findById(Long Id) {
+        return userRepository.findById(Id)
+                .orElseThrow(() -> new IllegalArgumentException("not found: " + Id));
     }
 
     public Long save(AddUserRequest dto) {
