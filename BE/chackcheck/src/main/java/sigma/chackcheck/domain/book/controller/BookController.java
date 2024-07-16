@@ -79,6 +79,17 @@ public class BookController {
         return getBookSuccessBodyApiResponse(page, bookList);
     }
 
+    @GetMapping("/category/search")
+    public ApiResponse<SuccessBody<BookPageResponse>> getBooksByCategoryNameAndKeyword(
+        @RequestParam(value = "categoryName") String categoryName,
+        @RequestParam(value = "keyword") String keyword,
+        @RequestParam(value = "page", defaultValue = "0") int page
+    ){
+        Page<Book> bookList = bookService.getBookPageByCategoryNameAndKeyword(categoryName,keyword, page);
+
+        return getBookSuccessBodyApiResponse(page, bookList);
+    }
+
     @GetMapping("/{bookId}")
     public ApiResponse<SuccessBody<BookDetailPageResponse>> getBookDetails(
         @PathVariable(value = "bookId") Long bookId

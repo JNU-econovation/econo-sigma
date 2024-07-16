@@ -67,6 +67,17 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
             .map(BookCategory::getBook);
     }
 
+    public Page<Book> getBookPageByCategoryNameAndKeyword(String categoryName, String keyword, int page) {
+        Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
+
+        Page<BookCategory> bookCategoryListByCategoryNameAndKeyword =
+            bookCategoryRepository
+                .findAllByCategoryNameAndKeyword(categoryName, keyword, pageable);
+
+        return bookCategoryListByCategoryNameAndKeyword
+            .map(BookCategory::getBook);
+    }
+
     @Override
     public Page<Book> getBookPageBySearch(String keyword, int page) {
         Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);

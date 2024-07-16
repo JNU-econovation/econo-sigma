@@ -40,6 +40,10 @@ public class BookService {
         return getBook.getBookPageByCategoryName(categoryName, page);
     }
 
+    public Page<Book> getBookPageByCategoryNameAndKeyword(String categoryName, String keyword, int page){
+        return getBook.getBookPageByCategoryNameAndKeyword(categoryName, keyword, page);
+    }
+
     public Page<Book> getBookPageBySearch(String keyword, int page){
         return getBook.getBookPageBySearch(keyword, page);
     }
