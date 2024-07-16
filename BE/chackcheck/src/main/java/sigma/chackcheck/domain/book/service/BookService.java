@@ -53,8 +53,8 @@ public class BookService {
         return getBook.getAllBookDetailsByBookId(book);
     }
 
-    public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest){
-        BookApprove bookApprove = CreateBookApproveRequest.toEntity(createBookApproveRequest);
+    public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest, Long userId){
+        BookApprove bookApprove = CreateBookApproveRequest.toEntity(createBookApproveRequest, userId);
         return postBook.saveBookApprove(bookApprove);
     }
 

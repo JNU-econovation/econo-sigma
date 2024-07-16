@@ -21,9 +21,8 @@ public class CreateBookApproveRequest {
     private String categories;
     private String imageURL;
     private String information;
-    private Long userId;
 
-    public static BookApprove toEntity(CreateBookApproveRequest createBookApproveRequest){
+    public static BookApprove toEntity(CreateBookApproveRequest createBookApproveRequest, Long userId){
         return BookApprove.builder()
             .title(createBookApproveRequest.getTitle())
             .author(createBookApproveRequest.getAuthor())
@@ -32,7 +31,7 @@ public class CreateBookApproveRequest {
             .categories(createBookApproveRequest.getCategories())
             .imageURL(createBookApproveRequest.getImageURL())
             .information(createBookApproveRequest.getInformation())
-            .userId(createBookApproveRequest.getUserId())
+            .userId(userId)
             .build();
     }
 }

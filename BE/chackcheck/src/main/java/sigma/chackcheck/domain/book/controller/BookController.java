@@ -7,6 +7,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -111,8 +112,8 @@ public class BookController {
     }
 
     @PostMapping()
-    public ApiResponse<SuccessBody<Void>> createBookApprove(@RequestBody CreateBookApproveRequest createBookApproveRequest){
-        bookService.createBookApprove(createBookApproveRequest);
+    public ApiResponse<SuccessBody<Void>> createBookApprove(@AuthenticationPrincipal User loginUser, @RequestBody CreateBookApproveRequest createBookApproveRequest){
+        bookService.createBookApprove(createBookApproveRequest, loginUser.getId());
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
     }
 
