@@ -2,6 +2,7 @@ package sigma.chackcheck.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sigma.chackcheck.common.config.jwt.TokenProvider;
 import sigma.chackcheck.domain.user.domain.User;
 import sigma.chackcheck.domain.user.service.UserService;
@@ -10,6 +11,7 @@ import java.time.Duration;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class TokenService {
 
     private final TokenProvider tokenProvider;

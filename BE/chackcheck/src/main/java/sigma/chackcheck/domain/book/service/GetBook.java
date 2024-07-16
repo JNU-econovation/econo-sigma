@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.common.service.GetEntityUsecase;
 import sigma.chackcheck.common.service.Pagination;
@@ -21,6 +22,7 @@ import sigma.chackcheck.domain.book.repository.CategoryRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
 
     private final BookRepository bookRepository;
