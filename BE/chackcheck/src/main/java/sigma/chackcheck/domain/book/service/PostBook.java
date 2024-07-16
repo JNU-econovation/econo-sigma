@@ -2,6 +2,7 @@ package sigma.chackcheck.domain.book.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 import sigma.chackcheck.domain.book.domain.BookCategory;
@@ -15,6 +16,7 @@ import sigma.chackcheck.domain.book.repository.CategoryRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PostBook {
     private final BookCategoryRepository bookCategoryRepository;
     private final BookApproveRepository bookApproveRepository;

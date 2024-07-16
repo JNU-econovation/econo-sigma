@@ -40,6 +40,10 @@ public class BookService {
         return getBook.getBookPageByCategoryName(categoryName, page);
     }
 
+    public Page<Book> getBookPageByCategoryNameAndKeyword(String categoryName, String keyword, int page){
+        return getBook.getBookPageByCategoryNameAndKeyword(categoryName, keyword, page);
+    }
+
     public Page<Book> getBookPageBySearch(String keyword, int page){
         return getBook.getBookPageBySearch(keyword, page);
     }
@@ -53,8 +57,8 @@ public class BookService {
         return getBook.getAllBookDetailsByBookId(book);
     }
 
-    public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest){
-        BookApprove bookApprove = CreateBookApproveRequest.toEntity(createBookApproveRequest);
+    public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest, Long userId){
+        BookApprove bookApprove = CreateBookApproveRequest.toEntity(createBookApproveRequest, userId);
         return postBook.saveBookApprove(bookApprove);
     }
 
