@@ -15,6 +15,7 @@ import sigma.chackcheck.domain.user.dto.request.AddUserRequest;
 import sigma.chackcheck.domain.user.dto.request.UpdatePasswordRequest;
 import sigma.chackcheck.domain.user.dto.response.BookRentInfosResponse;
 import sigma.chackcheck.domain.user.dto.response.UserResponse;
+import sigma.chackcheck.domain.user.service.UserBorrowHistoryService;
 import sigma.chackcheck.domain.user.service.UserService;
 
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserBorrowHistoryService userBorrowHistoryService;
 
     // 회원조회
     @GetMapping("/users")
@@ -49,8 +51,9 @@ public class UserController {
     }
 
     @GetMapping("/users/books")
-    public ApiResponse<SuccessBody<BookRentInfosResponse>> getBorrowHistory(@AuthenticationPrincipal User user) {
-        BookRentInfosResponse borrowHistory = userService.getBorrowHistory(user.getId());
+    public ApiResponse<SuccessBody<BookRentInfosResponse>> getBorrowHistory(@AuthenticationPrincipal User user,
+                                                                            @RequestParam(value = "page", defaultValue = "0") int page) {
+        BookRentInfosResponse borrowHistory = userBorrowHistoryService.getBorrowHistory(user.getId(), page);
         return ApiResponseGenerator.success(borrowHistory, HttpStatus.OK, SuccessMessage.GET);
     }
 }

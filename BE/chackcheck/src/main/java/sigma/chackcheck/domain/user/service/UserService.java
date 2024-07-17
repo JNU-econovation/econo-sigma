@@ -26,8 +26,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final BookBorrowRepository bookBorrowRepository;
-    private final BookDetailRepository bookDetailRepository;
 
     public User findById(Long Id) {
         return userRepository.findById(Id)
@@ -47,17 +45,5 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
-    }
-
-    public BookRentInfosResponse getBorrowHistory(Long userId) {
-        List<BookBorrow> borrowHistory = bookBorrowRepository.findByUserId(userId);
-        List<BookRentInfoResponse> bookRentInfos = borrowHistory.stream()
-                .map(borrow -> {
-                    BookDetail bookDetail = bookDetailRepository.findById(borrow.getBookDetailId())
-                            .orElseThrow(() -> new IllegalArgumentException("Invalid book detail ID"));
-                    return BookRentInfoResponse.from(borrow, bookDetail.getTitle());
-                })
-                .collect(Collectors.toList());
-        return new BookRentInfosResponse(bookRentInfos);
     }
 }
