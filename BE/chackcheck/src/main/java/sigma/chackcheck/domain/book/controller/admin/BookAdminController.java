@@ -30,7 +30,7 @@ public class BookAdminController {
     private final BookService bookService;
     private final UserService userService;
 
-    @GetMapping("/admin/books/approve")
+    @GetMapping("/books/approve")
     public ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApprovePage(
         @RequestParam(value = "page", defaultValue = "0") int page
     ){
@@ -39,7 +39,7 @@ public class BookAdminController {
         return getBookApproveSuccessBodyApiResponse(page, bookApproveList);
     }
 
-    @PostMapping("/admin/books/approve")
+    @PostMapping("/books/approve")
     public ApiResponse<SuccessBody<Void>> approveBookApprove(@RequestBody CreateBookRequest createBookRequest){
         bookService.createBook(createBookRequest);
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);

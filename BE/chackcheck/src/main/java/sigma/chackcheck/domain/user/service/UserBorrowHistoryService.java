@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.domain.bookBorrow.domain.BookBorrow;
 import sigma.chackcheck.domain.bookBorrow.repository.BookBorrowRepository;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserBorrowHistoryService {
 
     private final BookBorrowRepository bookBorrowRepository;
