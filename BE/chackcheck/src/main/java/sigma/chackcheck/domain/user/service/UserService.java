@@ -4,9 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sigma.chackcheck.domain.book.domain.BookDetail;
+import sigma.chackcheck.domain.book.repository.BookDetailRepository;
+import sigma.chackcheck.domain.bookBorrow.domain.BookBorrow;
+import sigma.chackcheck.domain.bookBorrow.repository.BookBorrowRepository;
 import sigma.chackcheck.domain.user.domain.User;
 import sigma.chackcheck.domain.user.dto.request.AddUserRequest;
+import sigma.chackcheck.domain.user.dto.response.BookRentInfoResponse;
+import sigma.chackcheck.domain.user.dto.response.BookRentInfosResponse;
 import sigma.chackcheck.domain.user.repository.UserRepository;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
