@@ -12,4 +12,7 @@ public interface BookBorrowRepository extends JpaRepository<BookBorrow, Long> {
 
     @Query("SELECT bb FROM BookBorrow bb WHERE bb.bookDetailId = :id AND bb.userId = :userId AND bb.returnDate IS NULL")
     Optional<BookBorrow> findCurrentlyBorrowedBookListByBookDetailIdAndUserId(Long userId, Long id);
+
+    @Query("SELECT bb FROM BookBorrow bb WHERE bb.userId = :userId")
+    List<BookBorrow> findByUserId(Long userId);
 }

@@ -13,8 +13,12 @@ import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.domain.user.domain.User;
 import sigma.chackcheck.domain.user.dto.request.AddUserRequest;
 import sigma.chackcheck.domain.user.dto.request.UpdatePasswordRequest;
+import sigma.chackcheck.domain.user.dto.response.BookRentInfosResponse;
 import sigma.chackcheck.domain.user.dto.response.UserResponse;
 import sigma.chackcheck.domain.user.service.UserService;
+
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +46,11 @@ public class UserController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userService.updatePassword(userDetails.getUsername(), request.getNewPassword());
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.UPDATE);
+    }
+
+    @GetMapping("/users/books")
+    public ApiResponse<SuccessBody<BookRentInfosResponse>> getBorrowHistory(@AuthenticationPrincipal User user) {
+        BookRentInfosResponse borrowHistory = userService.getBorrowHistory(user.getId());
+        return ApiResponseGenerator.success(borrowHistory, HttpStatus.OK, SuccessMessage.GET);
     }
 }
