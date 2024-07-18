@@ -110,8 +110,7 @@ public class BookController {
                 User user = userService.findById(bookBorrow.getUserId());
                 // TODO: dueDate 만드는 로직 추가
                 // TODO: db에 반납해야하는 기간 추가
-                LocalDate dueDate = bookBorrow.getBorrowDate().plusDays(15);
-                bookBorrowDTO = BookBorrowDTO.of(bookBorrow, user.getName(), dueDate);
+                bookBorrowDTO = BookBorrowDTO.of(bookBorrow, user.getName());
             }
             BookDetailDTO bookDetailDTO = BookDetailDTO.of(bookDetail, bookBorrowDTO);
             bookDetailDTOList.add(bookDetailDTO);

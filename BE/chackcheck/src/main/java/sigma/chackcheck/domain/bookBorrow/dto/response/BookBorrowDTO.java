@@ -18,11 +18,11 @@ public class BookBorrowDTO {
     private String member;
     private LocalDate dueDate;
 
-    public static BookBorrowDTO of (BookBorrow bookBorrow, String member, LocalDate dueDate){
+    public static BookBorrowDTO of (BookBorrow bookBorrow, String member){
         return BookBorrowDTO.builder()
             .bookBorrowId(bookBorrow.getId())
             .member(member)
-            .dueDate(dueDate)
+            .dueDate(bookBorrow.getDueDate())
             .build();
     }
 }
