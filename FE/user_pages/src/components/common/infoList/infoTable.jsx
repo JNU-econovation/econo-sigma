@@ -74,7 +74,7 @@ const infoHeaders = [
 
 const InfoTable = ({response}) => {
 	
-
+	console.log(response)
 	const borrowInfos = response.data.borrowInfos
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
@@ -83,7 +83,7 @@ const InfoTable = ({response}) => {
 	const member = borrowInfos.map((info) => {
 		return info.borrowInfo !== null ? info.borrowInfo.member : null
 	})
-	console.log(borrowInfos)
+	// console.log(borrowInfos)
 	
 	return (
 	
@@ -123,14 +123,14 @@ const InfoTable = ({response}) => {
 							}
 
 							{
-								<td className= {`isAvailable ${item.isAvailable ? 'available' : 'unavailable'}`} key = {'Button' + index}>
-									{item.isAvailable ? '가능' : '불가'}
+								<td className= {`isAvailable ${item.available ? 'available' : 'unavailable'}`} key = {'isAvailable' + index}>
+									{item.available ? '가능' : '불가'}
 								</td>
 							}
 
 							{
 								<td key = {'Button' + index}>
-									<Button isAvailable = {item.isAvailable} bookDetailId={item.bookDetailId}/>
+									<Button available = {item.available} bookDetailId={item.bookDetailId}/>
 								</td>
 							}
 						</tr>

@@ -83,7 +83,9 @@ const Content = ({img,title, writer,publisher,date,script}) => {
 }
 
 function Detail (book){
-    const detailBook = book.book.book
+    const detailBook = book.book.bookInfo
+    console.log(detailBook)
+
     
     const [loading, setLoading] = useState(false);
     // const [book, setBook] = useState([]);
@@ -103,7 +105,7 @@ function Detail (book){
             {loading ?
                 <Loading/> :
                 <Content
-                img={detailBook.img} //추후 백엔드 변수명으로 바꾸기
+                // img={detailBook.img} //추후 백엔드 변수명으로 바꾸기
                 title={detailBook.title}
                 writer={detailBook.author}
                 publisher={detailBook.publisher}
