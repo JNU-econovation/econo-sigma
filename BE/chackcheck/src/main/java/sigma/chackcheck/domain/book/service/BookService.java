@@ -16,6 +16,7 @@ import sigma.chackcheck.domain.book.domain.Category;
 import sigma.chackcheck.domain.book.dto.request.CreateBookApproveRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequestDTO;
+import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +24,14 @@ public class BookService {
     private final GetBook getBook;
     private final PostBook postBook;
     private final CategoryParser categoryParser;
+    private final BookDetailRepository bookDetailRepository;
 
     public Book getOneBook(Long id) {
         return getBook.getOneEntity(id);
+    }
+
+    public BookDetail getOneBookDetail(Long id){
+        return getBook.getOneBookDetailById(id);
     }
 
     public List<Book> getAllBooks() {
@@ -97,4 +103,9 @@ public class BookService {
             })
             .forEach(postBook::saveBookDetail);
     }
+
+    @Transactional
+    public void softDeleteBookDetail(Long bookDetailId){
+        bookDetailRepository.deleteById(bookDetailId);
     }
+}
