@@ -13,6 +13,7 @@ import sigma.chackcheck.common.presentation.SuccessMessage;
 import sigma.chackcheck.domain.user.domain.User;
 import sigma.chackcheck.domain.user.dto.request.AddUserRequest;
 import sigma.chackcheck.domain.user.dto.request.UpdatePasswordRequest;
+import sigma.chackcheck.domain.user.dto.response.BookRentInfoResponse;
 import sigma.chackcheck.domain.user.dto.response.BookRentInfosResponse;
 import sigma.chackcheck.domain.user.dto.response.UserResponse;
 import sigma.chackcheck.domain.user.service.UserBorrowHistoryService;
@@ -50,10 +51,16 @@ public class UserController {
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.UPDATE);
     }
 
-    @GetMapping("/users/books")
+    @GetMapping("/users/books/all")
     public ApiResponse<SuccessBody<BookRentInfosResponse>> getBorrowHistory(@AuthenticationPrincipal User user,
                                                                             @RequestParam(value = "page", defaultValue = "0") int page) {
         BookRentInfosResponse borrowHistory = userBorrowHistoryService.getBorrowHistory(user.getId(), page);
+        return ApiResponseGenerator.success(borrowHistory, HttpStatus.OK, SuccessMessage.GET);
+    }
+
+    @GetMapping("/users/books/now")
+    public ApiResponse<SuccessBody<List<BookRentInfoResponse>>> getCurrentBorrowHistory(@AuthenticationPrincipal User user) {
+        List<BookRentInfoResponse> borrowHistory = userBorrowHistoryService.getCurrentBorrowHistory(user.getId());
         return ApiResponseGenerator.success(borrowHistory, HttpStatus.OK, SuccessMessage.GET);
     }
 }

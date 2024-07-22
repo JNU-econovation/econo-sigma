@@ -2,6 +2,8 @@ package sigma.chackcheck.domain.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import sigma.chackcheck.domain.book.domain.BookDetail;
+import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 import sigma.chackcheck.domain.bookBorrow.domain.BookBorrow;
 
 import java.time.LocalDate;
@@ -23,5 +25,13 @@ public class BookRentInfoResponse {
                 borrow.getBorrowDate(),
                 borrow.getReturnDate()
         );
+    }
+
+    public BookRentInfoResponse(BookBorrow borrow, BookDetail bookDetail) {
+        this.bookRentId = borrow.getId();
+        this.bookDetailId = borrow.getBookDetailId();
+        this.title = bookDetail.getTitle();
+        this.borrowDate = borrow.getBorrowDate();
+        this.returnDate = borrow.getReturnDate();
     }
 }
