@@ -31,8 +31,7 @@ public class User implements UserDetails {
     private String name;
     // 기수
     @Column(nullable = false)
-    @Builder.Default
-    private Integer grade = 0;
+    private Integer grade;
     // 대출 유무
     @Builder.Default
     private Boolean isBorrow = false;
