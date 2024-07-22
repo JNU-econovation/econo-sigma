@@ -25,7 +25,8 @@ public class BookDetail {
     private String title;
     private boolean borrowStatus;
     private boolean reserveStatus;
-    private boolean deleted;
+    @Builder.Default
+    private boolean deleted = false;
 
     @ManyToOne(fetch = LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
