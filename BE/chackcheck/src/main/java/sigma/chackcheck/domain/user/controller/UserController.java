@@ -37,7 +37,7 @@ public class UserController {
         return ApiResponseGenerator.success(userResponse, HttpStatus.OK, SuccessMessage.GET);
     }
 
-    // 회원가입 (임시)
+    // 회원가입
     @PostMapping("/users")
     public ApiResponse<SuccessBody<Void>> signup(@RequestBody AddUserRequest request) {
         userService.save(request);
