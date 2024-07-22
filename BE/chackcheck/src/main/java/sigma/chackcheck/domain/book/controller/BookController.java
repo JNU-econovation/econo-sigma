@@ -59,22 +59,22 @@ public class BookController {
         return getBookSuccessBodyApiResponse(page, bookList);
     }
 
-    @GetMapping("/category")
-    public ApiResponse<SuccessBody<BookPageResponse>> getBooksByCategoryName(
-        @RequestParam(value = "categoryName") String categoryName,
-        @RequestParam(value = "page", defaultValue = "0") int page
-    ){
-        Page<Book> bookList = bookService.getBookPageByCategoryName(categoryName, page);
-
-        return getBookSuccessBodyApiResponse(page, bookList);
-    }
-
     @GetMapping("/all/search")
     public ApiResponse<SuccessBody<BookPageResponse>> getBooksBySearch(
         @RequestParam(value = "keyword") String keyword,
         @RequestParam(value = "page", defaultValue = "0") int page
     ){
         Page<Book> bookList = bookService.getBookPageBySearch(keyword, page);
+
+        return getBookSuccessBodyApiResponse(page, bookList);
+    }
+
+    @GetMapping("/category")
+    public ApiResponse<SuccessBody<BookPageResponse>> getBooksByCategoryName(
+        @RequestParam(value = "categoryName") String categoryName,
+        @RequestParam(value = "page", defaultValue = "0") int page
+    ){
+        Page<Book> bookList = bookService.getBookPageByCategoryName(categoryName, page);
 
         return getBookSuccessBodyApiResponse(page, bookList);
     }
