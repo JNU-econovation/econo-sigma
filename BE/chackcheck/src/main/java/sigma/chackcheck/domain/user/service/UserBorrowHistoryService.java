@@ -16,6 +16,7 @@ import sigma.chackcheck.domain.user.dto.response.BookRentInfosResponse;
 import sigma.chackcheck.common.dto.PageInfo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,7 @@ public class UserBorrowHistoryService {
     private final BookBorrowRepository bookBorrowRepository;
     private final BookDetailRepository bookDetailRepository;
 
+    // 도서 대출 조회 (전체)
     public BookRentInfosResponse getBorrowHistory(Long userId, int page) {
         Pageable pageable = createDefaultPageRequest(page, PagePolicy.DEFAULT_PAGE);
         Page<BookBorrow> borrowHistoryPage = bookBorrowRepository.findByUserId(userId, pageable);
@@ -47,5 +49,19 @@ public class UserBorrowHistoryService {
                     return BookRentInfoResponse.from(borrow, bookDetail.getTitle());
                 })
                 .collect(Collectors.toList());
+    }
+
+    // 도서 대출 조회 (현재)
+    public List<BookRentInfoResponse> getCurrentBorrowHistory(Long userId) {
+        List<BookBorrow> currentBorrowList = bookBorrowRepository.findCurrentlyBorrowedBookListByUserId(userId);
+        return currentBorrowList.stream()
+                .map(this::toBookRentInfoResponse)
+                .collect(Collectors.toList());
+    }
+
+    private BookRentInfoResponse toBookRentInfoResponse(BookBorrow borrow) {
+        BookDetail bookDetail = bookDetailRepository.findById(borrow.getBookDetailId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book detail ID"));
+        return new BookRentInfoResponse(borrow, bookDetail);
     }
 }
