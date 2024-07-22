@@ -96,14 +96,14 @@ const RegisterBtn = styled.button`
   /* top: 20em; */
   padding: 0.625em 1.25em;
   /* margin: 0.313em; */
-  background-color: #6a5acd;
+  background-color: #4D4ABF;
   color: white;
   border: none;
   border-radius: 0.313em;
   cursor: pointer;
 
   &:hover {
-    background-color: #483d8e;
+    background-color: #423fa8;
   }
 `;
 

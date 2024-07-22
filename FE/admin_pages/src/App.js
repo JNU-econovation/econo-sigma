@@ -15,6 +15,8 @@ import BookList from './pages/BookList.jsx';
 import UserList from './pages/UserList.jsx';
 import BookApporovePage from './pages/BookApporovePage.jsx';
 import RegisterMember from './pages/RegisterMember.jsx';
+import Form from './components/common/Form.jsx';
+
 
 function App() {
   const currentLocation = useLocation();
@@ -27,13 +29,14 @@ function App() {
       {currentLocation.pathname !== '/users/login' && <Header />}
       {currentLocation.pathname.startsWith('/') && <Category />}
 
+
       <Routes>
-        <Route path="/admin/books" element={<BookList/>}/>
+        <Route path="/admin/books" element={<BookList/>}/> 
         <Route path="/admin/books/approve" element={<BookApporovePage/>}/>
         <Route path="/admin/users" element={<RegisterMember/>}/>
         <Route path="/admin/users/register" element={<UserList/>}/>
-
-
+        <Route path="/books" element={<Form/>}/>
+        
       </Routes>
 
 
