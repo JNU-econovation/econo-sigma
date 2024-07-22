@@ -36,6 +36,8 @@ public class UserService {
         return userRepository.save(User.builder()
                 .loginId(dto.getLoginId())
                 .password(passwordEncoder.encode(dto.getPassword()))
+                .name(dto.getName())
+                .grade(dto.getGrade())
                 .build()).getId();
     }
 
