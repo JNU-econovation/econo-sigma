@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 
 @Entity
@@ -16,8 +15,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-@SQLDelete(sql = "UPDATE book_detail SET deleted = true WHERE book_detail_id = ?")
-@Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE book_detail SET deleted = true WHERE id = ?")
 public class BookDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
