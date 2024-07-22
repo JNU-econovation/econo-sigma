@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components" ;
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 const Styledtable = styled.div`
@@ -9,13 +9,17 @@ const Styledtable = styled.div`
 		/* padding: 0.6em 1.5em; */
 		width: 100%;
 		border-spacing: 0;
+
 		
 	}
-	
+	td, th {
+    text-align: center; /* Center-align text in table cells */
+  }
 	td {
 		padding-top: 1em ;
 		padding-bottom:1em;
 		font-size: 0.9em;
+		float: center;
 
 	}
 
@@ -51,93 +55,93 @@ const Styledtable = styled.div`
 `;
 const headers = [
 	{
-		text: '' ,
+		text: '',
 		value: 'borrowIndex'
-	  },
-	{
-	  text: '도서 ID' ,
-	  value: 'bookId'
 	},
 	{
-	  text: '도서 이름' ,
-	  value: 'bookName'
+		text: '도서 ID',
+		value: 'bookId'
 	},
 	{
-	  text: '대출일' ,
-	  value: 'borrowDate'
+		text: '도서 이름',
+		value: 'bookName'
 	},
 	{
-	  text: '반납일' ,
-	  value: 'returnDate'
+		text: '대출일',
+		value: 'borrowDate'
+	},
+	{
+		text: '반납일',
+		value: 'returnDate'
 	}
-	
-  ];
+
+];
 
 
-const MyPageTable = ({response}) => {
-	
+const MyPageTable = ({ response }) => {
+
 
 	const userInfos = response.data.bookRentInfo
 	console.log(userInfos)
 	const tableHeaders = headers
-	
 
-	
+
+
 	return (
-	
-        <Styledtable>
+
+		<Styledtable>
 			<table>
-			<thead>
-				<tr>
-				
+				<thead>
+					<tr>
+
+						{
+							tableHeaders.map((header) =>
+								<th key={header.text}> {header.text} </th>
+							)
+						}
+					</tr>
+				</thead>
+				<tbody>
 					{
-					tableHeaders.map((header) => 
-						<th key = {header.text}> {header.text} </th>
-					)
+						userInfos.map((item, index) => (
+							<tr key={index}>
+								{
+									<td key={'borrowIndex' + index}>
+										{index + 1}
+									</td>
+								}
+								{
+									<td key={'bookId' + index}>
+										{item.bookDetailID}
+									</td>
+
+								}
+								{
+									<td key={'bookName' + index}>
+										{item.title}
+									</td>
+
+								}
+								{
+									<td key={'borrowDate' + index}>
+										{item.borrowDate}
+									</td>
+
+								}
+								{
+									<td key={'returnDate' + index} className={`isAvailable ${item.penaltyStatus ? 'available' : 'unavailable'}`} >
+										{item.returnDate}
+									</td>
+								}
+							</tr>
+						))
 					}
-				</tr>
-			</thead>
-			<tbody>
-				{
-					userInfos.map((item, index)=> (
-						<tr key = {index}>
-							{
-								<td key = {'borrowIndex' + index}>
-									{index+1}
-								</td>
-							}
-							{	
-								<td key = {'bookId' + index}>
-									{item.bookDetailID}
-								</td> 
-								
-							}
-							{	
-								<td key = {'bookName' + index}>
-									{item.title} 
-								</td> 
-								
-							}
-							{	
-								<td key = {'borrowDate' + index}>
-									{item.borrowDate} 
-				  				</td> 
-								
-							}
-							{
-								<td key = {'returnDate' + index} className= {`isAvailable ${item.penaltyStatus ? 'available' : 'unavailable'}`} >
-									{item.returnDate} 
-								</td>
-							}
-						</tr>
-					))
-				}
-			
-			</tbody>
+
+				</tbody>
 			</table>
 
 		</Styledtable>
-    )
+	)
 }
 
-export default MyPageTable ;
+export default MyPageTable;

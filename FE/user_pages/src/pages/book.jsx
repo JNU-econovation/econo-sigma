@@ -41,7 +41,7 @@ function Book() {
 
   const getInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/info`, { method: 'GET' }); // 서버에서 데이터를 가져옴
+      const response = await fetch(`http://43.202.196.181:8080/api/books/${bookId.id}`, { method: 'GET' }); // 서버에서 데이터를 가져옴
       const json = await response.json(); // 응답을 JSON으로 변환
       setInfo(json); // 상태를 업데이트
     } catch (error) {
@@ -55,7 +55,7 @@ function Book() {
     getInfo()
   }, []);
 
-
+  console.log(info)
   return (
     <StyledPage className="book">
       <div className='contents'>

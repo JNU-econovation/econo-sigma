@@ -1,97 +1,89 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
-import { styled } from 'styled-components';
-
+import styled from 'styled-components';
 import Loading from '../components/common/Loading.jsx';
 import MyPageCategory from '../components/common/MyPage/myPageCategory.jsx';
 import MyPageTitle from '../components/common/MyPage/MyPageTitle.jsx';
 import Title from '../components/common/MyPage/Title.jsx';
 import MyPageTable from '../components/common/MyPage/MyPageTable.jsx';
-
+import { AuthContext } from '../components/login/AuthProvider';
 
 const StyledPage = styled.div`
-    /* background-color: aqua; */
+  display: flex;
+  justify-content: center;
 
-    display: flex;
-    justify-content: center;
+  .mypageTitle{
+    margin-left: 0.2rem;
+  }
 
-    .mypageTitle{
-      margin-left: 0.2rem;
-    }
+  .content {
+    width: 70%;
+    justify-content: left;
+    padding-top: 9em;
+  }
 
-    .content {
-      width: 70%;
-      justify-content: left;
-      
-      padding-top: 9em;
-      
-      /* margin-left: 15em; */
-    }
-
-    .myPageCategory {
-      margin-top: 2.5rem;
-    }
-
-    `;
+  .myPageCategory {
+    margin-top: 2.5rem;
+  }
+`;
 
 function MyPage() {
-
   const bookId = useParams();
-
+  const { accessToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
   const [borrowInfo, setBorrowInfo] = useState([]);
 
-
   const getInfo = async () => {
     try {
-      const getUserInfo = await fetch(`http://localhost:3001/개별회원정보`, { method: 'GET' }); // 서버에서 데이터를 가져옴
-      const userInfoReturn = await getUserInfo.json(); // 응답을 JSON으로 변환
-      setUserInfo(userInfoReturn); // 상태를 업데이트
+      const getUserInfo = await fetch(`http://localhost:3001/개별회원정보`, {
+        method: 'GET',
+        // headers: {
+        //   'Authorization': `Bearer ${accessToken}`,
+        //   'Content-Type': 'application/json',
+        // },
+      });
+      const userInfoReturn = await getUserInfo.json();
+      setUserInfo(userInfoReturn);
 
-      const getBorrowInfo = await fetch(`http://localhost:3001/대출이력`, { method: 'GET' }); // 서버에서 데이터를 가져옴
-      const borrowInfoReturn = await getBorrowInfo.json(); // 응답을 JSON으로 변환
-      setBorrowInfo(borrowInfoReturn); // 상태를 업데이트
-
+      const getBorrowInfo = await fetch(`http://localhost:3001/대출이력`, {
+        method: 'GET',
+        // headers: {
+        //   'Authorization': `Bearer ${accessToken}`,
+        //   'Content-Type': 'application/json',
+        // },
+      });
+      const borrowInfoReturn = await getBorrowInfo.json();
+      setBorrowInfo(borrowInfoReturn);
     } catch (error) {
-      console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
+      console.error('Fetching books failed:', error);
     } finally {
-      setLoading(false); // 로딩 상태를 false로 설정
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    getInfo()
+    getInfo();
   }, []);
 
-  console.log(userInfo, borrowInfo)
+  console.log(userInfo, borrowInfo);
 
   return (
     <StyledPage className="myPage">
       <div className='content'>
         <div className='mypageTitle'>
           <Title title={'마이페이지'}></Title>
-
-          {loading ?
-            <Loading /> :
-            <MyPageTitle userInfo={userInfo} />}
+          {loading ? <Loading /> : <MyPageTitle userInfo={userInfo} />}
         </div>
-
-
-        <div className='myPageCategory' >
+        <div className='myPageCategory'>
           <MyPageCategory />
         </div>
         <div>
-          {loading ?
-            <Loading /> :
-            <MyPageTable response={borrowInfo} />}
+          {loading ? <Loading /> : <MyPageTable response={borrowInfo} />}
         </div>
       </div>
-
     </StyledPage>
   );
 }
-
-
 
 export default MyPage;
