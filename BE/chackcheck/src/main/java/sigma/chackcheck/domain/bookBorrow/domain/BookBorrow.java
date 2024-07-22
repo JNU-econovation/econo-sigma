@@ -22,6 +22,7 @@ public class BookBorrow {
     private LocalDate returnDate;
     // 대출 연장 횟수
     private Integer extendCount;
+    private LocalDate dueDate;
 
     @Column(name = "user_id")
     private Long userId;

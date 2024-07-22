@@ -39,6 +39,7 @@ public class PutBookBorrow {
             .extendCount(0)
             .userId(user.getId())
             .bookDetailId(bookDetailId)
+            .dueDate(LocalDate.now().plusDays(15))
             .build();
         bookBorrowRepository.save(bookBorrow);
         //Todo 예약한 책이면 빌릴 수 없음, 단 자신이면 가능

@@ -25,21 +25,30 @@ public class User implements UserDetails {
 
     @Column(name = "loginId", nullable = false, unique = true)
     private String loginId;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String name;
     // 기수
-    private Integer grade;
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer grade = 0;
     // 대출 유무
-    private Boolean isBorrow;
+    @Builder.Default
+    private Boolean isBorrow = false;
     // 예약 유무
-    private Boolean isReserve;
+    @Builder.Default
+    private Boolean isReserve = false;
     // 대출 도서 개수
-    private Integer borrowCount;
+    @Builder.Default
+    private Integer borrowCount = 0;
     // 예약 도서 개수
-    private Integer reserveCount;
+    @Builder.Default
+    private Integer reserveCount = 0;
     // 권한
     @Enumerated(EnumType.STRING)
-    private Role role;
+    @Builder.Default
+    private Role role = Role.ROLE_USER;
 
     @Override // 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
