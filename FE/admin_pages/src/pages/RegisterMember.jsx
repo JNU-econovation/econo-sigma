@@ -125,19 +125,19 @@ const Button = styled.button`
 const RegisterMember = () => {
   const [members, setMembers] = useState([]);
   const [name, setName] = useState('');
-  const [group, setGroup] = useState('');
-  const [id, setId] = useState('');
+  const [grade, setGrade] = useState('');
+  const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
 
   const AddMember = (e) => {
     e.preventDefault();
     setMembers([
       ...members,
-      { name, group, id, password }
+      { loginId, password, name, grade }
     ]);
     setName(e.target.value);
-    setGroup(e.target.value);
-    setId(e.target.value);
+    setGrade(e.target.value);
+    setLoginId(e.target.value);
     setPassword(e.target.value);
   };
 
@@ -159,8 +159,8 @@ const RegisterMember = () => {
         <div className="register">
           <form style={{ position: "relative"}}>
             <Index>이름</Index> <Value type="text" value={name} onChange={(e) => setName(e.target.value)} ></Value>
-            <Index>기수</Index> <Value type="text" value={group} onChange={(e) => setGroup(e.target.value)}></Value>
-            <Index>ID</Index> <Value type="text" value={id} onChange={(e) => setId(e.target.value)}></Value>
+            <Index>기수</Index> <Value type="text" value={grade} onChange={(e) => setGrade(e.target.value)}></Value>
+            <Index>ID</Index> <Value type="text" value={loginId} onChange={(e) => setLoginId(e.target.value)}></Value>
             <Index>비밀번호</Index> <Value type="text" value={password} onChange={(e) => setPassword(e.target.value)}></Value>
             <AddBtn onClick={AddMember}>+</AddBtn>
             <Line />
@@ -182,8 +182,8 @@ const RegisterMember = () => {
                 <tr key={index}>
                   <Td isOdd={index % 2 !== 0}>{index + 1}</Td>
                   <Td isOdd={index % 2 !== 0}>{member.name}</Td>
-                  <Td isOdd={index % 2 !== 0}>{member.group}</Td>
-                  <Td isOdd={index % 2 !== 0}>{member.id}</Td>
+                  <Td isOdd={index % 2 !== 0}>{member.grade}</Td>
+                  <Td isOdd={index % 2 !== 0}>{member.loginId}</Td>
                   <Td isOdd={index % 2 !== 0}>{member.password}</Td>
                   <Td isOdd={index % 2 !== 0}>
                     <Button onClick={() => {
@@ -198,7 +198,7 @@ const RegisterMember = () => {
           </Table>
           <RegisterBtn onClick={registerMembers}>등록</RegisterBtn>
         </div>
-
+        {console.log(members)}              
       </div>
     </Styled>
 
