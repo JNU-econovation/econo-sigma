@@ -18,6 +18,4 @@ public class Penalty {
     // 대출/반납 제한 만료일자
     private LocalDate expiryDate;
 
-    @Column(name = "user_id")
-    private Long userId;
 }

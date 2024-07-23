@@ -44,6 +44,9 @@ public class User implements UserDetails {
     // 예약 도서 개수
     @Builder.Default
     private Integer reserveCount = 0;
+    @OneToOne
+    private Penalty penalty;
+
     // 권한
     @Enumerated(EnumType.STRING)
     @Builder.Default

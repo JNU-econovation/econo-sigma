@@ -1,5 +1,6 @@
 package sigma.chackcheck.domain.bookBorrow.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class BookBorrowService {
     }
 
     public void borrowBook(Long bookDetailId, User user){
+        if (!(user.getPenalty() == null ||
+            user.getPenalty().getExpiryDate().isAfter(LocalDate.now()))){
+            throw new IllegalStateException("현재 연체중입니다.");
+        }
         putBookBorrow.borrowBook(bookDetailId, user);
     }
 
