@@ -2,6 +2,7 @@ package sigma.chackcheck.domain.book.service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,10 @@ public class GetBook implements GetEntityUsecase<Book>, Pagination<Book> {
     public Book getOneEntity(Long id) {
         return bookRepository.findById(id).orElseThrow(
             () -> new IllegalArgumentException("책이 없어용"));
+    }
+
+    public Optional<Book> getBookByTitle(String title){
+        return bookRepository.findByTitle(title);
     }
 
     @Override

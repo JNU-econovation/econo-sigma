@@ -16,6 +16,7 @@ import sigma.chackcheck.domain.book.domain.Category;
 import sigma.chackcheck.domain.book.dto.request.CreateBookApproveRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequestDTO;
+import sigma.chackcheck.domain.book.repository.BookApproveRepository;
 import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 
 @Service
@@ -25,6 +26,7 @@ public class BookService {
     private final PostBook postBook;
     private final CategoryParser categoryParser;
     private final BookDetailRepository bookDetailRepository;
+    private final BookApproveRepository bookApproveRepository;
 
     public Book getOneBook(Long id) {
         return getBook.getOneEntity(id);
@@ -69,23 +71,23 @@ public class BookService {
     }
 
     @Transactional
-    public void createBook(CreateBookRequest createBookRequest){
+    public void createBook(CreateBookRequest createBookRequest) {
         List<BookApprove> bookApproveList = createBookRequest.getCreateBookRequestDTOList()
             .stream()
             .map(CreateBookRequestDTO::getId)
             .map(getBook::getBookApprove)
             .toList();
 
-        bookApproveList.forEach(bookApprove -> System.out.println(bookApprove.getCategories()));
-
-//        Todo: deleteBook.deleteBookApprove 구현
-//        bookApproveList.stream()
-//            .forEach();
-
         bookApproveList.stream()
-            .map(bookApprove -> BookApprove.toBookWithCategories(
-                BookApprove.toBook(bookApprove), bookApprove.getCategories()
-                ))
+            .map(bookApprove -> {
+                BookWithCategories bookWithCategories = BookApprove.toBookWithCategories(
+                    getOrCreateBook(bookApprove), bookApprove.getCategories()
+                );
+
+                bookApproveRepository.deleteById(bookApprove.getId());
+
+                return bookWithCategories;
+            })
             .map(bookWithCategories -> {
                 Long savedBookId = postBook.saveBook(bookWithCategories.getBook());
                 Book savedBook = getBook.getOneEntity(savedBookId);
@@ -102,6 +104,11 @@ public class BookService {
                 return BookApprove.toBookDetail(savedBook);
             })
             .forEach(postBook::saveBookDetail);
+    }
+
+    private Book getOrCreateBook(BookApprove bookApprove) {
+        return getBook.getBookByTitle(bookApprove.getTitle())
+            .orElseGet(() -> BookApprove.toBook(bookApprove));
     }
 
     @Transactional
