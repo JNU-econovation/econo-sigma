@@ -118,7 +118,7 @@ const Form = () => {
       console.log(`${key}: ${value}`);
     }
 
-    const response = await fetch('URL', {
+    const response = await fetch('http://43.202.196.181:8080/books', {
       method: 'POST',
       body: data,
     });
