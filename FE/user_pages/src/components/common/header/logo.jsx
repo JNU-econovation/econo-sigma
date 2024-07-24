@@ -20,6 +20,7 @@ const Logo = ({ children }) => {
 
     const handleClick = () => {
         navigate(`/books/all`);
+        window.location.reload();
     }
 
 

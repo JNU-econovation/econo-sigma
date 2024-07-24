@@ -11,12 +11,16 @@ const Styledtable = styled.div`
 		/* border: none; */
 		width: 100%;
 		border-spacing: 0;
+		text-align: center;
+
 		
 	}
 	
 	td {
 		height: 2.5em;
 		font-size: 0.95em;
+
+		/* display: flex; */
 
 	}
 

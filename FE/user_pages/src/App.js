@@ -27,9 +27,9 @@ const App = () => {
           <Route path="/books/search/*" element={<Main />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/books/:id" element={<Book />} />
-          <Route path="/users" element={<PrivateRoute />}>
-            <Route path=":id" element={<MyPage />} />
-          </Route>
+          <Route path="/users" element={<MyPage />} />
+          <Route path="/users/book" element={<MyPage />} />
+
         </Routes>
       </div>
     </AuthProvider>

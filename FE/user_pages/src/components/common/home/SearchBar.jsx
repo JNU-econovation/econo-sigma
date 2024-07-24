@@ -2,9 +2,9 @@ import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
 
-import { ReactComponent as SearchButton} from "../../../assets/searchButton.svg";
-import { useParams } from "react-router-dom";
-import {Link} from "react-router-dom";
+import { ReactComponent as SearchButton } from "../../../assets/searchButton.svg";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Books = styled.div`
     display: grid;
@@ -52,26 +52,27 @@ const SearchBtn = styled(SearchButton)`
 function SearchBar() {
 
     const [keyword, setKeyword] = useState("");
-    //const [filteredData, setFilteredData] = useState([]);
+    const navigate = useNavigate();
+
     const onChange = (e) => setKeyword(e.target.value);
     const [book, setBook] = useState([]);
-    
+    console.log(keyword)
     const getFilteredBook = async () => {
-        <Link to={`http://localhost:3000/books/all/search?keyword=${keyword}&page=1`}></Link>
+        navigate(`/books/all/search?keyword=${encodeURIComponent(keyword)}&page=1`);
     };
 
-    
+
     const onKeyUp = (e) => {
         if (e.key === 'Enter') {
-          getFilteredBook();
+            getFilteredBook();
         }
-      };
+    };
 
     return (
-        <div style={{display:"flex", justifyContent: "center", marginTop:"3em", marginLeft:"5em"}}>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "3em", marginLeft: "5em" }}>
             <div>
                 <SearchBox>
-                    <SearchBtn type="button" onClick={getFilteredBook}/>
+                    <SearchBtn type="button" onClick={getFilteredBook} />
                     <SearchInput type="text" value={keyword} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
                 </SearchBox>
                 {/* <Books>
@@ -85,7 +86,7 @@ function SearchBar() {
                 </Books> */}
             </div>
         </div>
-);
+    );
 };
 
 
