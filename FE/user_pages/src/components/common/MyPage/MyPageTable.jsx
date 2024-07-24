@@ -80,8 +80,8 @@ const headers = [
 
 const MyPageTable = ({ response }) => {
 
-
-	const userInfos = response.data.bookRentInfo
+	console.log(response)
+	const userInfos = response.data
 	console.log(userInfos)
 	const tableHeaders = headers
 
@@ -112,7 +112,7 @@ const MyPageTable = ({ response }) => {
 								}
 								{
 									<td key={'bookId' + index}>
-										{item.bookDetailID}
+										{item.bookDetailId}
 									</td>
 
 								}

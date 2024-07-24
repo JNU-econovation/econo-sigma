@@ -1,41 +1,48 @@
-import React from 'react';
-
-import Logo from './logo' ;
+import React, { useContext } from 'react';
+import Logo from './logo';
 import HeaderBtn from './headerButtons';
 import styled from "styled-components";
+import { AuthContext } from '../login/AuthProvider';
 
 const HeaderWrapper = styled.header`
-    // z-index : 9999 ;
+    z-index : 9999 ;
+    position: fixed;
     width: 100%;
     height: 6.5em;
-    position: fixed;
     border-bottom : 1px solid #EAEAEA;
     background-color: white;
 `;
 
-const ContentsWrap = styled.div `
+const ContentsWrap = styled.div`
     display: flex;
     width: 100%;
-    
     justify-content : space-between ;
     align-items : end;
     margin-top: 1.5em;
-    `;
-
+`;
 
 const Header = () => {
+
+    const { accessToken, logout } = useContext(AuthContext);
+
     return (
-            <HeaderWrapper>
-                <ContentsWrap>
-                    <Logo />
-                    <div class=''>
-                        <HeaderBtn children={'로그인'} direction = {"login"}/>
-                    </div>
-                </ContentsWrap>
-            </HeaderWrapper>
+        <HeaderWrapper>
+            <ContentsWrap>
+                <Logo />
+                <div>
 
 
-    )
+                    {accessToken ? (
+                        <>
+                            <HeaderBtn children={'로그아웃'} direction={"admin/books"} onClick={logout} />
+                        </>
+                    ) : (
+                        <HeaderBtn children={'로그인'} direction={"admin/login"} />
+                    )}
+                </div>
+            </ContentsWrap>
+        </HeaderWrapper>
+    );
 }
 
-export default Header ;
+export default Header;

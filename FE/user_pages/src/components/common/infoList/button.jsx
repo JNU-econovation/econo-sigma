@@ -40,8 +40,10 @@ const Button = ({ available, bookDetailId }) => {
           .then(response => {
             console.log(response.data);
             setAvailable(!isAvailable);
+            window.location.reload();
           })
           .catch(error => {
+            alert('이미 대출된 도서입니다.')
             console.error(error);
           });
       }
@@ -57,8 +59,10 @@ const Button = ({ available, bookDetailId }) => {
           .then(response => {
             console.log(response.data);
             setAvailable(!isAvailable);
+            window.location.reload();
           })
           .catch(error => {
+            alert('본인이 대출한 책이 아닙니다.')
             console.error(error);
           });
       }
