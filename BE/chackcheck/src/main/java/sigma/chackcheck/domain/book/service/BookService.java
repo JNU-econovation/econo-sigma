@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.common.util.CategoryParser;
 import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
@@ -17,6 +20,7 @@ import sigma.chackcheck.domain.book.dto.request.CreateBookApproveRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequest;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequestDTO;
 import sigma.chackcheck.domain.book.repository.BookApproveRepository;
+import sigma.chackcheck.domain.book.repository.BookCategoryRepository;
 import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 
 @Service
@@ -27,6 +31,7 @@ public class BookService {
     private final CategoryParser categoryParser;
     private final BookDetailRepository bookDetailRepository;
     private final BookApproveRepository bookApproveRepository;
+    private final BookCategoryRepository bookCategoryRepository;
 
     public Book getOneBook(Long id) {
         return getBook.getOneEntity(id);
@@ -63,6 +68,11 @@ public class BookService {
     public List<BookDetail> getAllBookDetailsByBookId(Long id){
         Book book = getOneBook(id);
         return getBook.getAllBookDetailsByBookId(book);
+    }
+
+    public Page<BookDetail> getAllBookDetails(int page){
+        Pageable pageable = PageRequest.of(page, 8);
+        return bookDetailRepository.findAll(pageable);
     }
 
     public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest, Long userId){
