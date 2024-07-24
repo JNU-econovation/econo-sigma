@@ -61,21 +61,21 @@ const Login = () => {
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       <Container>
-        <Logo src="/chackcheck.png" />
+          <Logo src="/chackcheck.png" />
+
         <form onSubmit={handleSubmit}>
           <InputBox
             type="text"
-            placeholder="ID"
+            placeholder="Admin ID"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <InputBox
             type="password"
-            placeholder="PW"
+            placeholder="Admin PW"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <AdminBtn>관리자로 로그인</AdminBtn>
           <LoginBtn onClick={handleSubmit} />
         </form>
       </Container>
