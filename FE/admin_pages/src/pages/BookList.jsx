@@ -36,6 +36,10 @@ const BookList = () => {
 
 
     const getBookInfo = async () => {
+        if (!accessToken) {
+            alert('로그인이 필요합니다.');
+            navigate('/admin/login');
+        }
         try {
             const response = await fetch(`http://43.202.196.181:8080/api/admin/books?page=1`, {
                 method: 'GET',
@@ -48,10 +52,7 @@ const BookList = () => {
             setBookInfo(json);
         } catch (error) {
             console.error('Fetching books failed:', error);
-            if (!accessToken) {
-                alert('로그인이 필요합니다.');
-                navigate('/admin/login');
-            }
+            
         } finally {
             setTableLoading(false);
         }

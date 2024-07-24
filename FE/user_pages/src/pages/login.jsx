@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../components/login/AuthProvider";
 import { ReactComponent as LoginButton } from "../assets/login btn.svg";
+import { useNavigate, Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -48,39 +49,61 @@ const LoginBtn = styled(LoginButton)`
   height: 4em;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    color: #FB8500; // 링크에 hover 효과를 주고 싶을 경우
+  }
+
+  &:visited {
+    color: inherit; // 방문한 링크 색상을 기본 색상으로 유지
+  }
+`
+
 const Login = () => {
-  const { login } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+    const { login } = useContext(AuthContext);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await login(username, password);
-  };
+    const onClick = () => {
+        navigate('http://localhost:3002/admin/login');
+    }
 
-  return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-      <Container>
-        <Logo src="/chackcheck.png" />
-        <form onSubmit={handleSubmit}>
-          <InputBox
-            type="text"
-            placeholder="ID"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <InputBox
-            type="password"
-            placeholder="PW"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <AdminBtn>관리자로 로그인</AdminBtn>
-          <LoginBtn onClick={handleSubmit} />
-        </form>
-      </Container>
-    </div>
-  );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await login(username, password);
+    };
+
+    return (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+            <Container>
+                <Logo src="/chackcheck.png" />
+                <form onSubmit={handleSubmit}>
+                    <InputBox
+                        type="text"
+                        placeholder="ID"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <InputBox
+                        type="password"
+                        placeholder="PW"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <AdminBtn>
+                        <StyledLink to={'http://localhost:3002/admin/login'}>
+                            관리자로 로그인
+                        </StyledLink>
+                    </AdminBtn>
+                    <LoginBtn onClick={handleSubmit} />
+                </form>
+            </Container>
+        </div>
+    );
 };
 
 export default Login;
