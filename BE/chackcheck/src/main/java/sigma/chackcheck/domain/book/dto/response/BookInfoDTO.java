@@ -2,6 +2,7 @@ package sigma.chackcheck.domain.book.dto.response;
 
 import static lombok.AccessLevel.PROTECTED;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ import sigma.chackcheck.domain.bookBorrow.dto.response.BookBorrowDTO;
 public class BookInfoDTO {
     private String title;
     private Long bookId;
-    private String categories;
+    private List<String> categories;
     private boolean borrowStatus;
 
-    public static BookInfoDTO of(BookDetail bookDetail, String categories){
+    public static BookInfoDTO of(BookDetail bookDetail, List<String> categories){
         return BookInfoDTO.builder()
             .title(bookDetail.getTitle())
             .bookId(bookDetail.getId())
