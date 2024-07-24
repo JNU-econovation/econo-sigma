@@ -86,12 +86,13 @@ const bookInfoHeaders = [
 
 
 const BookApproveTable = ({ response }) => {
-
-    const bookApproveInfos = response.data.bookInfos
+    console.log(response)
+    const bookApproveInfos = response.data.bookApproveInfos
     const bookInfoTableHeader = bookInfoHeaders
 
     // 체크 박스를 이용한 선택 구현
     const [selectedBooks, setSelectedBooks] = useState([]);
+    console.log(selectedBooks)
 
     const selectCheckBox = (bookApproveId) => {
         setSelectedBooks(prevSelected =>
@@ -102,7 +103,7 @@ const BookApproveTable = ({ response }) => {
 
     const selectAllCheckBox = (e) => {
         if (e.target.checked) {
-            const allBookIds = bookApproveInfos.map(book => book.bookId);
+            const allBookIds = bookApproveInfos.map(book => book.id);
             setSelectedBooks(allBookIds);
         } else {
             setSelectedBooks([]);
@@ -136,8 +137,8 @@ const BookApproveTable = ({ response }) => {
                                 {
                                     <td key={'checkBox ' + index}>
                                         <input type="checkbox"  
-                                        checked={selectedBooks.includes(item.bookId)} 
-                                        onChange={() => selectCheckBox(item.bookId)} 
+                                        checked={selectedBooks.includes(item.id)} 
+                                        onChange={() => selectCheckBox(item.id)} 
                                     />
                                     </td>
                                 }
@@ -160,7 +161,7 @@ const BookApproveTable = ({ response }) => {
                                 }
                                 {
                                     <td key={'apporoveButton' + index}>
-                                        <ApproveButton bookApproveId = {item.bookId} />
+                                        <ApproveButton bookApproveId = {item.id} />
                                     </td>
 
                                 }

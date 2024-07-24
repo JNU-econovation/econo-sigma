@@ -1,7 +1,8 @@
 
 import styled from "styled-components";
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import axios from 'axios';
+import { AuthContext } from "../login/AuthProvider";
 
 
 
@@ -20,6 +21,8 @@ const StyledButton = styled.button`
 
 
 const SelectApporove = ({ selectedBooks }) => {
+    const { accessToken } = useContext(AuthContext);
+
 
     const selectApprovePost = () => {
         if (selectedBooks.length === 0) {
@@ -30,13 +33,18 @@ const SelectApporove = ({ selectedBooks }) => {
             const requestBody = {
                 bookApproveInfos: selectedBooks.map(id => ({ bookApproveId: id }))
             };
+            console.log(requestBody)
     
-            axios.post('api주소', requestBody)
+            axios.post(`http://43.202.196.181:8080/api/admin/books/approve`, requestBody, {
+                headers: {
+                  Authorization: `Bearer ${accessToken}`
+                }
+              })
                 .then(response => {
-                    console.log(response.data);
+                  console.log(response.data);
                 })
                 .catch(error => {
-                    console.error(error);
+                  alert('승인에 실패했습니다.')
                 });
         }
         

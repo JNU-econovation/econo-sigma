@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Loading from '../components/common/Loading.jsx';
 import MyPageCategory from '../components/common/MyPage/myPageCategory.jsx';
@@ -28,33 +28,36 @@ const StyledPage = styled.div`
 `;
 
 function MyPage() {
-  const bookId = useParams();
+  const location = useLocation();
   const { accessToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState([]);
+  const [nowBorrowInfo, setNowBorrowInfo] = useState([]);
   const [borrowInfo, setBorrowInfo] = useState([]);
 
-  const getInfo = async () => {
+  const getInfo = async (endpoint) => {
+    setLoading(true);
     try {
-      const getUserInfo = await fetch(`http://localhost:3001/개별회원정보`, {
+      const getUserInfo = await fetch(`http://43.202.196.181:8080/api/users`, {
         method: 'GET',
-        // headers: {
-        //   'Authorization': `Bearer ${accessToken}`,
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
       });
       const userInfoReturn = await getUserInfo.json();
       setUserInfo(userInfoReturn);
 
-      const getBorrowInfo = await fetch(`http://localhost:3001/대출이력`, {
+      const getBorrowInfo = await fetch(`http://43.202.196.181:8080/api/users/books/${endpoint}?page=1`, {
         method: 'GET',
-        // headers: {
-        //   'Authorization': `Bearer ${accessToken}`,
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
       });
       const borrowInfoReturn = await getBorrowInfo.json();
       setBorrowInfo(borrowInfoReturn);
+
     } catch (error) {
       console.error('Fetching books failed:', error);
     } finally {
@@ -63,8 +66,14 @@ function MyPage() {
   };
 
   useEffect(() => {
-    getInfo();
-  }, []);
+    const path = location.pathname;
+    console.log(path)
+    if (path === '/users') {
+      getInfo('now');
+    } else if (path === '/users/books') {
+      getInfo('all');
+    }
+  }, [location, accessToken]);
 
   console.log(userInfo, borrowInfo);
 

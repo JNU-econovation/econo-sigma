@@ -20,7 +20,9 @@ const Books = styled.div`
 `;
 
 const StyledPage = styled.div`
+
     padding-bottom: 3em;
+    /* justify-content: center; */
 
     .contents {
       padding-top: 9em;
@@ -29,13 +31,30 @@ const StyledPage = styled.div`
     .infotable {
       margin-top: 3em;
     }
+    .message {
+        margin-top: 3em;
+        margin-left: 5%;
+        display: flex;
+        justify-content: center;
+    }
     `;
 
+
 const Main = () => {
+    // 쿼리 파라미터에서 keyword 값을 추출하고 디코딩
+
 
     const location = useLocation();
-    const fullLocation = `${location.pathname}${location.search}${location.hash}`;
 
+    const searchParams = new URLSearchParams(location.search);
+    const newKeyword = searchParams.get('keyword') ? decodeURIComponent(searchParams.get('keyword')) : '';
+
+    const fullLocation = `${location.pathname}${location.search}${location.hash}`;
+    const searchLocation = `${location.pathname}?keyword=${newKeyword}${location.hash}`;
+    console.log(location.search)
+    const apiUrl = searchParams.has('keyword') ? searchLocation : fullLocation;
+
+    console.log(apiUrl)
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState([]);
 
@@ -44,7 +63,8 @@ const Main = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(`http://localhost:3001/books`, {method: 'GET'}); // 서버에서 데이터를 가져옴
+            const response = await fetch(`http://43.202.196.181:8080/api${apiUrl}`, { method: 'GET' }); // 서버에서 데이터를 가져옴
+
             const json = await response.json(); // 응답을 JSON으로 변환
             setBook(json); // 상태를 업데이트
         } catch (error) {
@@ -65,27 +85,30 @@ const Main = () => {
             <div className="contents">
                 {loading ?
                     <Loading /> :
-                    <SearchBar /> }
-                
+                    <SearchBar />}
+
                 {loading ?
                     <Loading /> :
-                    <Books>
-                        {book.data.bookInfos.map((item) => (<BookList
+                    book.data.bookInfos.length > 0 ?
+                        <>
+                            <Books>
+                                {book.data.bookInfos.map((item) => (<BookList
 
-                            data = {item}
-                            key={item.id}
-                            img={item.img} // 변수명 바꿔야할 수도..
-                            title={item.title}
-                            author={item.author}
-                            publisher={item.publisher} />
-                        ))}
-                    </Books>
+                                    data={item}
+                                    key={item.id}
+                                    img={item.img} // 변수명 바꿔야할 수도..
+                                    title={item.title}
+                                    author={item.author}
+                                    publisher={item.publisher} />
+                                ))}
+                            </Books>
+                            < Paging response={book} />
+                        </>
+
+                        :
+                        <div className="message">해당되는 도서가 존재하지 않습니다.</div>
+
                 }
-
-                {loading ?
-                    <Loading /> :
-
-                    <Paging response={book} />}
             </div>
         </StyledPage>
 

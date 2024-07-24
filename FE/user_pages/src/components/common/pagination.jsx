@@ -7,6 +7,8 @@ import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 
 const StyledPagination = styled.div`
+    display: flex;
+    justify-content: center;
     button {
         border: none;
         background-color: white;
@@ -38,7 +40,6 @@ const StyledPagination = styled.div`
 `
 
 const Paging = ({ response }) => {
-  console.log(response)
   const pageListSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState('');

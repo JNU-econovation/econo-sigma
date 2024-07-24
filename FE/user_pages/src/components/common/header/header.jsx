@@ -30,7 +30,7 @@ const Header = () => {
                 <Logo />
                 <div>
                     <HeaderBtn children={'도서등록'} direction={"admin/books"} />
-                    <HeaderBtn children={'마이페이지'} direction={"users/userid"} />
+                    <HeaderBtn children={'마이페이지'} direction={"users"} />
 
                     {accessToken ? (
                         <>

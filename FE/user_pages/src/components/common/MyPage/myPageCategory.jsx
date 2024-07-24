@@ -54,7 +54,7 @@ function MyPageCategory() {
   const [selected, setSelected] = useState("user");
 
   const goToUser = () => {
-    navigate(`/users/usersid`);
+    navigate(`/users`);
     setSelected("user");
   }
 

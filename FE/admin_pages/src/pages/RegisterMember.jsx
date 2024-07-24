@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosTrash } from "react-icons/io";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Title from "../components/common/Title";
+import { AuthContext } from "../components/common/login/AuthProvider";
+
 
 const Styled = styled.div`
     /* background-color: aqua; */
