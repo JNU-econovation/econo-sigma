@@ -125,4 +125,11 @@ public class BookService {
     public void softDeleteBookDetail(Long bookDetailId){
         bookDetailRepository.deleteById(bookDetailId);
     }
+
+    public List<String> getCategories(Book book) {
+        List<BookCategory> categoryList = bookCategoryRepository.findAllByBook(book);
+        return categoryList.stream()
+            .map(bookCategory -> bookCategory.getCategory().getCategoryName())
+            .toList();
+    }
 }
