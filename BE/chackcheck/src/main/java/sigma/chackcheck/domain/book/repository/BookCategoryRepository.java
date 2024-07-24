@@ -1,12 +1,15 @@
 package sigma.chackcheck.domain.book.repository;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookCategory;
+import sigma.chackcheck.domain.book.domain.Category;
 
 @Repository
 public interface BookCategoryRepository extends JpaRepository<BookCategory, Long> {
@@ -20,4 +23,6 @@ public interface BookCategoryRepository extends JpaRepository<BookCategory, Long
     Page<BookCategory> findAllByCategoryNameAndKeyword(
         @Param("categoryName") String categoryName,
         @Param("keyword") String Keyword, Pageable pageable);
+
+    List<BookCategory> findAllByBook(Book book);
 }

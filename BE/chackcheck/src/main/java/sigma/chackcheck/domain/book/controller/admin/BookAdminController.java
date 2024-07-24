@@ -70,11 +70,8 @@ public class BookAdminController {
         Page<BookDetail> bookDetailList = bookService.getAllBookDetails(page);
         PageInfo pageInfo = PageInfo.of(page, bookDetailList.getTotalElements(), bookDetailList.getTotalPages());
 
-        List<String> categories = new ArrayList<>();
-        categories.add("FE");
-        categories.add("BE");
         List<BookInfoDTO> bookInfoDTOS = bookDetailList.stream()
-            .map(bookDetail -> BookInfoDTO.of(bookDetail, categories))
+            .map(bookDetail -> BookInfoDTO.of(bookDetail, bookService.getCategories(bookDetail.getBook())))
             .toList();
 
         BookPageAdminResponse bookPageAdminResponse = BookPageAdminResponse.builder()
