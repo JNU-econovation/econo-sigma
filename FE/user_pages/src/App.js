@@ -10,6 +10,7 @@ import Book from './pages/book.jsx';
 import MyPage from './pages/MyPage.jsx';
 import PrivateRoute from './components/login/PrivateRoute.jsx';
 import Category from './components/common/Category.jsx';
+import Form from './components/common/Form';
 
 const App = () => {
   const currentLocation = useLocation();
@@ -28,7 +29,8 @@ const App = () => {
           <Route path="/users/login" element={<Login />} />
           <Route path="/books/:id" element={<Book />} />
           <Route path="/users" element={<PrivateRoute />}>
-            <Route path=":id" element={<MyPage />} />
+            {/* <Route path=":id" element={<MyPage />} /> */}
+            <Route path="/users/form" element={<Form />}/>
           </Route>
         </Routes>
       </div>

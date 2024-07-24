@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useCallback } from "react";
 
 import SelectCategory from './SelectCategory';
-import UploadImg from "./UploadImg";
+//import UploadImg from "./UploadImg";
 //import Title from "./Title";
 
 const Title = styled.div`
@@ -76,14 +76,16 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+  const token = localStorage.getItem('accessToken');
+
   const [formData, setFormData] = useState({
     title: '',
     author: '',
     publishYear: '',
     publisher: '',
     categories: '',
-    imformation: '',
-    image: null,
+    information: '',
+    image: '.',
   });
 
   const handleChange = (e) => {
@@ -109,6 +111,7 @@ const Form = () => {
     data.append('publisher', formData.publisher);
     data.append('categories', formData.categories);
     data.append('information', formData.information);
+    data.append('image', formData.image);
 
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
@@ -120,13 +123,19 @@ const Form = () => {
 
     const response = await fetch('http://43.202.196.181:8080/api/books', {
       method: 'POST',
-      body: data,
+      //body: data,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
     });
   
     if (response.ok) {
       console.log("성공");
     } else {
-      console.error("error");
+      const errorData = await response.json();
+      console.log(errorData.message);
     }
     
   };
@@ -137,7 +146,14 @@ const Form = () => {
     <Title> 도서 등록</Title>
     <FormContainer>
       <form onSubmit={handleSubmit}>
-        <UploadImg onImageUpload={handleImageUpload}/>
+        {/* <UploadImg onImageUpload={handleImageUpload}/> */}
+          <Input
+            type="text"
+            name="image"
+            placeholder="이미지"
+            value={formData.image}
+            onChange={handleChange}
+          />
           <Input
             type="text"
             name="title"
@@ -176,6 +192,7 @@ const Form = () => {
         />
         <Button type="submit" onSubmit={handleSubmit}>등록</Button>
       </form>
+      {console.log(formData)}
     </FormContainer>
     
     </div>
