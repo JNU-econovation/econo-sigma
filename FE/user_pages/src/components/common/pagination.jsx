@@ -1,43 +1,31 @@
-import React from 'react';
-
-import { useState, useEffect } from 'react';
-import { styled } from 'styled-components';
-import axios, { AxiosResponse } from 'axios';
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useSearchParams } from "react-router-dom";
 
 const StyledPagination = styled.div`
-    display: flex;
-    justify-content: center;
-    button {
-        border: none;
-        background-color: white;
-        font-size: 0.9em;
-        font-weight: 600;
-        color : #4D4ABF;
-
-
+  display: flex;
+  justify-content: center;
+  button {
+    border: none;
+    background-color: white;
+    font-size: 0.9em;
+    font-weight: 600;
+    color : #4D4ABF;
     &.active {
       color: #FB8500;
     }
-
     &:disabled {
       cursor: default;
-      opacity: 0.5;}
-        
+      opacity: 0.5;
     }
-    
-    ul {
-        list-style : none;
-    }
-
-    li{
-        width : 2em;
-    }
-
-
-
-`
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    width: 2em;
+  }
+`;
 
 const Paging = ({ response }) => {
   const pageListSize = 10;
@@ -46,8 +34,7 @@ const Paging = ({ response }) => {
   const [keyword, setKeyword] = useState('');
 
   const totalPages = response.data.pageInfo.totalPages;
-  const currentListIndex = Math.floor((currentPage) / pageListSize);
-
+  const currentListIndex = Math.floor((currentPage - 1) / pageListSize);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -56,7 +43,7 @@ const Paging = ({ response }) => {
     const categoryParam = searchParams.get('category');
     const keywordParam = searchParams.get('keyword');
     if (page) {
-      setCurrentPage(Number(page));
+      setCurrentPage(Number(page) + 1); // Adjusting to 1-based index
     }
     if (categoryParam) {
       setCategory(categoryParam);
@@ -66,21 +53,17 @@ const Paging = ({ response }) => {
     }
   }, [searchParams]);
 
-
   const updateSearchParams = (pageNumber) => {
     const params = {};
     if (category) params.category = category;
     if (keyword) params.keyword = keyword;
-    params.page = pageNumber;
+    params.page = pageNumber - 1; // Adjusting to 0-based index for request
     setSearchParams(params);
   };
-
-
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     updateSearchParams(pageNumber);
-
   };
 
   const handleNextList = () => {
@@ -93,11 +76,8 @@ const Paging = ({ response }) => {
 
   const handlePrevList = () => {
     const prevListFirstPage = Math.max(1, currentPage - 1);
-    console.log(currentListIndex)
     setCurrentPage(prevListFirstPage);
     updateSearchParams(prevListFirstPage);
-
-
   };
 
   const goToFirstPage = () => {
@@ -138,4 +118,4 @@ const Paging = ({ response }) => {
   );
 };
 
-export default Paging
+export default Paging;
