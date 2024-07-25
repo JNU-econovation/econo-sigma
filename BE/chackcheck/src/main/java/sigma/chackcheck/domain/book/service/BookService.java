@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,9 @@ public class BookService {
     private final BookDetailRepository bookDetailRepository;
     private final BookApproveRepository bookApproveRepository;
     private final BookCategoryRepository bookCategoryRepository;
+
+    @Value("${cloud.aws.s3.default.image.url}")
+    private String defaultImageUrl;
 
     public Book getOneBook(Long id) {
         return getBook.getOneEntity(id);
@@ -76,7 +80,13 @@ public class BookService {
     }
 
     public Long createBookApprove(CreateBookApproveRequest createBookApproveRequest, Long userId){
+        String url = createBookApproveRequest.getImageURL();
+        if (url == null) {
+            url = defaultImageUrl;
+        }
+
         BookApprove bookApprove = CreateBookApproveRequest.toEntity(createBookApproveRequest, userId);
+        bookApprove.setImageURL(url);
         return postBook.saveBookApprove(bookApprove);
     }
 
