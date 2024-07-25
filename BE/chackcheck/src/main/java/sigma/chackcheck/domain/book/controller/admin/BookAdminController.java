@@ -90,7 +90,7 @@ public class BookAdminController {
         return ApiResponseGenerator.success(bookPageAdminResponse, HttpStatus.OK, SuccessMessage.GET);
     }
 
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     public ApiResponse<SuccessBody<UserPageAdminResponse>> getUserAdminPage(
         @RequestParam(value = "page", defaultValue = "0") int page
     ){
