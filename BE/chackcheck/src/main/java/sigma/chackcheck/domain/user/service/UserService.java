@@ -1,9 +1,13 @@
 package sigma.chackcheck.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sigma.chackcheck.common.pagination.PagePolicy;
 import sigma.chackcheck.domain.book.domain.BookDetail;
 import sigma.chackcheck.domain.book.repository.BookDetailRepository;
 import sigma.chackcheck.domain.bookBorrow.domain.BookBorrow;
@@ -39,6 +43,11 @@ public class UserService {
                 .name(dto.getName())
                 .grade(dto.getGrade())
                 .build()).getId();
+    }
+
+    public Page<User> getUserPage(int page){
+        Pageable pageable = PageRequest.of(page, 8);
+        return userRepository.findAll(pageable);
     }
 
     public void updatePassword(String loginId, String newPassword) {

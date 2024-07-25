@@ -38,6 +38,13 @@ import sigma.chackcheck.domain.bookBorrow.domain.BookBorrow;
 import sigma.chackcheck.domain.bookBorrow.dto.response.BookBorrowDTO;
 import sigma.chackcheck.domain.bookBorrow.service.BookBorrowService;
 import sigma.chackcheck.domain.user.domain.User;
+import sigma.chackcheck.domain.user.dto.response.BookRentInfoResponse;
+import sigma.chackcheck.domain.user.dto.response.CurruentBorrowedBook;
+import sigma.chackcheck.domain.user.dto.response.CurruentBorrowedBooks;
+import sigma.chackcheck.domain.user.dto.response.UserInfo;
+import sigma.chackcheck.domain.user.dto.response.UserInfos;
+import sigma.chackcheck.domain.user.dto.response.UserPageAdminResponse;
+import sigma.chackcheck.domain.user.service.UserBorrowHistoryService;
 import sigma.chackcheck.domain.user.service.UserService;
 
 @Controller
@@ -47,7 +54,7 @@ public class BookAdminController {
 
     private final BookService bookService;
     private final UserService userService;
-    private final S3Service s3Service;
+    private final UserBorrowHistoryService userBorrowHistoryService;
 
     @GetMapping("/books/approve")
     public ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApprovePage(
@@ -83,7 +90,46 @@ public class BookAdminController {
         return ApiResponseGenerator.success(bookPageAdminResponse, HttpStatus.OK, SuccessMessage.GET);
     }
 
+    @GetMapping("/admin/users")
+    public ApiResponse<SuccessBody<UserPageAdminResponse>> getUserAdminPage(
+        @RequestParam(value = "page", defaultValue = "0") int page
+    ){
+        Page<User> userList = userService.getUserPage(page);
+        PageInfo pageInfo = PageInfo.of(page, userList.getTotalElements(), userList.getTotalPages());
 
+        List<UserInfo> userInfoList = userList.stream()
+            .map(user -> UserInfo.builder()
+                .userId(user.getId())
+                .userName(user.getName())
+                .curruentBorrowedBooks(
+                    CurruentBorrowedBooks.builder()
+                        .curruentBorrowedBooks(
+                            userBorrowHistoryService.getCurrentBorrowHistory(user.getId())
+                                .stream()
+                                .map(bookRentInfoResponse -> CurruentBorrowedBook.builder()
+                                    .bookId(bookRentInfoResponse.getBookDetailId())
+                                    .title(bookRentInfoResponse.getTitle())
+                                    .build())
+                                .toList()
+                        )
+                        .build()
+                    )
+                .penaltyStatus(false)
+                .build()
+            )
+            .toList();
+
+        UserInfos userInfos = UserInfos.builder()
+            .userInfos(userInfoList)
+            .build();
+
+        UserPageAdminResponse userPageAdminResponse = UserPageAdminResponse.builder()
+            .pageInfo(pageInfo)
+            .userInfos(userInfos)
+            .build();
+
+        return ApiResponseGenerator.success(userPageAdminResponse, HttpStatus.OK, SuccessMessage.GET);
+    }
 
     private ApiResponse<SuccessBody<BookApprovePageResponse>> getBookApproveSuccessBodyApiResponse(
         @RequestParam(value = "page", defaultValue = "0") int page,
