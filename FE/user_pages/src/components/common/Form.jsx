@@ -4,9 +4,14 @@ import { useState, useEffect } from 'react';
 import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import SelectCategory from './SelectCategory';
+import SelectCategory from "./SelectCategory"
 import UploadImg from "./UploadImg";
 //import Title from "./Title";
+
+const StyledDiv = styled.div`
+    min-width: 70rem;
+`;
+
 
 const Title = styled.div`
     position: absolute;
@@ -18,6 +23,7 @@ const Title = styled.div`
     top: 4em;
     left: 8.5em;
     margin-top: 1.8em;
+
     margin-left: 1.6em;
     font-size: 1.8em;
     font-weight: 700;
@@ -77,6 +83,7 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
@@ -103,9 +110,10 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, categories }));
   }, []);
 
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = new FormData();
     data.append('title', formData.title);
     data.append('author', formData.author);
@@ -113,8 +121,8 @@ const Form = () => {
     data.append('publisher', formData.publisher);
     data.append('categories', formData.categories);
     data.append('information', formData.information);
-    data.append('image', formData.image);
 
+    
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
     }
@@ -136,29 +144,22 @@ const Form = () => {
     if (response.ok) {
       console.log("성공");
       navigate('/books/all');
-      alert("등록 되었습니다.")
+      alert("등록 되었습니다. 승인 검토 중...")
       
     } else {
       const errorData = await response.json();
       console.log(errorData.message);
     }
-    
-  };
+      };
 
 
   return (
-    <div>
+
+<div>
     <Title> 도서 등록</Title>
     <FormContainer>
       <form onSubmit={handleSubmit}>
         <UploadImg onImageUpload={handleImageUpload}/>
-          {/* <Input
-            type="text"
-            name="image"
-            placeholder="이미지"
-            value={formData.image}
-            onChange={handleChange}
-          /> */}
           <Input
             type="text"
             name="title"
@@ -197,7 +198,6 @@ const Form = () => {
         />
         <Button type="submit" onSubmit={handleSubmit}>등록</Button>
       </form>
-      {console.log(formData)}
     </FormContainer>
     
     </div>

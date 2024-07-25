@@ -29,7 +29,7 @@ const Header = () => {
             <ContentsWrap>
                 <Logo />
                 <div>
-                    <HeaderBtn children={'도서등록'} direction={"users/form"} />
+                    <HeaderBtn children={'도서등록'} direction={"bookApplication"} />
                     <HeaderBtn children={'마이페이지'} direction={"users"} />
 
                     {accessToken ? (
