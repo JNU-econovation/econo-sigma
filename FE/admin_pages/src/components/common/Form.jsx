@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
+import {useNavigate} from "react-router-dom";
 
 import SelectCategory from './SelectCategory';
 import UploadImg from "./UploadImg";
@@ -76,6 +77,9 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+  const token = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -120,11 +124,16 @@ const Form = () => {
 
     const response = await fetch('http://43.202.196.181:8080/api/books', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
     });
   
     if (response.ok) {
       console.log("성공");
+      navigate('/admin/books');
     } else {
       console.error("error");
     }

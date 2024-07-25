@@ -29,13 +29,11 @@ const Header = () => {
             <ContentsWrap>
                 <Logo />
                 <div>
-                    <HeaderBtn children={'도서등록'} direction={"admin/books"} />
+                    <HeaderBtn children={'도서등록'} direction={"users/form"} />
                     <HeaderBtn children={'마이페이지'} direction={"users"} />
 
                     {accessToken ? (
-                        <>
                             <HeaderBtn children={'로그아웃'} direction={"/books/all"} onClick={logout} />
-                        </>
                     ) : (
                         <HeaderBtn children={'로그인'} direction={"users/login"} />
                     )}
