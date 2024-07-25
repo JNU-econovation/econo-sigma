@@ -21,8 +21,9 @@ public class BookApproveDTO {
     private String publishYear;
     private String publisher;
     private String bookApplicant;
+    private String imageURL;
 
-    public static BookApproveDTO of(BookApprove bookApprove, User user){
+    public static BookApproveDTO of(BookApprove bookApprove, User user, String presignedURL){
         return BookApproveDTO.builder()
             .id(bookApprove.getId())
             .title(bookApprove.getTitle())
@@ -30,6 +31,7 @@ public class BookApproveDTO {
             .publisher(bookApprove.getPublisher())
             .publishYear(bookApprove.getPublishYear())
             .bookApplicant(user.getName())
+            .imageURL(presignedURL)
             .build();
     }
 }

@@ -28,8 +28,10 @@ public class S3Service {
         expTimeMillis += 1000 * 60 * 60; // 1시간 유효
         expiration.setTime(expTimeMillis);
 
+        String partAfterCom = objectKey.substring(objectKey.indexOf(".com") + 4);
+
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                new GeneratePresignedUrlRequest(bucketName, objectKey)
+                new GeneratePresignedUrlRequest(bucketName, partAfterCom)
                         .withMethod(HttpMethod.GET)
                         .withExpiration(expiration);
 
