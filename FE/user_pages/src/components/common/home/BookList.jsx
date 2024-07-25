@@ -37,7 +37,7 @@ const BookList = ({data}) => {
     const navigate = useNavigate();
 
     const key= bookData.id
-    const img= bookData.img // 변수명 바꿔야할 수도..
+    const img= bookData.imageURL // 변수명 바꿔야할 수도..
     const title=bookData.title
     const author=bookData.author
     const publisher=bookData.publisher

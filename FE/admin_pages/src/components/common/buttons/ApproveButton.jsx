@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { React, useState } from "react";
 import axios from 'axios';
+import { AuthContext } from "../login/AuthProvider";
+import { useContext } from "react";
 
 
 
@@ -19,21 +21,30 @@ const StyledButton = styled.button`
 
 
 const ApproveButton = (bookApporoveId) => {
+    
+    const { accessToken } = useContext(AuthContext);
 
     const approvePost = () => {
         if (window.confirm("승인하시겠습니까?")) {
+
             const requestBody = {
                 "bookApproveInfos": [bookApporoveId]
             };
-            console.log(requestBody)
+            axios.post('http://43.202.196.181:8080/api/admin/books/approve', requestBody, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            })
+              .then(response => {
+                console.log(response.data);
+                window.location.reload();
+              })
+              .catch(error => {
+                console.error(error);
+              });
 
-            axios.post('http://43.202.196.181:8080/api/admin/books/apporove', requestBody)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+
+
         }
 
     };

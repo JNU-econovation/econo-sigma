@@ -22,14 +22,13 @@ const StyledPage = styled.div`
 
 const UserList = () => {
     const { accessToken } = useContext(AuthContext);
-    const [user, setUser] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
-    const fullLocation = `${location.pathname}${location.search}${location.hash}`;
 
     const [userTableLoading, setUserTableLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState([]);
 
-    const getUserApproveInfo = async () => {
+    const getUserInfo = async () => {
         if (!accessToken) {
             alert('로그인이 필요합니다.');
             navigate('/admin/login');
@@ -42,19 +41,26 @@ const UserList = () => {
                     'Content-Type': 'application/json',
                 },
             });
+            // const response = await fetch(`http://43.202.196.181:8080/api/books?page=0`, { method: 'GET' }); // 서버에서 데이터를 가져옴
+
             const json = await response.json();
-            setUser(json);
-            console.log(user);
+            setUserInfo(json);
+            console.log(json)
         } catch (error) {
-            console.error('Fetching users failed:', error);
+            console.error('Fetching books failed:', error);
+            
         } finally {
             setUserTableLoading(false);
         }
     };
 
+
     useEffect(() => {
-        getUserApproveInfo();
+        getUserInfo();
     }, [accessToken]);
+    console.log(userInfo)
+
+
 
     return (
         <StyledPage>
@@ -65,8 +71,8 @@ const UserList = () => {
                         <Loading />
                     ) : (
                         <>
-                            <UserTable response={user} />
-                            <Paging response={user} />
+                            <UserTable response={userInfo} />
+                            {/* <Paging response={userInfo} /> */}
                         </>
                     )}
                 </div>

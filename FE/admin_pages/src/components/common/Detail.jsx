@@ -109,7 +109,7 @@ function Detail( {data} ) {
         <Container>
             <Content
                 //key??
-                img=""
+                img= {apporveData.imageURL}
                 title = {apporveData.title}
                 writer = {apporveData.author}
                 publisher= {apporveData.publisher}

@@ -85,7 +85,7 @@ const userInfoHeaders = [
 
 const UserTable = ({ response }) => {
 
-	console.log(response.userDatas)
+	console.log(response)
 
 	const userInfos = response.data.userInfos
 	const userInfoTableHeader = userInfoHeaders
@@ -129,8 +129,11 @@ const UserTable = ({ response }) => {
 								}
 								{
 									<td key={'currentBorrowedBooks' + index}>
-
-										{item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }}> {book.title}</span>)}
+										{item.currentBorrowedBooks.length > 0 ? (
+											item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }} key={book.id}> {book.title}</span>)
+										) : 
+											" "
+										}									
 									</td>
 
 								}
@@ -141,13 +144,13 @@ const UserTable = ({ response }) => {
 								}
 								{
 									<td key={'update' + index}>
-										<UpdateButton />								
+										<UpdateButton />
 									</td>
 								}
 
 								{
 									<td key={'delButton' + index}>
-										<DelButton />								
+										<DelButton />
 									</td>
 								}
 							</tr>
