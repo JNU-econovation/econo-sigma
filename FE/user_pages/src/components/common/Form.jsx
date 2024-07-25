@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import SelectCategory from "./SelectCategory"
 import UploadImg from "./UploadImg";
@@ -84,6 +85,7 @@ const Button = styled.button`
 const Form = () => {
 
   const token = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: '',
@@ -91,9 +93,8 @@ const Form = () => {
     publishYear: '',
     publisher: '',
     categories: '',
-    imformation: '',
+    information: '',
     image: null,
-
   });
 
   const handleChange = (e) => {
@@ -137,11 +138,14 @@ const Form = () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-    }
-  );
-
+      
+    });
+  
     if (response.ok) {
       console.log("성공");
+      navigate('/books/all');
+      alert("등록 되었습니다. 승인 검토 중...")
+      
     } else {
       const errorData = await response.json();
       console.log(errorData.message);

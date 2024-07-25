@@ -2,21 +2,22 @@ import React from "react";
 import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 
-import SelectCategory from '../../../../admin_pages/src/components/common/SelectCategory';
-import UploadImg from "../../../../admin_pages/src/components/common/UploadImg";
-//import Title from "./Title";
+import SelectCategory from './SelectCategory';
+import UploadImg from "./UploadImg";
+
+const StyledDiv = styled.div`
+    min-width: 70rem;
+`;
+
 
 const Title = styled.div`
     position: absolute;
-    /* display: flex;
-    justify-content: left;
-    align-items: flex-end;
-    
-    gap: 0.5em; */
     top: 4em;
     left: 8.5em;
     margin-top: 1.8em;
+
     margin-left: 1.6em;
     font-size: 1.8em;
     font-weight: 700;
@@ -76,13 +77,17 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+
+  const token = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: '',
     author: '',
     publishYear: '',
     publisher: '',
     categories: '',
-    imformation: '',
+    information: '',
     image: null,
   });
 
@@ -99,9 +104,10 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, categories }));
   }, []);
 
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = new FormData();
     data.append('title', formData.title);
     data.append('author', formData.author);
@@ -110,6 +116,7 @@ const Form = () => {
     data.append('categories', formData.categories);
     data.append('information', formData.information);
 
+    
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
     }
@@ -120,20 +127,29 @@ const Form = () => {
 
     const response = await fetch('http://43.202.196.181:8080/api/books', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      
     });
   
     if (response.ok) {
       console.log("성공");
+      navigate('/books/all');
+      alert("등록 되었습니다. 승인 검토 중...")
+      
     } else {
-      console.error("error");
+      const errorData = await response.json();
+      console.log(errorData.message);
     }
-    
-  };
+      };
 
 
   return (
-    <div>
+
+<div>
     <Title> 도서 등록</Title>
     <FormContainer>
       <form onSubmit={handleSubmit}>
