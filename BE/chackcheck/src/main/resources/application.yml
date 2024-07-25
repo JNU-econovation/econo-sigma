@@ -12,4 +12,4 @@ spring:
 
   profiles:
     active: default
-    include: my
+    include: my, aws
