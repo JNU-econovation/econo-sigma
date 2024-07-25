@@ -87,7 +87,7 @@ const BookTable = ({response}) => {
 	
 	console.log(response.data)
 
-	const bookInfos = response.data.bookInfo
+	const bookInfos = response.data.bookInfos
 	const infoTableHeader = infoHeaders
 	const headerKey = infoTableHeader.map((header) => header.value)
 	console.log(bookInfos)
@@ -131,7 +131,8 @@ const BookTable = ({response}) => {
 							}
 							{	
 								<td key = {'category' + index}>
-									{item.categories.map((category) => <span style={{ display: 'block' }}> {category}</span>) }														
+									{item.categories.map((category) => <span style={{ display: 'block' }}> {category}</span>) }	
+																						
 				  				</td> 
 								
 							}

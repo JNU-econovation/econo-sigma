@@ -3,9 +3,14 @@ import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
 
-import SelectCategory from './SelectCategory';
-//import UploadImg from "./UploadImg";
+import SelectCategory from "./SelectCategory"
+import UploadImg from "./UploadImg";
 //import Title from "./Title";
+
+const StyledDiv = styled.div`
+    min-width: 70rem;
+`;
+
 
 const Title = styled.div`
     position: absolute;
@@ -17,6 +22,7 @@ const Title = styled.div`
     top: 4em;
     left: 8.5em;
     margin-top: 1.8em;
+
     margin-left: 1.6em;
     font-size: 1.8em;
     font-weight: 700;
@@ -76,6 +82,7 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+
   const token = localStorage.getItem('accessToken');
 
   const [formData, setFormData] = useState({
@@ -84,8 +91,9 @@ const Form = () => {
     publishYear: '',
     publisher: '',
     categories: '',
-    information: '',
-    image: '.',
+    imformation: '',
+    image: null,
+
   });
 
   const handleChange = (e) => {
@@ -103,7 +111,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = new FormData();
     data.append('title', formData.title);
     data.append('author', formData.author);
@@ -111,7 +119,7 @@ const Form = () => {
     data.append('publisher', formData.publisher);
     data.append('categories', formData.categories);
     data.append('information', formData.information);
-    data.append('image', formData.image);
+
 
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
@@ -120,6 +128,7 @@ const Form = () => {
     for (let [key, value] of data.entries()) {
       console.log(`${key}: ${value}`);
     }
+
 
     const response = await fetch('http://43.202.196.181:8080/api/books', {
       method: 'POST',
@@ -137,11 +146,11 @@ const Form = () => {
       const errorData = await response.json();
       console.log(errorData.message);
     }
-    
-  };
+      };
 
 
   return (
+
     <div>
     <Title> 도서 등록</Title>
     <FormContainer>
@@ -154,6 +163,7 @@ const Form = () => {
             value={formData.image}
             onChange={handleChange}
           />
+
           <Input
             type="text"
             name="title"
@@ -176,13 +186,14 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            style={{width: '33%', marginRight: '30px', color: '#6f6f6f'}}
+            style={{ width: '33%', marginRight: '30px', color: '#6f6f6f' }}
             type="date"
             name="publishYear"
             placeholder="출간일"
             value={formData.publishYear}
             onChange={handleChange}
           />
+
         <SelectCategory onCategoryChange={handleCategoryChange} />
         <Description
           name="information"

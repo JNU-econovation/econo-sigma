@@ -43,9 +43,10 @@ const BookApprovePage = () => {
             });
             const json = await response.json();
             setBookApproveInfo(json);
+            console.log(bookApproveInfo)
         } catch (error) {
             console.error('Fetching books failed:', error);
-            
+
         } finally {
             setBookTableLoading(false);
         }
@@ -55,14 +56,21 @@ const BookApprovePage = () => {
         getBookApproveInfo();
     }, [accessToken]);
 
+
     return (
         <StyledPage>
             <div className="contents">
                 <Title title='도서승인' sub='도서의 목록을 확인하고 관리할 수 있습니다.'></Title>
                 <div className="infotable">
-                    {bookTableLoading ? <Loading /> : <BookApproveTable response={bookApproveInfo} />}
+                    {bookTableLoading ? <Loading /> : bookApproveInfo.data.bookApproveInfos.length > 0 ?
+
+                        <>
+                            <BookApproveTable response={bookApproveInfo} />
+                            <Paging response={bookApproveInfo} />
+                        </> :
+                        <div> 데이터가 존재하지 않습니다. </div>
+                    }
                 </div>
-                {bookTableLoading ? <Loading /> : <Paging response={bookApproveInfo} />}
             </div>
         </StyledPage>
     );

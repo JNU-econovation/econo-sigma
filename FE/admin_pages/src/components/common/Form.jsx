@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
 
-import SelectCategory from './SelectCategory';
-import UploadImg from "./UploadImg";
+import SelectCategory from '../../../../admin_pages/src/components/common/SelectCategory';
+import UploadImg from "../../../../admin_pages/src/components/common/UploadImg";
 //import Title from "./Title";
 
 const Title = styled.div`

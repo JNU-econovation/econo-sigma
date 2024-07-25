@@ -21,7 +21,7 @@ const Img = styled.img`
 `;
 
 const Title = styled.span`
-    background-color: lemonchiffon;
+    /* background-color: lemonchiffon; */
     font-family: 'NanumSquareOTF', sans-serif;
     font-weight: 800;
     font-size: 2.188em;
@@ -33,20 +33,20 @@ const Writer = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
     font-weight: 300;
     font-size: 0.938em;
-    background-color: beige;
+    /* background-color: beige; */
 `;
 const Publisher = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
     font-weight: 300;
     font-size: 0.938em;
-    background-color: beige;
+    /* background-color: beige; */
     `;
 
 const Date = styled.span`
     font-family: 'NanumSquareOTF', sans-serif;
     font-weight: 300;
     font-size: 0.938em;
-    background-color: beige;
+    /* background-color: beige; */
 `;
 
 const Line = styled.div`
@@ -109,7 +109,7 @@ function Detail( {data} ) {
         <Container>
             <Content
                 //key??
-                img=""
+                img= {apporveData.imageURL}
                 title = {apporveData.title}
                 writer = {apporveData.author}
                 publisher= {apporveData.publisher}

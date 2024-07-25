@@ -7,6 +7,7 @@ import MyPageTitle from '../components/common/MyPage/MyPageTitle.jsx';
 import Title from '../components/common/MyPage/Title.jsx';
 import MyPageTable from '../components/common/MyPage/MyPageTable.jsx';
 import { AuthContext } from '../components/login/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPage = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const StyledPage = styled.div`
 `;
 
 function MyPage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { accessToken } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,11 @@ function MyPage() {
   const [borrowInfo, setBorrowInfo] = useState([]);
 
   const getInfo = async (endpoint) => {
+    if (!accessToken) {
+      alert('로그인이 필요합니다.');
+      navigate('/users/login');
+      return;
+    }
     setLoading(true);
     try {
       const getUserInfo = await fetch(`http://43.202.196.181:8080/api/users`, {
