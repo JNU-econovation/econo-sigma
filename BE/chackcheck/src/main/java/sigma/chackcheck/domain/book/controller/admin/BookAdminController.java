@@ -91,7 +91,7 @@ public class BookAdminController {
         PageInfo pageInfo =  PageInfo.of(page, bookList.getTotalElements(), bookList.getTotalPages());
 
         List<BookApproveDTO> bookApproveDtoList = bookList.getContent().stream()
-            .map(bookApprove -> BookApproveDTO.of(bookApprove, userService.findById(bookApprove.getUserId()), s3Service.generatePresignedUrl(bookApprove.getImageURL())))
+            .map(bookApprove -> BookApproveDTO.of(bookApprove, userService.findById(bookApprove.getUserId())))
             .toList();
 
         BookApprovePageResponse bookApprovePageResponse = BookApprovePageResponse.of(pageInfo, bookApproveDtoList);

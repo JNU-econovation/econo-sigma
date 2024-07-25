@@ -18,6 +18,7 @@ public class BookDTO {
     private String title;
     private String author;
     private String publisher;
+    private String imageURL;
 
     public static BookDTO of(Book book){
         return BookDTO.builder()
@@ -25,6 +26,7 @@ public class BookDTO {
             .title(book.getTitle())
             .publisher(book.getPublisher())
             .author(book.getAuthor())
+            .imageURL(book.getImageURL())
             .build();
     }
 }
