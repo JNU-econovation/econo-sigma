@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { React, useState } from "react";
+import { React, useState, useContext} from "react";
 import axios from 'axios';
+import { AuthContext } from "../login/AuthProvider";
+
 
 
 
@@ -19,30 +21,28 @@ const StyledButton = styled.button`
 
 
 const ApproveRejectButton = (bookApporoveId) => {
+    const { accessToken } = useContext(AuthContext);
 
     const approvePost = () => {
         if (window.confirm("승인을 거절하시겠습니까?")) {
+            
             const requestBody = {
-                "bookRejectInfos": [bookApporoveId]
+                "bookApproveInfos": [bookApporoveId]
             };
             console.log(requestBody)
-
-
-            axios.post(
-                'http://43.202.196.181:8080/api/admin/books/apporove',
-                requestBody,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            axios.delete('http://43.202.196.181:8080/api/admin/books/approve', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+                data: requestBody // 데이터 본문을 여기서 전달
+            })
+              .then(response => {
+                console.log(response.data);
+                window.location.reload();
+              })
+              .catch(error => {
+                console.error(error);
+              });
         }
 
 

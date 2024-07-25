@@ -34,7 +34,7 @@ const UserList = () => {
             navigate('/admin/login');
         }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/users?page=0`, {
+            const response = await fetch(`http://43.202.196.181:8080/api/admin/users?page=0`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
