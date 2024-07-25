@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import sigma.chackcheck.domain.book.domain.Book;
 import sigma.chackcheck.domain.book.domain.BookApprove;
 import sigma.chackcheck.domain.book.domain.BookDetail;
 import sigma.chackcheck.domain.book.dto.request.CreateBookRequest;
+import sigma.chackcheck.domain.book.dto.request.CreateBookRequestDTO;
 import sigma.chackcheck.domain.book.dto.response.BookApproveDTO;
 import sigma.chackcheck.domain.book.dto.response.BookApprovePageResponse;
 import sigma.chackcheck.domain.book.dto.response.BookDetailDTO;
@@ -69,6 +71,13 @@ public class BookAdminController {
     public ApiResponse<SuccessBody<Void>> approveBookApprove(@RequestBody CreateBookRequest createBookRequest){
         bookService.createBook(createBookRequest);
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
+    }
+
+    @DeleteMapping("/books/approve")
+    public ApiResponse<SuccessBody<Void>> deleteBookApprove(
+        @RequestBody CreateBookRequest createBookRequest){
+        bookService.deleteBookApprove(createBookRequest);
+        return ApiResponseGenerator.success(HttpStatus.OK, SuccessMessage.DELETE);
     }
 
     @GetMapping("/books")

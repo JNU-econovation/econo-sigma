@@ -132,4 +132,10 @@ public class BookService {
             .map(bookCategory -> bookCategory.getCategory().getCategoryName())
             .toList();
     }
+
+    public void deleteBookApprove(CreateBookRequest createBookRequest) {
+         createBookRequest.getCreateBookRequestDTOList().stream()
+             .map(CreateBookRequestDTO::getId)
+             .forEach(bookApproveRepository::deleteById);
+    }
 }
