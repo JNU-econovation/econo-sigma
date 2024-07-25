@@ -22,6 +22,7 @@ public class FullBookDTO extends BookDTO{
             .author(book.getAuthor())
             .publisher(book.getPublisher())
             .publishYear(book.getPublishYear())
+            .imageURL(book.getImageURL())
             .build();
     }
 }
