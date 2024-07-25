@@ -3,9 +3,13 @@ import styled from "styled-components"
 import { useState, useEffect } from 'react';
 import { useCallback } from "react";
 
-import SelectCategory from '../../../../admin_pages/src/components/common/SelectCategory';
-import UploadImg from "../../../../admin_pages/src/components/common/UploadImg";
+import SelectCategory from "./SelectCategory"
+import UploadImg from "./UploadImg";
 //import Title from "./Title";
+
+const StyledDiv = styled.div`
+    min-width: 70rem;
+`;
 
 const Title = styled.div`
     position: absolute;
@@ -17,7 +21,7 @@ const Title = styled.div`
     top: 4em;
     left: 8.5em;
     margin-top: 1.8em;
-    margin-left: 1.6em;
+    margin-left: 4em;
     font-size: 1.8em;
     font-weight: 700;
 `
@@ -101,7 +105,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const data = new FormData();
     data.append('title', formData.title);
     data.append('author', formData.author);
@@ -122,22 +126,22 @@ const Form = () => {
       method: 'POST',
       body: data,
     });
-  
+
     if (response.ok) {
       console.log("성공");
     } else {
       console.error("error");
     }
-    
+
   };
 
 
   return (
-    <div>
-    <Title> 도서 등록</Title>
-    <FormContainer>
-      <form onSubmit={handleSubmit}>
-        <UploadImg onImageUpload={handleImageUpload}/>
+    <StyledDiv>
+      <Title> 도서 등록</Title>
+      <FormContainer>
+        <form onSubmit={handleSubmit}>
+          <UploadImg onImageUpload={handleImageUpload} />
           <Input
             type="text"
             name="title"
@@ -160,25 +164,25 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            style={{width: '33%', marginRight: '30px', color: '#6f6f6f'}}
+            style={{ width: '33%', marginRight: '30px', color: '#6f6f6f' }}
             type="date"
             name="publishYear"
             placeholder="출간일"
             value={formData.publishYear}
             onChange={handleChange}
           />
-        <SelectCategory onCategoryChange={handleCategoryChange} />
-        <Description
-          name="information"
-          placeholder="간단한 책 소개를 작성해주세요."
-          value={formData.information}
-          onChange={handleChange}
-        />
-        <Button type="submit" onSubmit={handleSubmit}>등록</Button>
-      </form>
-    </FormContainer>
-    
-    </div>
+          <SelectCategory onCategoryChange={handleCategoryChange} />
+          <Description
+            name="information"
+            placeholder="간단한 책 소개를 작성해주세요."
+            value={formData.information}
+            onChange={handleChange}
+          />
+          <Button type="submit" onSubmit={handleSubmit}>등록</Button>
+        </form>
+      </FormContainer>
+
+    </StyledDiv>
   );
 };
 

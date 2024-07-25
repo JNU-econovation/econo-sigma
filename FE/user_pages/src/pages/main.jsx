@@ -96,7 +96,7 @@ const Main = () => {
 
                                     data={item}
                                     key={item.id}
-                                    img={item.img} // 변수명 바꿔야할 수도..
+                                    img={item.imageURL} // 변수명 바꿔야할 수도..
                                     title={item.title}
                                     author={item.author}
                                     publisher={item.publisher} />

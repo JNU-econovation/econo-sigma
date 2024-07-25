@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import Detail from "../Detail.jsx";
 import ApproveButton from "../buttons/ApproveButton.jsx";
+import ApproveRejectButton from "../buttons/ApproveRejectButton.jsx";
 import SelectApporove from "../buttons/SelectApporove.jsx";
 
 const Styledtable = styled.div`
@@ -80,19 +81,21 @@ const bookInfoHeaders = [
     {
         text: '승인 버튼',
         value: 'apporveButton'
+    },
+    {
+        text: '승인 거절',
+        value: 'apporveButton'
     }
 
 ];
 
 
 const BookApproveTable = ({ response }) => {
-    console.log(response)
     const bookApproveInfos = response.data.bookApproveInfos
     const bookInfoTableHeader = bookInfoHeaders
 
     // 체크 박스를 이용한 선택 구현
     const [selectedBooks, setSelectedBooks] = useState([]);
-    console.log(selectedBooks)
 
     const selectCheckBox = (bookApproveId) => {
         setSelectedBooks(prevSelected =>
@@ -162,6 +165,12 @@ const BookApproveTable = ({ response }) => {
                                 {
                                     <td key={'apporoveButton' + index}>
                                         <ApproveButton bookApproveId = {item.id} />
+                                    </td>
+
+                                }
+                                {
+                                    <td key={'apporoveRejectButton' + index}>
+                                        <ApproveRejectButton bookApproveId = {item.id} />
                                     </td>
 
                                 }

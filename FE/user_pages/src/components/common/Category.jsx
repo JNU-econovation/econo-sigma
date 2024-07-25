@@ -92,7 +92,7 @@ function Category() {
           <Index select={selected === index} />
           <StyledLink to={category === "ALL" 
               ? "/books/all" 
-              : `/books/category?categoryName=${encodeURIComponent(category)}&page=1`}
+              : `/books/category?categoryName=${encodeURIComponent(category)}&page=0`}
             style={{ textDecoration: "none" }}>{category}</StyledLink>
         </Item>
       ))}

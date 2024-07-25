@@ -41,15 +41,18 @@ const BookList = () => {
             navigate('/admin/login');
         }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/admin/books?page=1`, {
+            const response = await fetch(`http://43.202.196.181:8080/api/admin/books?page=0`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
             });
+            // const response = await fetch(`http://43.202.196.181:8080/api/books?page=0`, { method: 'GET' }); // 서버에서 데이터를 가져옴
+
             const json = await response.json();
             setBookInfo(json);
+            console.log(bookInfo)
         } catch (error) {
             console.error('Fetching books failed:', error);
             
@@ -76,16 +79,14 @@ const BookList = () => {
                 <Title title='도서관리' sub='도서의 목록을 확인하고 관리할 수 있습니다.'></Title>
                 <div className="infotable">
                     {tableLoading ?
-                        <Loading /> :
-                        <BookTable response={bookInfo} />}
-
+                        <Loading /> : bookInfo.data.bookInfos.length > 0 ?
+                         <>
+                         <BookTable response={bookInfo} />
+                         <Paging response={bookInfo} />
+                        </> :
+                        <div>데이터가 존재하지 않습니다.</div>
+                       }
                 </div>
-
-                {tableLoading ?
-                    <Loading /> :
-
-                    <Paging response={bookInfo} />}
-
             </div>
             
 

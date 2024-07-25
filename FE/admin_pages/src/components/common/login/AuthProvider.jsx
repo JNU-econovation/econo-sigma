@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
         const token = authHeader.split(' ')[1];
         setAccessToken(token);
         localStorage.setItem('accessToken', token);
-        navigate('/admin/books'); // 로그인 성공 후 /books/all 페이지로 리디렉트
+        navigate('/admin/books?page=0'); // 로그인 성공 후 /books/all 페이지로 리디렉트
       } else {
         console.error('Authorization header is missing in the response');
       }
@@ -26,11 +26,14 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    navigate('/admin/books'); // 로그아웃 후 /books/all 페이지로 리디렉트
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      navigate('/admin/books?page=0'); // 로그아웃 후 /books/all 페이지로 리디렉트
 
-    setAccessToken(null);
-    localStorage.removeItem('accessToken');
-    document.cookie = 'refreshToken=; Max-Age=0; path=/;';
+      setAccessToken(null);
+      localStorage.removeItem('accessToken');
+      document.cookie = 'refreshToken=; Max-Age=0; path=/;';
+    }
+
   };
 
   const refreshAccessToken = async () => {
