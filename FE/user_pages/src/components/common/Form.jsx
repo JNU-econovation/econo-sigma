@@ -109,6 +109,7 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, categories }));
   }, []);
 
+  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -120,7 +121,7 @@ const Form = () => {
     data.append('categories', formData.categories);
     data.append('information', formData.information);
 
-
+    
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
     }
@@ -129,17 +130,16 @@ const Form = () => {
       console.log(`${key}: ${value}`);
     }
 
-
     const response = await fetch('http://43.202.196.181:8080/api/books', {
       method: 'POST',
-      //body: data,
+      body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(data),
-    });
-  
+    }
+  );
+
     if (response.ok) {
       console.log("성공");
     } else {
@@ -151,19 +151,11 @@ const Form = () => {
 
   return (
 
-    <div>
+<div>
     <Title> 도서 등록</Title>
     <FormContainer>
       <form onSubmit={handleSubmit}>
-        {/* <UploadImg onImageUpload={handleImageUpload}/> */}
-          <Input
-            type="text"
-            name="image"
-            placeholder="이미지"
-            value={formData.image}
-            onChange={handleChange}
-          />
-
+        <UploadImg onImageUpload={handleImageUpload}/>
           <Input
             type="text"
             name="title"
@@ -186,14 +178,13 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            style={{ width: '33%', marginRight: '30px', color: '#6f6f6f' }}
+            style={{width: '33%', marginRight: '30px', color: '#6f6f6f'}}
             type="date"
             name="publishYear"
             placeholder="출간일"
             value={formData.publishYear}
             onChange={handleChange}
           />
-
         <SelectCategory onCategoryChange={handleCategoryChange} />
         <Description
           name="information"
@@ -203,7 +194,6 @@ const Form = () => {
         />
         <Button type="submit" onSubmit={handleSubmit}>등록</Button>
       </form>
-      {console.log(formData)}
     </FormContainer>
     
     </div>
