@@ -11,6 +11,7 @@ const StyledDiv = styled.div`
     min-width: 70rem;
 `;
 
+
 const Title = styled.div`
     position: absolute;
     /* display: flex;
@@ -21,7 +22,8 @@ const Title = styled.div`
     top: 4em;
     left: 8.5em;
     margin-top: 1.8em;
-    margin-left: 4em;
+
+    margin-left: 1.6em;
     font-size: 1.8em;
     font-weight: 700;
 `
@@ -80,6 +82,9 @@ const Button = styled.button`
 `;
 
 const Form = () => {
+
+  const token = localStorage.getItem('accessToken');
+
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -88,6 +93,7 @@ const Form = () => {
     categories: '',
     imformation: '',
     image: null,
+
   });
 
   const handleChange = (e) => {
@@ -114,6 +120,7 @@ const Form = () => {
     data.append('categories', formData.categories);
     data.append('information', formData.information);
 
+
     if (formData.imageURL) {
       data.append('imageURL', formData.imageURL);
     }
@@ -122,26 +129,41 @@ const Form = () => {
       console.log(`${key}: ${value}`);
     }
 
-    const response = await fetch('http://43.202.196.181:8080/books', {
-      method: 'POST',
-      body: data,
-    });
 
+    const response = await fetch('http://43.202.196.181:8080/api/books', {
+      method: 'POST',
+      //body: data,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
+    });
+  
     if (response.ok) {
       console.log("성공");
     } else {
-      console.error("error");
+      const errorData = await response.json();
+      console.log(errorData.message);
     }
-
-  };
+      };
 
 
   return (
-    <StyledDiv>
-      <Title> 도서 등록</Title>
-      <FormContainer>
-        <form onSubmit={handleSubmit}>
-          <UploadImg onImageUpload={handleImageUpload} />
+
+    <div>
+    <Title> 도서 등록</Title>
+    <FormContainer>
+      <form onSubmit={handleSubmit}>
+        {/* <UploadImg onImageUpload={handleImageUpload}/> */}
+          <Input
+            type="text"
+            name="image"
+            placeholder="이미지"
+            value={formData.image}
+            onChange={handleChange}
+          />
+
           <Input
             type="text"
             name="title"
@@ -171,18 +193,20 @@ const Form = () => {
             value={formData.publishYear}
             onChange={handleChange}
           />
-          <SelectCategory onCategoryChange={handleCategoryChange} />
-          <Description
-            name="information"
-            placeholder="간단한 책 소개를 작성해주세요."
-            value={formData.information}
-            onChange={handleChange}
-          />
-          <Button type="submit" onSubmit={handleSubmit}>등록</Button>
-        </form>
-      </FormContainer>
 
-    </StyledDiv>
+        <SelectCategory onCategoryChange={handleCategoryChange} />
+        <Description
+          name="information"
+          placeholder="간단한 책 소개를 작성해주세요."
+          value={formData.information}
+          onChange={handleChange}
+        />
+        <Button type="submit" onSubmit={handleSubmit}>등록</Button>
+      </form>
+      {console.log(formData)}
+    </FormContainer>
+    
+    </div>
   );
 };
 

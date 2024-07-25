@@ -12,6 +12,7 @@ import PrivateRoute from './components/login/PrivateRoute.jsx';
 import Category from './components/common/Category.jsx';
 import Form from './components/common/Form.jsx';
 
+
 const App = () => {
   const currentLocation = useLocation();
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/users" element={<MyPage />} />
           <Route path="/users/book" element={<MyPage />} />
           <Route path="/bookApplication" element={<Form />} />
+
 
         </Routes>
       </div>
