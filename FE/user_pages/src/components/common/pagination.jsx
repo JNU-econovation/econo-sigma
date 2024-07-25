@@ -43,7 +43,7 @@ const Paging = ({ response }) => {
     const categoryParam = searchParams.get('category');
     const keywordParam = searchParams.get('keyword');
     if (page) {
-      setCurrentPage(Number(page) + 1); // Adjusting to 1-based index
+      setCurrentPage(Number(page) + 1); 
     }
     if (categoryParam) {
       setCategory(categoryParam);
@@ -57,13 +57,17 @@ const Paging = ({ response }) => {
     const params = {};
     if (category) params.category = category;
     if (keyword) params.keyword = keyword;
-    params.page = pageNumber - 1; // Adjusting to 0-based index for request
+    params.page = pageNumber - 1; 
     setSearchParams(params);
+    window.location.reload();
+
   };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     updateSearchParams(pageNumber);
+    window.location.reload();
+
   };
 
   const handleNextList = () => {
@@ -71,6 +75,8 @@ const Paging = ({ response }) => {
     if (nextListFirstPage <= totalPages) {
       setCurrentPage(nextListFirstPage);
       updateSearchParams(nextListFirstPage);
+      window.location.reload();
+
     }
   };
 
@@ -78,16 +84,22 @@ const Paging = ({ response }) => {
     const prevListFirstPage = Math.max(1, currentPage - 1);
     setCurrentPage(prevListFirstPage);
     updateSearchParams(prevListFirstPage);
+    window.location.reload();
+
   };
 
   const goToFirstPage = () => {
     setCurrentPage(1);
     updateSearchParams(1);
+    window.location.reload();
+
   };
 
   const goToLastPage = () => {
     setCurrentPage(totalPages);
     updateSearchParams(totalPages);
+    window.location.reload();
+
   };
 
   const renderPageNumbers = () => {
