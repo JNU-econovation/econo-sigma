@@ -129,6 +129,7 @@ const UserTable = ({ response }) => {
 								}
 								{
 									<td key={'currentBorrowedBooks' + index}>
+
 										{item.currentBorrowedBooks.map((book) => <span style={{ display: 'block' }}> {book.title}</span>)}
 									</td>
 

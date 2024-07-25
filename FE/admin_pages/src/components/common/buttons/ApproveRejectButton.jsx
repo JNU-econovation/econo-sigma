@@ -13,21 +13,30 @@ const StyledButton = styled.button`
     border: none;
     border-radius : 2em;
     color: white;
-    background: #6A67E0 ;
+    background: #FFA53F ;
     width: 6em;
     `;
 
 
-const ApproveButton = (bookApporoveId) => {
+const ApproveRejectButton = (bookApporoveId) => {
 
     const approvePost = () => {
-        if (window.confirm("승인하시겠습니까?")) {
+        if (window.confirm("승인을 거절하시겠습니까?")) {
             const requestBody = {
-                "bookApproveInfos": [bookApporoveId]
+                "bookRejectInfos": [bookApporoveId]
             };
             console.log(requestBody)
 
-            axios.post('http://43.202.196.181:8080/api/admin/books/apporove', requestBody)
+
+            axios.post(
+                'http://43.202.196.181:8080/api/admin/books/apporove',
+                requestBody,
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
                 .then(response => {
                     console.log(response.data);
                 })
@@ -36,14 +45,15 @@ const ApproveButton = (bookApporoveId) => {
                 });
         }
 
+
     };
 
 
     return (
         <StyledButton onClick={approvePost}>
-            승인
+            거절
         </StyledButton>
     )
 }
 
-export default ApproveButton;
+export default ApproveRejectButton;

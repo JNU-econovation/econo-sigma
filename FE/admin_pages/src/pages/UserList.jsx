@@ -1,9 +1,8 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import Paging from "../components/common/pagination";
 import Loading from "../components/common/Loading";
 import { React, useState, useEffect, useContext } from 'react';
-
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Title from "../components/common/Title";
 import UserTable from "../components/common/tables/userTable";
 import { AuthContext } from "../components/common/login/AuthProvider";
@@ -19,24 +18,24 @@ const StyledPage = styled.div`
     .infotable {
       margin-top: 2em;
     }
-    `;
+`;
 
 const UserList = () => {
     const { accessToken } = useContext(AuthContext);
+    const [user, setUser] = useState([]);
     const navigate = useNavigate();
-
     const location = useLocation();
     const fullLocation = `${location.pathname}${location.search}${location.hash}`;
 
-
     const [userTableLoading, setUserTableLoading] = useState(true);
-    const [userApproveInfo, setUserApproveInfo] = useState([]);
-
-
 
     const getUserApproveInfo = async () => {
+        if (!accessToken) {
+            alert('로그인이 필요합니다.');
+            navigate('/admin/login');
+        }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/admin/users?page=1`, {
+            const response = await fetch(`http://43.202.196.181:8080/api/users?page=0`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -44,13 +43,10 @@ const UserList = () => {
                 },
             });
             const json = await response.json();
-            setUserApproveInfo(json);
+            setUser(json);
+            console.log(user);
         } catch (error) {
-            console.error('Fetching books failed:', error);
-            if (!accessToken) {
-                alert('로그인이 필요합니다.');
-                navigate('/admin/login');
-            }
+            console.error('Fetching users failed:', error);
         } finally {
             setUserTableLoading(false);
         }
@@ -60,33 +56,22 @@ const UserList = () => {
         getUserApproveInfo();
     }, [accessToken]);
 
-
-    // useEffect(() => {
-    //     getBook()
-    // }, [fullLocation]);
-
     return (
         <StyledPage>
             <div className="contents">
-
                 <Title title='회원관리' sub='회원의 목록을 확인하고 관리할 수 있습니다.'></Title>
                 <div className="infotable">
-                    {userTableLoading ?
-                        <Loading /> :
-                        <UserTable response={userApproveInfo} />}
+                    {userTableLoading ? (
+                        <Loading />
+                    ) : (
+                        <>
+                            <UserTable response={user} />
+                            <Paging response={user} />
+                        </>
+                    )}
                 </div>
-
-                {userTableLoading ?
-                    <Loading /> :
-
-                    <Paging response={userApproveInfo} />}
-
             </div>
-
-
-
         </StyledPage>
-
     );
 }
 
