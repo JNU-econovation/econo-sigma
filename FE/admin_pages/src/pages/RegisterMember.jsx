@@ -41,7 +41,6 @@ const Styled = styled.div`
 const Index = styled.span`
     font-family: 'NanumSquareOTF', 'sans-serif';
     font-size: 0.9em;
-
 `;
 const Value = styled.input`
     font-family: 'NanumSquareOTF', 'sans-serif';
@@ -142,11 +141,13 @@ const RegisterMember = () => {
     setLoginId(e.target.value);
     setPassword(e.target.value);
   };
-
   const registerMembers = () => {
-    axios.post('http://43.202.196.181:8080/admin/users', { members })
+
+    axios.post('http://43.202.196.181:8080/api/users',  members )
       .then(response => {
         console.log('성공', response);
+        window.location.reload();
+
       })
       .catch(error => {
         console.error('error', error);

@@ -104,7 +104,6 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, categories }));
   }, []);
 
-  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
