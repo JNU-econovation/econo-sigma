@@ -130,6 +130,8 @@ const RegisterMember = () => {
   const [grade, setGrade] = useState('');
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
+  const { accessToken } = useContext(AuthContext);
+
 
   const AddMember = (e) => {
     e.preventDefault();
@@ -142,9 +144,13 @@ const RegisterMember = () => {
     setLoginId(e.target.value);
     setPassword(e.target.value);
   };
-
+  console.log(members)
   const registerMembers = () => {
-    axios.post('http://43.202.196.181:8080/admin/users', { members })
+    axios.post('http://43.202.196.181:8080/api/users', members, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
       .then(response => {
         console.log('성공', response);
       })

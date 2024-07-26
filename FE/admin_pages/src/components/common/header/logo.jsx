@@ -19,7 +19,9 @@ const Logo = ({ children }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/`);
+        navigate(`/admin/books`);
+        window.location.reload();
+
     }
 
 
