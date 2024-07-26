@@ -42,6 +42,8 @@ const SelectApporove = ({ selectedBooks }) => {
               })
                 .then(response => {
                   console.log(response.data);
+                  window.location.reload();
+
                 })
                 .catch(error => {
                   alert('승인에 실패했습니다.')
