@@ -19,7 +19,7 @@ const Logo = styled.img`
 const InputBox = styled.input`
   display: block;
   border: none;
-  font-family: 'NanumSquareOTF', 'sans-serif';
+  /* font-family: 'NanumSquareOTF', 'sans-serif'; */
   font-size: 1em;
   border-bottom: solid 1px #A4A4A4;
   width: 35em;

@@ -24,6 +24,8 @@ const UserList = () => {
     const { accessToken } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const fullLocation = `${location.pathname}${location.search}${location.hash}`;
+
 
     const [userTableLoading, setUserTableLoading] = useState(true);
     const [userInfo, setUserInfo] = useState([]);
@@ -34,7 +36,7 @@ const UserList = () => {
             navigate('/admin/login');
         }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/admin/users?page=0`, {
+            const response = await fetch(`http://43.202.196.181:8080/api${fullLocation}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -72,7 +74,7 @@ const UserList = () => {
                     ) : (
                         <>
                             <UserTable response={userInfo} />
-                            {/* <Paging response={userInfo} /> */}
+                            <Paging response={userInfo} />
                         </>
                     )}
                 </div>

@@ -20,14 +20,14 @@ const Logo = styled.img`
 const InputBox = styled.input`
   display: block;
   border: none;
-  font-family: 'NanumSquareOTF', 'sans-serif';
+  /* font-family: 'NanumSquareOTF', 'sans-serif'; */
   font-size: 1em;
   border-bottom: solid 1px #A4A4A4;
   width: 35em;
   height: 3.5em;
   margin-bottom: 0.7em;
   padding-left: 2.5em;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
   &:focus {
     outline: none;
     cursor: text;
