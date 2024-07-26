@@ -56,9 +56,9 @@ const StyledLink = styled(Link)`
 `;
 
 const categories = [
-  { name: "회원관리", link: "/admin/users/register" },
-  { name: "회원등록", link: "/admin/users" },
-  { name: "도서관리", link: "/admin/books?page=1" },
+  { name: "회원관리", link: "/admin/users?page=0" },
+  { name: "회원등록", link: "/admin/users/register" },
+  { name: "도서관리", link: "/admin/books?page=0" },
   { name: "도서승인", link: "/admin/books/approve" },
   { name: "도서등록", link: "/books"}
 ];

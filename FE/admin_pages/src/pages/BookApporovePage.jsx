@@ -34,7 +34,7 @@ const BookApprovePage = () => {
             navigate('/admin/login');
         }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/admin/books/approve`, {
+            const response = await fetch(`http://43.202.196.181:8080/api${fullLocation}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,

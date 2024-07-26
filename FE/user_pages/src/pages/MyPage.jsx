@@ -55,7 +55,7 @@ function MyPage() {
       const userInfoReturn = await getUserInfo.json();
       setUserInfo(userInfoReturn);
 
-      const getBorrowInfo = await fetch(`http://43.202.196.181:8080/api/users/books/${endpoint}?page=1`, {
+      const getBorrowInfo = await fetch(`http://43.202.196.181:8080/api/users/books/${endpoint}?page=0`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${accessToken}`,

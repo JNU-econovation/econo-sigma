@@ -33,9 +33,7 @@ const Header = () => {
                     <HeaderBtn children={'마이페이지'} direction={"users"} />
 
                     {accessToken ? (
-                        <>
                             <HeaderBtn children={'로그아웃'} direction={"/books/all"} onClick={logout} />
-                        </>
                     ) : (
                         <HeaderBtn children={'로그인'} direction={"users/login"} />
                     )}
