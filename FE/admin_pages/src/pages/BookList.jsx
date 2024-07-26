@@ -28,7 +28,7 @@ const BookList = () => {
 
     const location = useLocation();
     const fullLocation = `${location.pathname}${location.search}${location.hash}`;
-
+    
     const [tableLoading, setTableLoading] = useState(true);
     const [bookInfo, setBookInfo] = useState([]);
 
@@ -41,7 +41,8 @@ const BookList = () => {
             navigate('/admin/login');
         }
         try {
-            const response = await fetch(`http://43.202.196.181:8080/api/admin/books?page=0`, {
+            console.log(fullLocation);
+            const response = await fetch(`http://43.202.196.181:8080/api${fullLocation}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -53,6 +54,8 @@ const BookList = () => {
             const json = await response.json();
             setBookInfo(json);
             console.log(bookInfo)
+            // window.location.reload();
+
         } catch (error) {
             console.error('Fetching books failed:', error);
             

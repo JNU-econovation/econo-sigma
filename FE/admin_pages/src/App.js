@@ -37,8 +37,9 @@ function App() {
         <Routes>
           <Route path="/admin/books" element={<BookList />} />
           <Route path="/admin/books/approve" element={<BookApporovePage />} />
-          <Route path="/admin/users" element={<RegisterMember />} />
-          <Route path="/admin/users/register" element={<UserList />} />
+          <Route path="/admin/users" element={<UserList />} />
+
+          <Route path="/admin/users/register" element={<RegisterMember />} />
           <Route path="/books" element={<Form />} />
           <Route path="/admin/login" element={<Login />} />
 
