@@ -41,7 +41,7 @@ const Styled = styled.div`
 const Index = styled.span`
     font-family: 'NanumSquareOTF', 'sans-serif';
     font-size: 0.9em;
-    /* background-color: antiquewhite; */
+
 `;
 const Value = styled.input`
     font-family: 'NanumSquareOTF', 'sans-serif';

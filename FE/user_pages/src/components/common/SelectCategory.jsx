@@ -97,7 +97,7 @@ const Dropdown = ({ onCategoryChange }) => {
 
   return (
     <SelectContainer ref={dropdownRef} isOpen={isOpen}>
-      <DropdownButton onClick={handleToggle} isOpen={isOpen}>도서 카테고리 </DropdownButton>
+      <DropdownButton type='button' onClick={handleToggle} isOpen={isOpen}>도서 카테고리 </DropdownButton>
       {isOpen && (
         <SelectCategory>
           {categories.map((category) => (
