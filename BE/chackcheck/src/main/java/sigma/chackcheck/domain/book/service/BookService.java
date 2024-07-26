@@ -101,7 +101,7 @@ public class BookService {
         bookApproveList.stream()
             .map(bookApprove -> {
                 BookWithCategories bookWithCategories = BookApprove.toBookWithCategories(
-                    getOrCreateBook(bookApprove), bookApprove.getCategories()
+                    getOrCreateBook(bookApprove), bookApprove.getCategories().toUpperCase()
                 );
 
                 bookApproveRepository.deleteById(bookApprove.getId());
