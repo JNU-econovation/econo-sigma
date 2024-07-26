@@ -36,13 +36,16 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + Id));
     }
 
-    public Long save(AddUserRequest dto) {
-        return userRepository.save(User.builder()
-                .loginId(dto.getLoginId())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .name(dto.getName())
-                .grade(dto.getGrade())
-                .build()).getId();
+    public void save(List<AddUserRequest> dto) {
+
+        dto.stream().forEach(
+            addUserRequest -> userRepository.save(User.builder()
+                    .loginId(addUserRequest.getLoginId())
+                    .password(passwordEncoder.encode(addUserRequest.getPassword()))
+                    .name(addUserRequest.getName())
+                    .grade(addUserRequest.getGrade())
+                .build())
+        );
     }
 
     public Page<User> getUserPage(int page){
