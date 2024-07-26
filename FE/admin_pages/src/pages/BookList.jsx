@@ -54,7 +54,6 @@ const BookList = () => {
             const json = await response.json();
             setBookInfo(json);
             console.log(bookInfo)
-            // window.location.reload();
 
         } catch (error) {
             console.error('Fetching books failed:', error);
