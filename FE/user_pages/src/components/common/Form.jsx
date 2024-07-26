@@ -1,45 +1,31 @@
-import React from "react";
-import styled from "styled-components"
-import { useState, useEffect } from 'react';
-import { useCallback } from "react";
-import { useNavigate } from 'react-router-dom';
-
-import SelectCategory from "./SelectCategory"
+import React, { useState, useCallback } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import SelectCategory from "./SelectCategory";
 import UploadImg from "./UploadImg";
-//import Title from "./Title";
 
 const StyledDiv = styled.div`
-    min-width: 70rem;
+  min-width: 70rem;
 `;
 
-
 const Title = styled.div`
-    position: absolute;
-    /* display: flex;
-    justify-content: left;
-    align-items: flex-end;
-    
-    gap: 0.5em; */
-    top: 4em;
-    left: 8.5em;
-    margin-top: 1.8em;
+  position: absolute;
+  top: 4em;
+  left: 8.5em;
+  margin-top: 1.8em;
+  margin-left: 1.6em;
+  font-size: 1.8em;
+  font-weight: 700;
+`;
 
-    margin-left: 1.6em;
-    font-size: 1.8em;
-    font-weight: 700;
-`
 const FormContainer = styled.div`
   text-align: left;
   position: relative;
-  top:250px;
+  top: 250px;
   left: 300px;
   max-width: 65%;
   padding-left: 60px;
-  //margin: auto;
-  //background-color: aliceblue;
-  //border: 1px solid #a4a4a4;
 `;
-
 
 const Input = styled.input`
   all: unset;
@@ -49,7 +35,6 @@ const Input = styled.input`
   margin-bottom: 20px;
   margin-left: 40px;
   border-bottom: 1px solid #a4a4a4;
-  
 `;
 
 const Description = styled.textarea`
@@ -70,7 +55,7 @@ const Button = styled.button`
   top: 470px;
   width: 15%;
   padding: 10px;
-  background-color: #4D4ABF;
+  background-color: #4d4abf;
   font-weight: 700;
   color: white;
   border: none;
@@ -83,7 +68,6 @@ const Button = styled.button`
 `;
 
 const Form = () => {
-
   const token = localStorage.getItem('accessToken');
   const navigate = useNavigate();
 
@@ -110,25 +94,20 @@ const Form = () => {
     setFormData((prevData) => ({ ...prevData, categories }));
   }, []);
 
-  console.log(formData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append('title', formData.title);
-    data.append('author', formData.author);
-    data.append('publishYear', formData.publishYear);
-    data.append('publisher', formData.publisher);
-    data.append('categories', formData.categories);
-    data.append('information', formData.information);
-
-    
-    if (formData.imageURL) {
-      data.append('imageURL', formData.imageURL);
-    }
-
-    for (let [key, value] of data.entries()) {
-      console.log(`${key}: ${value}`);
+    // Check if any field is empty
+    if (
+      !formData.title ||
+      !formData.author ||
+      !formData.publishYear ||
+      !formData.publisher ||
+      !formData.categories ||
+      !formData.information
+    ) {
+      alert('모든 필드를 입력해주세요.');
+      return;
     }
 
     const response = await fetch('http://43.202.196.181:8080/api/books', {
@@ -138,28 +117,24 @@ const Form = () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      
     });
   
     if (response.ok) {
       console.log("성공");
       navigate('/books/all');
-      alert("등록 되었습니다. 승인 검토 중...")
-      
+      alert("등록 되었습니다. 승인 검토 중...");
     } else {
       const errorData = await response.json();
       console.log(errorData.message);
     }
-      };
-
+  };
 
   return (
-
-<div>
-    <Title> 도서 등록</Title>
-    <FormContainer>
-      <form onSubmit={handleSubmit}>
-        <UploadImg onImageUpload={handleImageUpload}/>
+    <div>
+      <Title> 도서 등록</Title>
+      <FormContainer>
+        <form onSubmit={handleSubmit}>
+          <UploadImg onImageUpload={handleImageUpload} />
           <Input
             type="text"
             name="title"
@@ -182,24 +157,23 @@ const Form = () => {
             onChange={handleChange}
           />
           <Input
-            style={{width: '33%', marginRight: '30px', color: '#6f6f6f'}}
+            style={{ width: '33%', marginRight: '30px', color: '#6f6f6f' }}
             type="date"
             name="publishYear"
             placeholder="출간일"
             value={formData.publishYear}
             onChange={handleChange}
           />
-        <SelectCategory onCategoryChange={handleCategoryChange} />
-        <Description
-          name="information"
-          placeholder="간단한 책 소개를 작성해주세요."
-          value={formData.information}
-          onChange={handleChange}
-        />
-        <Button type="submit" onSubmit={handleSubmit}>등록</Button>
-      </form>
-    </FormContainer>
-    
+          <SelectCategory onCategoryChange={handleCategoryChange} />
+          <Description
+            name="information"
+            placeholder="간단한 책 소개를 작성해주세요."
+            value={formData.information}
+            onChange={handleChange}
+          />
+          <Button type="submit">등록</Button>
+        </form>
+      </FormContainer>
     </div>
   );
 };
