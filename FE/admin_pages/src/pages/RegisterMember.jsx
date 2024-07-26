@@ -41,7 +41,6 @@ const Styled = styled.div`
 const Index = styled.span`
     font-family: 'NanumSquareOTF', 'sans-serif';
     font-size: 0.9em;
-
 `;
 const Value = styled.input`
     font-family: 'NanumSquareOTF', 'sans-serif';
@@ -130,8 +129,6 @@ const RegisterMember = () => {
   const [grade, setGrade] = useState('');
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
-  const { accessToken } = useContext(AuthContext);
-
 
   const AddMember = (e) => {
     e.preventDefault();
@@ -144,15 +141,13 @@ const RegisterMember = () => {
     setLoginId(e.target.value);
     setPassword(e.target.value);
   };
-  console.log(members)
   const registerMembers = () => {
-    axios.post('http://43.202.196.181:8080/api/users', members, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
+
+    axios.post('http://43.202.196.181:8080/api/users',  members )
       .then(response => {
         console.log('성공', response);
+        window.location.reload();
+
       })
       .catch(error => {
         console.error('error', error);
