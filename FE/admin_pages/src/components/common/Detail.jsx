@@ -105,6 +105,7 @@ const Content = ({ img, title, writer, publisher, date, script }) => {
 
 function Detail( {data} ) {
     const apporveData = data
+    console.log(apporveData)
     return (
         <Container>
             <Content
@@ -114,7 +115,7 @@ function Detail( {data} ) {
                 writer = {apporveData.author}
                 publisher= {apporveData.publisher}
                 date = {apporveData.publishYear}
-                script="script"
+                script={apporveData.information}
             />
         </Container>
     )
