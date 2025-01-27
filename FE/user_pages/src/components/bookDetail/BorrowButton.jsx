@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { AuthContext } from '../../login/AuthProvider';
+import { AuthContext } from '../login/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const StyledButton = styled.button`

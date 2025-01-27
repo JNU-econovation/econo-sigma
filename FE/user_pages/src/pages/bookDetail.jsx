@@ -3,8 +3,7 @@ import { Routes, Route, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import axios from 'axios';
 
-
-import InfoTable from '../components/common/infoList/infoTable.jsx'
+import InfoTable from '../components/bookDetail/InfoTable.jsx';
 import Loading from '../components/common/Loading.jsx';
 import Detail from '../components/common/Detail.jsx'
 

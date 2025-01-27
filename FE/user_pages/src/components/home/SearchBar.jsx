@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import styled from "styled-components"
 import BookList from "./BookList";
 
-import { ReactComponent as SearchButton } from "../../../assets/searchButton.svg";
+import { ReactComponent as SearchButton } from "../../assets/searchButton.svg";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 

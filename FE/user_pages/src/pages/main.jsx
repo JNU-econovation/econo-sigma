@@ -1,12 +1,10 @@
-import SearchBar from "../components/common/home/SearchBar";
 import Category from "../components/common/Category";
-
+import SearchBar from "../components/home/SearchBar";
 import styled from "styled-components"
-import Paging from "../components/common/pagination";
 import Loading from "../components/common/Loading";
 import { React, useState, useEffect } from 'react';
-import BookList from "../components/common/home/BookList";
-
+import BookList from "../components/home/BookList";
+import Pagination from "../components/common/Pagination";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 const Books = styled.div`
@@ -41,8 +39,6 @@ const StyledPage = styled.div`
 
 
 const Main = () => {
-    // 쿼리 파라미터에서 keyword 값을 추출하고 디코딩
-
 
     const location = useLocation();
 
@@ -51,30 +47,25 @@ const Main = () => {
 
     const fullLocation = `${location.pathname}${location.search}${location.hash}`;
     const searchLocation = `${location.pathname}?keyword=${newKeyword}${location.hash}`;
-    console.log(location.search)
     const apiUrl = searchParams.has('keyword') ? searchLocation : fullLocation;
 
-    console.log(apiUrl)
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState([]);
 
 
     const getBook = async () => {
         setLoading(true);
-
         try {
             const response = await fetch(`http://43.202.196.181:8080/api${apiUrl}`, { method: 'GET' }); // 서버에서 데이터를 가져옴
 
-            const json = await response.json(); // 응답을 JSON으로 변환
-            setBook(json); // 상태를 업데이트
+            const json = await response.json(); 
+            setBook(json);
         } catch (error) {
-            console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
+            console.error('Fetching books failed:', error); 
         } finally {
-            setLoading(false); // 로딩 상태를 false로 설정
+            setLoading(false);
         }
     };
-
-    console.log(book)
 
     useEffect(() => {
         getBook()
@@ -102,7 +93,7 @@ const Main = () => {
                                     publisher={item.publisher} />
                                 ))}
                             </Books>
-                            < Paging response={book} />
+                            <Pagination response={book} />
                         </>
 
                         :

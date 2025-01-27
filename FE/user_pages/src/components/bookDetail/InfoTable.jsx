@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components" ;
-import { useParams } from "react-router-dom";
-import Button from './button.jsx'
+import Button from './BorrowButton.jsx'
 
 const Styledtable = styled.div`
 	min-width: 40em;
@@ -87,7 +86,6 @@ const InfoTable = ({response}) => {
 	const member = borrowInfos.map((info) => {
 		return info.borrowInfo !== null ? info.borrowInfo.member : null
 	})
-	// console.log(borrowInfos)
 	
 	return (
 	

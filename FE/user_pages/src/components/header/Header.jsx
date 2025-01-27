@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import Logo from './logo';
+import Logo from './LogoButton';
 import HeaderBtn from './HeaderButtons';
 import styled from "styled-components";
-import { AuthContext } from '../../login/AuthProvider';
+import { AuthContext } from '../login/AuthProvider';
 
 const HeaderWrapper = styled.header`
     z-index : 9999 ;

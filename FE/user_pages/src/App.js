@@ -3,10 +3,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './components/login/AuthProvider';
-import Header from './components/common/header/header.jsx';
-import Main from './pages/main';
-import Login from './pages/login';
-import Book from './pages/book.jsx';
+import Header from './components/header/Header';
+import Main from './pages/Main';
+import Login from './pages/Login.jsx';
+import Book from './pages/BookDetail.jsx';
 import MyPage from './pages/MyPage.jsx';
 import PrivateRoute from './components/login/PrivateRoute.jsx';
 import Category from './components/common/Category.jsx';

@@ -27,7 +27,7 @@ const StyledPagination = styled.div`
   }
 `;
 
-const Paging = ({ response }) => {
+const Pagination = ({ response }) => {
   const pageListSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState('');
@@ -130,4 +130,4 @@ const Paging = ({ response }) => {
   );
 };
 
-export default Paging;
+export default Pagination;
