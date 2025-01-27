@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Logo from './logo';
-import HeaderBtn from './headerButtons';
+import HeaderBtn from './HeaderButtons';
 import styled from "styled-components";
 import { AuthContext } from '../../login/AuthProvider';
 
