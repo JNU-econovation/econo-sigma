@@ -14,6 +14,7 @@ import sigma.chackcheck.domain.book.domain.Book;
 @AllArgsConstructor
 public class FullBookDTO extends BookDTO{
     private String publishYear;
+    private String information;
 
     public static FullBookDTO of(Book book){
         return FullBookDTO.builder()
@@ -22,6 +23,7 @@ public class FullBookDTO extends BookDTO{
             .author(book.getAuthor())
             .publisher(book.getPublisher())
             .publishYear(book.getPublishYear())
+            .information(book.getInformation())
             .imageURL(book.getImageURL())
             .build();
     }

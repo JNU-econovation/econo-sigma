@@ -39,8 +39,8 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/users")
-    public ApiResponse<SuccessBody<Void>> signup(@RequestBody AddUserRequest request) {
-        userService.save(request);
+    public ApiResponse<SuccessBody<Void>> signup(@RequestBody List<AddUserRequest> requests) {
+        userService.save(requests);
         return ApiResponseGenerator.success(HttpStatus.CREATED, SuccessMessage.CREATE);
     }
 

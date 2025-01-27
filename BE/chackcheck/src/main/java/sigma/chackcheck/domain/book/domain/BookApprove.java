@@ -78,4 +78,8 @@ public class BookApprove {
             .book(book)
             .build();
     }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 }
