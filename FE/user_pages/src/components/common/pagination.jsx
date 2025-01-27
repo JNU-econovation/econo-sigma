@@ -60,7 +60,6 @@ const Pagination = ({ response }) => {
     params.page = pageNumber - 1; 
     setSearchParams(params);
     window.location.reload();
-
   };
 
   const handlePageChange = (pageNumber) => {
