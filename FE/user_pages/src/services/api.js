@@ -1,9 +1,7 @@
 const API_URL = 'http://localhost:3000/api';  
 
 export const fetchBooks = async (params) => {
-    console.log(params);
     const response = await fetch(`${API_URL}${params}`, { method: 'GET' });
-    console.log(response);
     if (!response.ok) {
         throw new Error('Fetching books failed');
     }

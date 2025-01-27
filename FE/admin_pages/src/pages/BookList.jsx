@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Paging from "../components/common/pagination";
+import Pagination from "../components/common/Pagination";
 import Loading from "../components/common/Loading";
 import { React, useState, useEffect, useContext } from 'react';
 import { AuthContext } from "../components/common/login/AuthProvider";
@@ -84,7 +84,7 @@ const BookList = () => {
                         <Loading /> : bookInfo.data.bookInfos.length > 0 ?
                          <>
                          <BookTable response={bookInfo} />
-                         <Paging response={bookInfo} />
+                         <Pagination response={bookInfo} />
                         </> :
                         <div>데이터가 존재하지 않습니다.</div>
                        }

@@ -58,7 +58,7 @@ function SearchBar() {
     const [book, setBook] = useState([]);
     console.log(keyword)
     const getFilteredBook = async () => {
-        navigate(`/books/all/search?keyword=${encodeURIComponent(keyword)}&page=1`);
+        navigate(`/books/all/search?keyword=${encodeURIComponent(keyword)}&page=0`);
     };
 
 
@@ -75,15 +75,6 @@ function SearchBar() {
                     <SearchBtn type="button" onClick={getFilteredBook} />
                     <SearchInput type="text" value={keyword} onChange={onChange} onKeyUp={onKeyUp}></SearchInput>
                 </SearchBox>
-                {/* <Books>
-                    {book.data.books.map((item) => (<BookList
-                        key={item.id}
-                        img={item.img} // 변수명 바꿔야할 수도..
-                        title={item.title}
-                        author={item.author}
-                        publisher={item.publisher}/>
-                    ))}
-                </Books> */}
             </div>
         </div>
     );
