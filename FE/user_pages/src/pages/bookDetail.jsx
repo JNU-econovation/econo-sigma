@@ -31,7 +31,7 @@ const StyledPage = styled.div`
     }
     `;
 
-function Book() {
+function BookDetail() {
 
   const bookId = useParams();
   console.log(bookId.id)
@@ -42,8 +42,8 @@ function Book() {
   const getInfo = async () => {
     try {
       const response = await fetch(`http://43.202.196.181:8080/api/books/${bookId.id}`, { method: 'GET' }); // 서버에서 데이터를 가져옴
-      const json = await response.json(); // 응답을 JSON으로 변환
-      setInfo(json); // 상태를 업데이트
+      const json = await response.json(); 
+      setInfo(json);
     } catch (error) {
       console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
     } finally {
@@ -73,11 +73,10 @@ function Book() {
         </div>
       </div>
 
-
     </StyledPage>
   );
 }
 
 
 
-export default Book;
+export default BookDetail;
