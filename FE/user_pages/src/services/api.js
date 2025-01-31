@@ -14,6 +14,7 @@ export const getBook = async (location) => {
       location.search.length > 0
         ? `${location.pathname}${location.search}`
         : `${location.pathname}`;
+    console.log(apiUrl);
     return await fetchBooks(apiUrl);
   } catch (error) {
     console.error("Error in getBook:", error);

@@ -47,6 +47,7 @@ const Main = () => {
       try {
         const json = await getBook(location);
         setBook(json);
+        console.log(json);
       } catch (error) {
         console.error("Fetching books failed:", error);
       } finally {

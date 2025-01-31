@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getBook } from "../../services/api";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -37,6 +39,7 @@ const Pagination = ({ response }) => {
   const currentListIndex = Math.floor((currentPage - 1) / pageListSize);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  // const queryClient = useQueryClient();
 
   useEffect(() => {
     const page = searchParams.get("page");
