@@ -10,12 +10,7 @@ export const fetchBooks = async (params) => {
 
 export const getBook = async (location) => {
   try {
-    const apiUrl =
-      location.search.length > 0
-        ? `${location.pathname}${location.search}`
-        : `${location.pathname}`;
-    console.log(apiUrl);
-    return await fetchBooks(apiUrl);
+    return await fetchBooks(location);
   } catch (error) {
     console.error("Error in getBook:", error);
     throw error;

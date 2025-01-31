@@ -1,9 +1,7 @@
 import { React, useState, useEffect } from "react";
 import styled from "styled-components";
-import BookList from "./BookList";
-
 import { ReactComponent as SearchButton } from "../../assets/searchButton.svg";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const SearchBox = styled.div`
@@ -46,18 +44,18 @@ function SearchBar() {
   const navigate = useNavigate();
   const onChange = (e) => setKeyword(e.target.value);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // useEffect(() => {
+  //   const page = searchParams.get("page");
+  //   const categoryParam = searchParams.get("categoryName");
+  //   const keywordParam = searchParams.get("keyword");
+  // }, [searchParams]);
+
   const getFilteredBook = async () => {
-    const searchParams = new URLSearchParams(location.search);
-
     searchParams.set("keyword", keyword);
-    const categoryName = searchParams.get("categoryName") || "";
-    const page = searchParams.get("page") || 0;
-
-    navigate(
-      `/api/books/category/search?categoryName=${encodeURIComponent(
-        categoryName
-      )}&keyword=${searchParams.get("keyword")}&page=${page}`
-    );
+    searchParams.set("page", 0);
+    setSearchParams(searchParams);
   };
 
   const onKeyUp = (e) => {

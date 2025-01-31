@@ -37,17 +37,44 @@ const StyledPage = styled.div`
 `;
 
 const Main = () => {
-  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [book, setBook] = useState([]);
 
+  const getLocation = () => {
+    const keyword = searchParams.get("keyword");
+    const category = searchParams.get("categoryName");
+    const page = searchParams.get("page");
+
+    const categoryParam = category ? `categoryName=${category}` : "";
+    const keywordParam = keyword ? `&keyword=${keyword}` : "";
+    const pageParam = page ? `&page=${page}` : "&page=0";
+
+    let apiUrl = "";
+
+    if (category && keyword) {
+      apiUrl = `/books/category/search?${categoryParam}${keywordParam}${pageParam}`;
+    } else if (category) {
+      apiUrl = `/books/category?${categoryParam}${pageParam}`;
+    } else if (keyword) {
+      apiUrl = `/books/all/search?${keywordParam}${pageParam}`;
+    } else if (page) {
+      apiUrl = `/books/all?${pageParam}`;
+    } else {
+      apiUrl = `/books/all`;
+    }
+
+    return apiUrl;
+  };
+
   useEffect(() => {
+    const location = getLocation();
+
     const fetchData = async () => {
       setLoading(true);
       try {
         const json = await getBook(location);
         setBook(json);
-        console.log(json);
       } catch (error) {
         console.error("Fetching books failed:", error);
       } finally {
@@ -56,7 +83,7 @@ const Main = () => {
     };
 
     fetchData();
-  }, [location]);
+  }, [searchParams]);
 
   return (
     <StyledPage>
