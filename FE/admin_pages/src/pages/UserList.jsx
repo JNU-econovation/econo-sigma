@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Paging from "../components/common/pagination";
+import Pagination from "../components/common/Pagination";
 import Loading from "../components/common/Loading";
 import { React, useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
@@ -74,7 +74,7 @@ const UserList = () => {
                     ) : (
                         <>
                             <UserTable response={userInfo} />
-                            <Paging response={userInfo} />
+                            <Pagination response={userInfo} />
                         </>
                     )}
                 </div>

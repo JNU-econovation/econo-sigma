@@ -1,16 +1,11 @@
 import { Routes, Route, Router } from 'react-router-dom';
-import styled from "styled-components"
-import BookTable from './components/common/tables/bookTable.jsx';
-import BookApproveTable from './components/common/tables/bookApproveTable.jsx';
 import { AuthProvider } from './components/common/login/AuthProvider.jsx';
 import './App.css';
 
-import { React, useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { React} from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Header from './components/common/header/header.jsx';
-import Loading from './components/common/Loading.jsx'
-import UserTable from './components/common/tables/userTable.jsx';
 import Category from './components/common/Category.jsx';
 import BookList from './pages/BookList.jsx';
 import UserList from './pages/UserList.jsx';

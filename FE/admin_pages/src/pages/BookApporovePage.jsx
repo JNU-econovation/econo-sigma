@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Paging from "../components/common/pagination";
+import Pagination from "../components/common/Pagination";
 import Loading from "../components/common/Loading";
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
@@ -66,7 +66,7 @@ const BookApprovePage = () => {
 
                         <>
                             <BookApproveTable response={bookApproveInfo} />
-                            <Paging response={bookApproveInfo} />
+                            <Pagination response={bookApproveInfo} />
                         </> :
                         <div> 데이터가 존재하지 않습니다. </div>
                     }

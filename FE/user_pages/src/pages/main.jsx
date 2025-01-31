@@ -1,118 +1,119 @@
-import SearchBar from "../components/common/home/SearchBar";
-import Category from "../components/common/Category";
-
-import styled from "styled-components"
-import Paging from "../components/common/pagination";
+import SearchBar from "../components/home/SearchBar";
+import styled from "styled-components";
 import Loading from "../components/common/Loading";
-import { React, useState, useEffect } from 'react';
-import BookList from "../components/common/home/BookList";
-
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import BookList from "../components/home/BookList";
+import Pagination from "../components/common/Pagination";
+import { getBook } from "../services/api";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const Books = styled.div`
-    display: grid;
-    place-items: center;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    row-gap: 5em;
-    margin: auto;
-    margin-bottom: 3em;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 5em;
+  margin: auto;
+  margin-bottom: 3em;
 `;
 
 const StyledPage = styled.div`
+  padding-bottom: 3em;
+  /* justify-content: center; */
 
-    padding-bottom: 3em;
-    /* justify-content: center; */
-
-    .contents {
-      padding-top: 9em;
-      margin-left: 15em;
-    }
-    .infotable {
-      margin-top: 3em;
-    }
-    .message {
-        margin-top: 3em;
-        margin-left: 5%;
-        display: flex;
-        justify-content: center;
-    }
-    `;
-
+  .contents {
+    padding-top: 9em;
+    margin-left: 15em;
+  }
+  .infotable {
+    margin-top: 3em;
+  }
+  .message {
+    margin-top: 3em;
+    margin-left: 5%;
+    display: flex;
+    justify-content: center;
+  }
+`;
 
 const Main = () => {
-    // 쿼리 파라미터에서 keyword 값을 추출하고 디코딩
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(true);
+  const [book, setBook] = useState([]);
 
+  const getLocation = () => {
+    const keyword = searchParams.get("keyword");
+    const category = searchParams.get("categoryName");
+    const page = searchParams.get("page");
 
-    const location = useLocation();
+    const categoryParam = category ? `categoryName=${category}` : "";
+    const keywordParam = keyword ? `&keyword=${keyword}` : "";
+    const pageParam = page ? `&page=${page}` : "&page=0";
 
-    const searchParams = new URLSearchParams(location.search);
-    const newKeyword = searchParams.get('keyword') ? decodeURIComponent(searchParams.get('keyword')) : '';
+    let apiUrl = "";
 
-    const fullLocation = `${location.pathname}${location.search}${location.hash}`;
-    const searchLocation = `${location.pathname}?keyword=${newKeyword}${location.hash}`;
-    console.log(location.search)
-    const apiUrl = searchParams.has('keyword') ? searchLocation : fullLocation;
+    if (category && keyword) {
+      apiUrl = `/books/category/search?${categoryParam}${keywordParam}${pageParam}`;
+    } else if (category) {
+      apiUrl = `/books/category?${categoryParam}${pageParam}`;
+    } else if (keyword) {
+      apiUrl = `/books/all/search?${keywordParam}${pageParam}`;
+    } else if (page) {
+      apiUrl = `/books/all?${pageParam}`;
+    } else {
+      apiUrl = `/books/all`;
+    }
 
-    console.log(apiUrl)
-    const [loading, setLoading] = useState(true);
-    const [book, setBook] = useState([]);
+    return apiUrl;
+  };
 
+  useEffect(() => {
+    const location = getLocation();
 
-    const getBook = async () => {
-        setLoading(true);
-
-        try {
-            const response = await fetch(`http://43.202.196.181:8080/api${apiUrl}`, { method: 'GET' }); // 서버에서 데이터를 가져옴
-
-            const json = await response.json(); // 응답을 JSON으로 변환
-            setBook(json); // 상태를 업데이트
-        } catch (error) {
-            console.error('Fetching books failed:', error); // 오류가 발생한 경우 콘솔에 오류 메시지 출력
-        } finally {
-            setLoading(false); // 로딩 상태를 false로 설정
-        }
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const json = await getBook(location);
+        setBook(json);
+      } catch (error) {
+        console.error("Fetching books failed:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    console.log(book)
+    fetchData();
+  }, [searchParams]);
 
-    useEffect(() => {
-        getBook()
-    }, [fullLocation]);
+  return (
+    <StyledPage>
+      <div className="contents">
+        {loading ? <Loading /> : <SearchBar />}
 
-    return (
-        <StyledPage>
-            <div className="contents">
-                {loading ?
-                    <Loading /> :
-                    <SearchBar />}
-
-                {loading ?
-                    <Loading /> :
-                    book.data.bookInfos.length > 0 ?
-                        <>
-                            <Books>
-                                {book.data.bookInfos.map((item) => (<BookList
-
-                                    data={item}
-                                    key={item.id}
-                                    img={item.imageURL} // 변수명 바꿔야할 수도..
-                                    title={item.title}
-                                    author={item.author}
-                                    publisher={item.publisher} />
-                                ))}
-                            </Books>
-                            < Paging response={book} />
-                        </>
-
-                        :
-                        <div className="message">해당되는 도서가 존재하지 않습니다.</div>
-
-                }
-            </div>
-        </StyledPage>
-
-    );
-}
+        {loading ? (
+          <Loading />
+        ) : book.data.bookInfos.length > 0 ? (
+          <>
+            <Books>
+              {book.data.bookInfos.map((item) => (
+                <BookList
+                  data={item}
+                  key={item.id}
+                  img={item.imageURL}
+                  title={item.title}
+                  author={item.author}
+                  publisher={item.publisher}
+                />
+              ))}
+            </Books>
+            <Pagination response={book} />
+          </>
+        ) : (
+          <div className="message">해당되는 도서가 존재하지 않습니다.</div>
+        )}
+      </div>
+    </StyledPage>
+  );
+};
 
 export default Main;

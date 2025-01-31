@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Loading from '../components/common/Loading.jsx';
-import MyPageCategory from '../components/common/MyPage/myPageCategory.jsx';
-import MyPageTitle from '../components/common/MyPage/MyPageTitle.jsx';
-import Title from '../components/common/MyPage/Title.jsx';
-import MyPageTable from '../components/common/MyPage/MyPageTable.jsx';
+import MyPageCategory from '../components/MyPage/MyPageCategory.jsx';
+import MyPageTitle from '../components/MyPage/MyPageTitle.jsx';
+import Title from '../components/MyPage/Title.jsx';
+import MyPageTable from '../components/MyPage/MyPageTable.jsx';
 import { AuthContext } from '../components/login/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 

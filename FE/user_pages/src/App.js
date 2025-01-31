@@ -1,17 +1,21 @@
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { AuthProvider } from "./components/login/AuthProvider";
+import Header from "./components/header/Header";
+import Main from "./pages/Main";
+import Login from "./pages/Login.jsx";
+import Book from "./pages/BookDetail.jsx";
+import MyPage from "./pages/MyPage.jsx";
+import Category from "./components/common/Category.jsx";
+import Form from "./components/common/Form.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { AuthProvider } from './components/login/AuthProvider';
-import Header from './components/common/header/header.jsx';
-import Main from './pages/main';
-import Login from './pages/login';
-import Book from './pages/book.jsx';
-import MyPage from './pages/MyPage.jsx';
-import PrivateRoute from './components/login/PrivateRoute.jsx';
-import Category from './components/common/Category.jsx';
-import Form from './components/common/Form.jsx';
-
+const queryClient = new QueryClient();
 
 const App = () => {
   const currentLocation = useLocation();
@@ -19,9 +23,8 @@ const App = () => {
   return (
     <AuthProvider>
       <div className="App">
-        {currentLocation.pathname !== '/users/login' && <Header />}
-        {currentLocation.pathname.startsWith('/books') && <Category />}
-
+        {currentLocation.pathname !== "/users/login" && <Header />}
+        {currentLocation.pathname.startsWith("/books") && <Category />}
         <Routes>
           <Route path="/books/*" element={<Main />} />
           <Route path="/books/all" element={<Main />} />
@@ -32,8 +35,6 @@ const App = () => {
           <Route path="/users" element={<MyPage />} />
           <Route path="/users/book" element={<MyPage />} />
           <Route path="/bookApplication" element={<Form />} />
-
-
         </Routes>
       </div>
     </AuthProvider>
