@@ -6,6 +6,7 @@ import BookList from "../components/home/BookList";
 import Pagination from "../components/common/Pagination";
 import { getBook } from "../services/api";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const Books = styled.div`
   display: grid;
@@ -37,7 +38,7 @@ const StyledPage = styled.div`
 `;
 
 const Main = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [book, setBook] = useState([]);
 
@@ -67,35 +68,26 @@ const Main = () => {
     return apiUrl;
   };
 
-  useEffect(() => {
-    const location = getLocation();
+  const location = getLocation();
 
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const json = await getBook(location);
-        setBook(json);
-      } catch (error) {
-        console.error("Fetching books failed:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [searchParams]);
-
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["books", location],
+    queryFn: async () => await getBook(location),
+    enabled: !!location,
+  });
+  console.log(isLoading);
+  console.log(data);
   return (
     <StyledPage>
       <div className="contents">
-        {loading ? <Loading /> : <SearchBar />}
+        {isLoading ? <Loading /> : <SearchBar />}
 
-        {loading ? (
+        {isLoading ? (
           <Loading />
-        ) : book.data.bookInfos.length > 0 ? (
+        ) : data.data.bookInfos.length > 0 ? (
           <>
             <Books>
-              {book.data.bookInfos.map((item) => (
+              {data.data.bookInfos.map((item) => (
                 <BookList
                   data={item}
                   key={item.id}
@@ -106,7 +98,7 @@ const Main = () => {
                 />
               ))}
             </Books>
-            <Pagination response={book} />
+            <Pagination response={data} />
           </>
         ) : (
           <div className="message">해당되는 도서가 존재하지 않습니다.</div>

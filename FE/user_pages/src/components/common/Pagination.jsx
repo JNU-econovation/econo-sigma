@@ -39,7 +39,6 @@ const Pagination = ({ response }) => {
   const currentListIndex = Math.floor((currentPage - 1) / pageListSize);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  // const queryClient = useQueryClient();
 
   useEffect(() => {
     const page = searchParams.get("page");
